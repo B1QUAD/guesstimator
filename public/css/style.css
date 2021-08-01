@@ -1,0 +1,5 @@
+/* Generic style sheet */
+body {
+    background-color: hsl(195, 9%, 9%);
+    color: white;
+}
