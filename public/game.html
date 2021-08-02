@@ -2,10 +2,37 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
         <link rel="stylesheet" href="css/style.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
         <title>Guesstimator</title>
     </head>
     <body>
-        <h>Play Game</h>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+              <img src="https://toppng.com/uploads/preview/home-icon-home-house-icon-house-icon-free-11553508857ouiuhg9nsa.png">
+            </a>
+          </div>
+
+           <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+              <img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
+            </a>
+          </div>
+
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button">
+                    <strong>Sign In</strong>
+                  </a>
+                </div>
+              </div>
+            </div>
+        </nav>
+
+        <section id="question-box"></section>
+        <input type="text" id="answer-box" placeholder="Type Answer Here">
     </body>
 </html>
