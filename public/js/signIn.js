@@ -24,4 +24,4 @@ const googleSignIn = () => {
             // Handle the error
             console.log(error);
         });
-}; 
+};
