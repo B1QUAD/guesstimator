@@ -1,7 +1,10 @@
 /* Generic style sheet */
 /* Naming conventions:  https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/ */
-body {
+html{
     background-color: hsl(195, 9%, 9%);
+}
+
+body {
     color: white;
     overflow: hidden;
     width: 100%;
@@ -22,6 +25,42 @@ h2{
     left: 16.5%;
     top: 20vw;
     z-index: 2;
+}
+
+nav{
+    background-color: black !important;
+}
+
+.navbar-brand .navbar-item{
+    filter: invert(100%);
+}
+
+.navbar-item img{
+    max-height: 2.5vw;
+}
+
+.navbar-brand{
+    margin-right: 1.5vw;
+    margin-left: .5vw;
+}
+
+#answer-box{
+    position: absolute;
+    width: 50vw;
+    height: 5vw;
+    bottom: 7.5vw;
+    left: 25vw;
+    font-size: 2.5vw;
+}
+
+#question-box{
+    position: absolute;
+    top: 5vw;
+    left: 25vw;
+    width: 50vw;
+    height: 30vw;
+    background:  rgb(150,150,150);
+
 }
 
 #start-btn{
