@@ -2,6 +2,7 @@
 /* Naming conventions:  https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/ */
 html{
     background-color: hsl(195, 9%, 9%);
+    overflow: hidden;
 }
 
 body {
@@ -28,7 +29,11 @@ h2{
 }
 
 nav{
-    background-color: black !important;
+    position: absolute !important;
+    width: 100vw;
+    max-height: 3vw;
+    background-color: hsl(195, 9%, 9%) !important;
+    margin-bottom: 5vw;
 }
 
 .navbar-brand .navbar-item{
@@ -44,18 +49,57 @@ nav{
     margin-left: .5vw;
 }
 
+#timer{
+    position: absolute;
+    height: 6vw;
+    width: 6vw;
+    background: white;
+    border-radius: 50%;
+    top: 5vw;
+    right: 4vw;
+    text-align: center;
+    padding-top: .75vw;
+    font-size: 3vw;
+    color: black;
+    font-weight: 900;
+}
+#score{
+    position: absolute;
+    font-size: 2vw;
+    left: 1vw;
+    top: 3.5vw;
+}
+#streak{
+    position: absolute;
+    font-size: 2vw;
+    left: 1vw;
+    top: 6vw;
+}
+
+#directions{
+    position: absolute;
+    font-size: 2vw;
+    text-align: center;
+    display: inline;
+    margin: 0 auto;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    top: 3.5vw;
+}
+
 #answer-box{
     position: absolute;
     width: 50vw;
     height: 5vw;
-    bottom: 7.5vw;
+    bottom: 4vw;
     left: 25vw;
     font-size: 2.5vw;
 }
 
 #question-box{
     position: absolute;
-    top: 5vw;
+    top: 10vw;
     left: 25vw;
     width: 50vw;
     height: 30vw;
@@ -107,7 +151,15 @@ nav{
     overflow: hidden;
 }
 
-.shapes{
+#game-background{
+    position: absolute;
+    background: rgb(80,5,10);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#section--left .shapes{
     transform: skew(30deg);
 }
 
@@ -168,13 +220,77 @@ nav{
     left: -9vw;
     animation: turnDown 20s linear infinite;
 }
+.shapes li:nth-child(7){
+    transform: rotate(75deg);
+    width: 9vw;
+    height: 9vw;
+    top: 35vw;
+    left: -30vw;
+    animation: turnUp 40s linear infinite;
+}
+.shapes li:nth-child(8){
+    transform: rotate(75deg);
+    width: 10vw;
+    height: 10vw;
+    top: 30vw;
+    left: -40vw;
+    animation: turnUp 40s linear infinite;
+}
+.shapes li:nth-child(9){
+    transform: rotate(75deg);
+    width: 12vw;
+    height: 12vw;
+    top: 0vw;
+    left: -45vw;
+    animation: turnDown 40s linear infinite;
+}
+.shapes li:nth-child(10){
+    transform: rotate(75deg);
+    width: 4vw;
+    height: 4vw;
+    top: 30vw;
+    left: -50vw;
+    animation: turnUp 40s linear infinite;
+}
+
+#game-background .shapes li:nth-child(1){
+    animation: turnUp2 40s linear infinite;
+}
+#game-background .shapes li:nth-child(2){
+    animation: turnDown2 45s linear infinite;
+}
+#game-background .shapes li:nth-child(3){
+    animation: turnUp2 55s linear infinite;
+}
+#game-background .shapes li:nth-child(4){
+    animation: turnDown2 60s linear infinite;
+}
+#game-background .shapes li:nth-child(5){
+    animation: turnDown2 60s linear infinite;
+}
+#game-background .shapes li:nth-child(6){
+    animation: turnDown2 60s linear infinite;
+}
+#game-background .shapes li:nth-child(7){
+    animation: turnUp2 60s linear infinite;
+}
+#game-background .shapes li:nth-child(8){
+    animation: turnUp2 60s linear infinite;
+}
+#game-background .shapes li:nth-child(9){
+    animation: turnDown2 60s linear infinite;
+}
+#game-background .shapes li:nth-child(10){
+    animation: turnUp2 60s linear infinite;
+}
+
 
 @keyframes turnUp{
     0%{
         transform: translate(0vw) rotate(0deg);
     }
     100%{
-        transform: translate(75vw, -20vw) rotate(720deg);
+        transform: translate(100vw, -20vw) rotate(720deg);
         border-radius: 0%;
     }
 }
@@ -184,7 +300,27 @@ nav{
         transform: translate(0vw) rotate(0deg);
     }
     100%{
-        transform: translate(75vw, 20vw) rotate(720deg);
+        transform: translate(100vw, 20vw) rotate(720deg);
+        border-radius: 0%;
+    }
+}
+
+@keyframes turnUp2{
+    0%{
+        transform: translate(0vw) rotate(0deg);
+    }
+    100%{
+        transform: translate(150vw, -20vw) rotate(720deg);
+        border-radius: 0%;
+    }
+}
+
+@keyframes turnDown2{
+    0%{
+        transform: translate(0vw) rotate(0deg);
+    }
+    100%{
+        transform: translate(150vw, 20vw) rotate(720deg);
         border-radius: 0%;
     }
 }
