@@ -9,15 +9,34 @@
         <script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
         <script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
         <link rel="stylesheet" href="css/style.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
         <title>Guesstimator</title>
     </head>
     <body>
-        <h>Welcome to Guesstimator</h>
+        <h1>Welcome to Guesstimator</h1>
+        <h2>David Puma | David Yates | Matthew Ghera</h2>
+        <section id="section--left">
+            <ul class="shapes">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </section>
         <br>
             <br>
-                <button onclick="googleSignIn()">
+                <button id="start-btn" onclick="googleSignIn()">
                     Play Game!
                 </button>
+                <select name="gamemode" id="start-select">
+                  <option value="invalid" disabled selected value>Gamemode &#129055;</option>
+                  <option value="programming">Programming</option>
+                  <option value="lyrics">lyrics</option>
+                </select>
             </body>
             <script>// Check login
             // If not logged in do nothing

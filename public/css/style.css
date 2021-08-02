@@ -1,5 +1,151 @@
 /* Generic style sheet */
+/* Naming conventions:  https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/ */
 body {
     background-color: hsl(195, 9%, 9%);
     color: white;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    font-family: 'Kanit', sans-serif;
+}
+
+h1{
+    position: absolute;
+    font-size: 6vw;
+    left: 16%;
+    top: 10vw;
+    z-index: 2;
+}
+h2{
+    position: absolute;
+    font-size: 2vw;
+    left: 16.5%;
+    top: 20vw;
+    z-index: 2;
+}
+
+#start-btn{
+    position: absolute;
+    z-index: 2;
+    width: 10vw;
+    height: 5vw;
+    bottom: 15vw;
+    left: 35.125%;
+    border-bottom-left-radius:7.5vw ;
+    border-top-left-radius:7.5vw ;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background: white;
+    font-size: 1.5vw;
+    color: rgb(160,40,60);
+}
+
+#start-select{
+    position: absolute;
+    z-index: 2;
+    width: 10vw;
+    height: 5vw;
+    bottom: 15vw;
+    left: 45.375%;
+    border-bottom-right-radius:7.5vw ;
+    border-top-right-radius:7.5vw ;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background: white;
+    font-size: 1.5vw;
+    color: rgb(160,40,60);
+}
+
+#section--left{
+    position: absolute;
+    background: rgb(160,40,60);
+    height: 100vh;
+    width: 75%;
+    transform: skew(-30deg);
+    left: -30vw;
+    overflow: hidden;
+}
+
+.shapes{
+    transform: skew(30deg);
+}
+
+.shapes li{
+    position: absolute;
+    list-style: none;
+    border-radius: 0%;
+    animation: turn 25s linear infinite;
+    background: rgb(255,220,220,.5);
+    box-shadow: 0px 0px 10px #fff;
+}
+
+.shapes li:nth-child(1){
+    transform: rotate(10deg);
+    width: 4vw;
+    height: 4vw;
+    top: 30vw;
+    left: -10vw;
+    animation: turnUp 20s linear infinite;
+}
+.shapes li:nth-child(2){
+    transform: rotate(75deg);
+    width: 7vw;
+    height: 7vw;
+    top: 10vw;
+    left: -5vw;
+    animation: turnDown 12s linear infinite;
+}
+.shapes li:nth-child(3){
+    transform: rotate(75deg);
+    width: 11vw;
+    height: 11vw;
+    top: 40vw;
+    left: -15vw;
+    animation: turnUp 25s linear infinite;
+}
+.shapes li:nth-child(4){
+    transform: rotate(75deg);
+    width: 9vw;
+    height: 9vw;
+    top: 0vw;
+    left: -20vw;
+    animation: turnDown 30s linear infinite;
+}
+.shapes li:nth-child(5){
+    transform: rotate(75deg);
+    width: 3vw;
+    height: 3vw;
+    top: 20vw;
+    left: -2vw;
+    animation: turnDown 16s linear infinite;
+}
+.shapes li:nth-child(6){
+    transform: rotate(75deg);
+    width: 5.5vw;
+    height: 5.5vw;
+    top: -5vw;
+    left: -9vw;
+    animation: turnDown 20s linear infinite;
+}
+
+@keyframes turnUp{
+    0%{
+        transform: translate(0vw) rotate(0deg);
+    }
+    100%{
+        transform: translate(75vw, -20vw) rotate(720deg);
+        border-radius: 0%;
+    }
+}
+
+@keyframes turnDown{
+    0%{
+        transform: translate(0vw) rotate(0deg);
+    }
+    100%{
+        transform: translate(75vw, 20vw) rotate(720deg);
+        border-radius: 0%;
+    }
 }
