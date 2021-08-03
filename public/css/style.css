@@ -269,6 +269,44 @@ dashboard #ranking{
     padding-top: 2.75vw;
 }
 
+dashboard #global{
+    position: absolute;
+    background: rgb(20,20,20,.8);
+    width: 80%;
+    left: 10%;
+    top: 28vw;
+    height: 17.5vw;
+}
+
+#hardest-label, #easiest-label, #leaderboard-label{
+    position: relative;
+    margin-right: 8vw;
+    margin-left: 8.2vw;
+    font-size: 1.5vw;
+    width: 10vw;
+    top: 4vw;
+}
+
+#global ol{
+    position: relative;
+    margin-right: 10vw;
+    width: 20vw;
+
+}
+
+#global ul{
+    list-style: none;
+    width: 100%;
+    white-space: nowrap;
+    position: relative;
+    left: -21vw;
+    top: 0vw;
+}
+
+#global ul > li{
+    display: inline-block;
+    width: 33%;
+}
 /* Animation Background */
 
 #section--left .shapes{
