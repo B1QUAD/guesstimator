@@ -4,7 +4,7 @@
     <head>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <!-- update the version number as needed -->
-				<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
         <!-- include only the Firebase features as you need -->
         <script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
         <script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
@@ -29,16 +29,18 @@
             </ul>
         </section>
         <br>
-            <br>
-                <button id="start-btn" onclick="initializeGame()">
-                    Play Game!
-                </button>
-                <select name="gamemode" id="start-select">
-                  <option value="invalid" disabled selected value>Gamemode &#129055;</option>
-                  <option value="programming">Programming</option>
-                  <option value="lyrics">lyrics</option>
-                </select>
-            </body>
+        <br>
+        <button id="start-btn" onclick="initializeGame()">
+            Play Game!
+        </button>
+        <select name="gamemode" id="start-select">
+          <option value="invalid" disabled selected value>Gamemode &#129055;</option>
+          <option value="progLang">Programming</option>
+          <option value="lyrics">lyrics</option>
+        </select>
+
         <script src="js/signIn.js"></script>
-    </html>
+        <script src="js/githubInterface.js"></script>
+        <script src="js/game.js"></script>
+    </body>
 </html>

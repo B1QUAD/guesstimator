@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <!-- update the version number as needed -->
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
+        <!-- include only the Firebase features as you need -->
+        <script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
+        <script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
+        <script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
         <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
         <link rel="stylesheet" href="css/style.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
@@ -67,5 +74,9 @@
         <section id="question-box"></section>
         <input type="text" id="answer-box" placeholder="Type Answer Here">
         <button id="submit-answer">Submit</button>
+
+        <script src="js/signIn.js"></script>
+        <script src="js/githubInterface.js"></script>
+        <script src="js/game.js"></script>
     </body>
 </html>

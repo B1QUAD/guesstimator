@@ -29,8 +29,11 @@ const initializeGame = () => {
     switch (gamemode) {
         case 'progLang':
             currentGameRef = allGamesRef.push(currentGame).then(result => {
-                window.location.href = 'game.html';
-                getProgLangQuestion();
+                // window.location.href = 'game.html';
+				// Note result is not really important
+                githubApiInit().then(result => {
+                    getProgLangQuestion();
+                });
             });
             break;
         default:
@@ -40,12 +43,14 @@ const initializeGame = () => {
 };
 
 const getProgLangQuestion = () => {
-    console.log("getProgLangQuestion called");
-    /*
-        [1] fetch random code from GitHub API & set the correctAnswer variable
-        [2] render it in HTML using emgithub.com
-        [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
-    */
+    const questionData = getQuestion().then(questionData => {
+        console.log(questionData);
+        /*
+            [1] fetch random code from GitHub API & set the correctAnswer variable
+            [2] render it in HTML using emgithub.com
+            [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
+        */
+    });
 };
 
 // answerButton is the HTML element of the answer button which was clicked

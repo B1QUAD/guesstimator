@@ -5,9 +5,9 @@ var potentialFiles = [];
 var languages = {};
 
 // This needs to be run and completed before anything else!!!!
-async function init() {
-    await loadFromApi('langs.json', {
-			method: 'GET'
+async function githubApiInit() {
+    await loadFromApi('/util/langs.json', {
+			method: 'GET',
 			headers : {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json'
@@ -21,10 +21,11 @@ async function init() {
 // Rate limited to 10 requests per minute
 async function getQuestion() {
 	let currentLang = getRandomLang();
-	let choices = []; // Array of js objects containing matching files
+	let choices; // Array of js objects containing matching files
+	let json;
 	let returnObj = {
-			codeRef: '', // url to github blob
-			answer: [currentLang].concat(languages[currentLang])
+		codeRef: '', // url to github blob
+		answer: [currentLang].concat(languages[currentLang])
 	};
 
 	// Search for files with that language in them
@@ -36,12 +37,13 @@ async function getQuestion() {
 		}
 	}).then(function(response) {
 		json = response['jsonResponse'];
-		choices = json['items'];
+        json.then(result => {
+          choices = result['items'];
+          returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
+          console.log(returnObj);
+    			return returnObj;
+        });
 	});
-
-	returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
-
-	return returnObj;
 }
 
 // Gets and returns an array with numQuestions indices.
@@ -64,7 +66,7 @@ async function getQuestions(numQuestions) {
 // This loads data from a url given the url and a params obj to pass into fetch
 // Returns obj with response and json response data
 async function loadFromApi(url, params) {
-    await return fetch(url, params)
+	return await fetch(url, params)
         .then(function(response) {
             return {
                 rawResponse: response,
@@ -80,14 +82,15 @@ async function loadFromApi(url, params) {
 // Returns random language for use with generating questions
 function getRandomLang() {
 	let keys = Object.keys(languages);
-	return languages[keys[ keys.length * Math.random() << 0]];
+	// Returns a language given a random key
+	return keys[randFromRange(0, keys.length - 1)];
 }
 
 // Does what it says on the can
 // Returns a value from the provided array from a pseudo-random index
 function getRandomValFromArray(array) {
 	// return array[Math.floor(Math.random() * array.length)];
-	return array[randFromRange(0, array.length)]
+	return array[randFromRange(0, array.length - 1)];
 }
 
 // Returns an integer between min and max inclusive
