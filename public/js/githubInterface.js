@@ -41,9 +41,9 @@ async function getQuestion() {
           choices = result['items'];
           returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
           console.log(returnObj);
-    			return returnObj;
         });
 	});
+	return returnObj;
 }
 
 // Gets and returns an array with numQuestions indices.
