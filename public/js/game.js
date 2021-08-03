@@ -43,8 +43,9 @@ const initializeGame = () => {
 };
 
 const getProgLangQuestion = () => {
-    const questionData = getQuestion().then(questionData => {
-        console.log(questionData);
+	// getQuestion().then(questionData => console.log(questionData));
+    getQuestion().then(function (questionData) {
+		console.log(questionData)
         /*
             [1] fetch random code from GitHub API & set the correctAnswer variable
             [2] render it in HTML using emgithub.com
