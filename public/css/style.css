@@ -98,11 +98,24 @@ nav{
 
 #answer-box{
     position: absolute;
-    width: 50vw;
+    width: 39.75vw;
     height: 5vw;
     bottom: 4vw;
     left: 25vw;
     font-size: 2.5vw;
+}
+
+#submit-answer{
+    position: absolute;
+    width: 10vw;
+    height: 5vw;
+    bottom: 4vw;
+    left: 65vw;
+    font-size: 2.5vw;
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
 }
 
 #question-box{
@@ -130,6 +143,7 @@ nav{
     background: white;
     font-size: 1.5vw;
     color: rgb(160,40,60);
+    cursor: pointer;
 }
 
 #start-select{
@@ -147,6 +161,14 @@ nav{
     background: white;
     font-size: 1.5vw;
     color: rgb(160,40,60);
+    outline: 0;
+}
+
+#submit-answer:active,
+#answer-box:active,
+#start-btn:active,
+#start-select:active{
+    box-shadow: 0px 0px 10px #fff;
 }
 
 #section--left{
@@ -167,6 +189,7 @@ nav{
     overflow: hidden;
 }
 
+/* dashboard css */
 dashboard{
     position:absolute;
     width: 100%;
