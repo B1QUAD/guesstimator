@@ -30,19 +30,26 @@ async function getQuestion() {
 
 	// Search for files with that language in them
 	// https://api.github.com/search/code?q=language:${lang}+repo:leachim6/Hello-World
-	await loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
+	let response = await loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
 		method: 'GET',
 		headers: {
 			'Accept': 'application/vnd.github.v3+json'
 		}
-	}).then(function(response) {
-		json = response['jsonResponse'];
-        json.then(result => {
-          choices = result['items'];
-          returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
-          console.log(returnObj);
-        });
 	});
+	// .then(function(response) {
+	// 	json = response['jsonResponse'];
+    //     json.then(result => {
+    //       choices = result['items'];
+    //       returnObj.codeRef = 'test';//getRandomValFromArray(choices)['html_url'];
+    //       console.log('Return object', returnObj);
+    //     });
+	// });
+
+	json = await response['jsonResponse'];
+
+	choices = json['items'];
+	returnObj.codeRef = getRandomValFromArray(choices)['html_url'];
+	console.log('Return object', returnObj);
 	return returnObj;
 }
 

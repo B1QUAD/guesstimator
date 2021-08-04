@@ -10,11 +10,28 @@ const initializeGame = () => {
     userId = userId || 'guests';
     const allGamesRef = firebase.database().ref(`/users/${userId}/games`);
 
-    const gamemode = document.querySelector('#start-select').value;
+	// This gets the gamemode from the URL query string
+	// Get current location
+	const queryString = window.location.search;
+	console.log(queryString);
+	// Create a URLSearchParams object to parse the gamemode
+	const urlParams = new URLSearchParams(queryString);
+
+
+	// Check if a gamemode was not passed in
+	if(!urlParams.has('gameMode')) {
+		alert('Invalid GameMode. Redirecting to dashboard');
+		window.location.href = 'dashboard.html';
+	}
+
+	// Parse out the gamemode
+	const gameMode = urlParams.get('gameMode');
+	console.log(`GameMode: ${gameMode}`);
+
     let totalQuestions = 20; // for now, the total number of questions will be fixed
 
     currentGame = {
-        gamemode: gamemode,
+        gamemode: gameMode,
         hasFinished: false,
         currentQuestion: {
             questionNum: 0,
@@ -26,12 +43,14 @@ const initializeGame = () => {
         timestamp: new Date().toString()
     };
 
-    switch (gamemode) {
+    switch (gameMode) {
         case 'progLang':
             currentGameRef = allGamesRef.push(currentGame).then(result => {
                 // window.location.href = 'game.html';
 				// Note result is not really important
                 githubApiInit().then(result => {
+					const questionBox = document.querySelector('#question-box');
+
                     getProgLangQuestion();
                 });
             });
@@ -45,7 +64,33 @@ const initializeGame = () => {
 const getProgLangQuestion = () => {
 	// getQuestion().then(questionData => console.log(questionData));
     getQuestion().then(function (questionData) {
-		console.log(questionData)
+		const questionBox = document.querySelector('#question-box');
+		const code = document.querySelector('#embedContainer');
+
+		// Force JS reload
+		// code.parentNode.removeChild(code);
+		console.log(questionData["codeRef"]);
+		embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
+		// questionBox.appendChild(code);
+		
+		// code.src = `https://emgithub.com/embed.js?target=${questionData['codeRef']}&style=atom-one-dark&showBorder=on&showLineNumbers=on`;
+		// loadFromApi(`https://emgithub.com/embed.js?target=${questionData['codeRef']}&style=atom-one-dark&showBorder=on&showLineNumbers=on`, {
+		// 	method: 'GET',
+		// 	headers: {
+		// 		'Accept': 'application/javascript'
+		// 	}
+		// }).then(function(response) {
+		// 	let raw = response['rawResponse'];
+		// 	console.log(raw);
+		// }
+		// 	// code.innerHTML =
+		// );
+		// questionBox.appendChild(code);
+		// questionBox.onload = function() {
+		// 	embed();
+		// }
+		// questionBox.appendChild(code);
+
         /*
             [1] fetch random code from GitHub API & set the correctAnswer variable
             [2] render it in HTML using emgithub.com

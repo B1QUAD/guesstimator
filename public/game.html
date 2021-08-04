@@ -1,7 +1,7 @@
 <!-- This is the "landing" page -->
 <!DOCTYPE html>
 <html>
-    <head>
+    <head id="head">
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <!-- update the version number as needed -->
 		<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
@@ -71,12 +71,21 @@
         <div id="streak">Streak: 0</div>
 
         <label for="section" id="directions">Guess what Programming Language is being displayed <br> Type your Answer in the Box Below</label>
-        <section id="question-box"></section>
+        <section id="question-box">
+			<!-- <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FB1QUAD%2Fguesstimator%2Fblob%2Fmain%2Fpublic%2Fdashboard.html&style=atom-one-dark&showBorder=on&showLineNumbers=on"></script> -->
+		</section>
         <input type="text" id="answer-box" placeholder="Type Answer Here">
         <button id="submit-answer">Submit</button>
 
         <script src="js/signIn.js"></script>
         <script src="js/githubInterface.js"></script>
+		<script src="js/embed.js"></script>
         <script src="js/game.js"></script>
+		<script>
+			window.onload = function() {
+				// console.log('test');
+				initializeGame();
+			}
+		</script>
     </body>
 </html>
