@@ -111,4 +111,3 @@ getLyrics = (trackId, songName, songArtist) => {
 					//return lyrics;
 			});
 }
-

@@ -1,84 +1,84 @@
 <!-- This is the "landing" page -->
 <!DOCTYPE html>
 <html>
-    <head id="head">
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <!-- update the version number as needed -->
+	<head id="head">
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<!-- update the version number as needed -->
 		<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
-        <!-- include only the Firebase features as you need -->
-        <script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
-        <script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
-        <script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
-        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-        <link rel="stylesheet" href="css/style.css"/>
-        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
-        <title>Guesstimator</title>
-    </head>
-    <body>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="dashboard.html">
-                    <img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
-                </a>
-            </div>
+		<!-- include only the Firebase features as you need -->
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
+		<script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
+		<link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+		<link rel="stylesheet" href="css/style.css"/>
+		<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+		<title>Guesstimator</title>
+	</head>
+	<body>
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+			<div class="navbar-brand">
+				<a class="navbar-item" href="dashboard.html">
+					<img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
+				</a>
+			</div>
 
-            <div class="navbar-brand">
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <div class="navbar-item">
-                        <img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
-                    </div>
-                    <div class="navbar-dropdown">
-                      <a class="navbar-item" href="">
-                        Programming
-                      </a>
-                      <a class="navbar-item" href="">
-                        Lyrics
-                      </a>
-                    </div>
-                </div>
-            </div>
+			<div class="navbar-brand">
+				<div class="navbar-item has-dropdown is-hoverable">
+					<div class="navbar-item">
+						<img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
+					</div>
+					<div class="navbar-dropdown">
+					  <a class="navbar-item" href="">
+						Programming
+					  </a>
+					  <a class="navbar-item" href="">
+						Lyrics
+					  </a>
+					</div>
+				</div>
+			</div>
 
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button">
-                    <strong>Sign In</strong>
-                  </a>
-                </div>
-              </div>
-            </div>
-        </nav>
+			<div class="navbar-end">
+			  <div class="navbar-item">
+				<div class="buttons">
+				  <a class="button">
+					<strong>Sign In</strong>
+				  </a>
+				</div>
+			  </div>
+			</div>
+		</nav>
 
 
-        <section id="game-background">
-            <ul class="shapes">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </section>
+		<section id="game-background">
+			<ul class="shapes">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</section>
 
-        <div id="timer">10</div>
+		<div id="timer">10</div>
 
-        <div id="score">Score: 0/1</div>
-        <div id="streak">Streak: 0</div>
+		<div id="score">Score: 0/1</div>
+		<div id="streak">Streak: 0</div>
 
-        <label for="section" id="directions">Guess what Programming Language is being displayed <br> Type your Answer in the Box Below</label>
-        <section id="question-box">
+		<label for="section" id="directions">Guess what Programming Language is being displayed <br> Type your Answer in the Box Below</label>
+		<section id="question-box">
 			<!-- <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FB1QUAD%2Fguesstimator%2Fblob%2Fmain%2Fpublic%2Fdashboard.html&style=atom-one-dark&showBorder=on&showLineNumbers=on"></script> -->
 		</section>
-        <input type="text" id="answer-box" placeholder="Type Answer Here">
-        <button id="submit-answer">Submit</button>
+		<input type="text" id="answer-box" placeholder="Type Answer Here">
+		<button id="submit-answer">Submit</button>
 
-        <script src="js/signIn.js"></script>
-        <script src="js/githubInterface.js"></script>
+		<script src="js/signIn.js"></script>
+		<script src="js/githubInterface.js"></script>
 		<script src="js/embed.js"></script>
         <script src="js/game.js"></script>
     </body>
