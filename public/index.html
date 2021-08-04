@@ -1,47 +1,47 @@
 <!-- This is the default "landing" page -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <!-- update the version number as needed -->
+	<head>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<!-- update the version number as needed -->
 		<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
-        <!-- include only the Firebase features as you need -->
-        <script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
-        <script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
-        <script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
-        <link rel="stylesheet" href="css/style.css"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
-        <title>Guesstimator</title>
-    </head>
-    <body>
-        <h1>Welcome to Guesstimator</h1>
-        <h2>David Puma | David Yates | Matthew Ghera</h2>
-        <section id="section--left">
-            <ul class="shapes">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </section>
-        <br>
-        <br>
-        <button id="start-btn" onclick="menuHandler()">
-            Play Game!
-        </button>
-        <select name="gamemode" id="start-select">
-          <option value="invalid" disabled selected value>Gamemode &#129055;</option>
-          <option value="progLang">Programming</option>
-          <option value="lyrics">lyrics</option>
-        </select>
+		<!-- include only the Firebase features as you need -->
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
+		<script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
+		<link rel="stylesheet" href="css/style.css"/>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+		<title>Guesstimator</title>
+	</head>
+	<body>
+		<h1>Welcome to Guesstimator</h1>
+		<h2>David Puma | David Yates | Matthew Ghera</h2>
+		<section id="section--left">
+			<ul class="shapes">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</section>
+		<br>
+		<br>
+		<button id="start-btn" onclick="menuHandler()">
+			Play Game!
+		</button>
+		<select name="gamemode" id="start-select">
+		  <option value="invalid" disabled selected value>Gamemode &#129055;</option>
+		  <option value="progLang">Programming</option>
+		  <option value="lyrics">lyrics</option>
+		</select>
 
-        <script src="js/signIn.js"></script>
-        <!-- <script src="js/githubInterface.js"></script> -->
-        <!-- <script src="js/game.js"></script> -->
+		<script src="js/signIn.js"></script>
+		<!-- <script src="js/githubInterface.js"></script> -->
+		<!-- <script src="js/game.js"></script> -->
 		<script src="js/menuHandler.js"></script>
-    </body>
+	</body>
 </html>

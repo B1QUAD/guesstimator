@@ -14,20 +14,20 @@ function menuHandler() {
 
 	// TODO: Make dynamic --> should be able to omit switch
 	switch (gameMode) {
-        case 'progLang':
+		case 'progLang':
 
-            currentGameRef = allGamesRef.push(currentGame).then(result => {
-                window.location.href = `game.html?gameMode=progLang`;
+			currentGameRef = allGamesRef.push(currentGame).then(result => {
+				window.location.href = `game.html?gameMode=progLang`;
 				// Note result is not really important
-                githubApiInit().then(result => {
+				githubApiInit().then(result => {
 					const questionBox = document.querySelector('#question-box');
 					questionBox.createElement('script').setAttribute('id', 'prog-src');
-                    getProgLangQuestion();
-                });
-            });
-            break;
-        default:
-            alert('Invalid gamemode');
-            break;
-    }
+					getProgLangQuestion();
+				});
+			});
+			break;
+		default:
+			alert('Invalid gamemode');
+			break;
+	}
 }

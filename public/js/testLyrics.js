@@ -65,4 +65,3 @@ getLyrics= () => {
 		});
 		currSong++;
 }
-

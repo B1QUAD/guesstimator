@@ -6,7 +6,7 @@ var languages = {};
 
 // This needs to be run and completed before anything else!!!!
 async function githubApiInit() {
-    await loadFromApi('/util/langs.json', {
+	await loadFromApi('/util/langs.json', {
 			method: 'GET',
 			headers : {
 				'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ async function getQuestions(numQuestions) {
 // Returns obj with response and json response data
 async function loadFromApi(url, params) {
 	return await fetch(url, params)
-        .then(function(response) {
+		.then(function(response) {
 			let status = response.status;
 			console.log(typeof status, '\n' + status);
 			if(status === 403) {
@@ -75,11 +75,11 @@ async function loadFromApi(url, params) {
 				alert('Error calling the GitHub API.\nPlease refresh the page.');
 			}
 
-            return {
-                rawResponse: response,
-                jsonResponse: response.json()
-            };
-        }).catch(function(error) {
+			return {
+				rawResponse: response,
+				jsonResponse: response.json()
+			};
+		}).catch(function(error) {
 			console.log(error);
 		});
 }
