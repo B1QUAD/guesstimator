@@ -30,7 +30,7 @@
         </section>
         <br>
         <br>
-        <button id="start-btn" onclick="menuHandler()">
+        <button id="start-btn" onclick="redirectToGame()">
             Play Game!
         </button>
         <select name="gamemode" id="start-select">
@@ -40,8 +40,11 @@
         </select>
 
         <script src="js/signIn.js"></script>
-        <!-- <script src="js/githubInterface.js"></script> -->
-        <!-- <script src="js/game.js"></script> -->
-		<script src="js/menuHandler.js"></script>
+        <script type="text/javascript">
+            const redirectToGame = () => {
+                const gamemode = document.querySelector('#start-select').value;
+                window.location = `game.html?gamemode=${gamemode}`;
+            };
+        </script>
     </body>
 </html>

@@ -4,8 +4,11 @@ let currentGameRef;
 let isCheckingAnswer = false;
 let userId = 'guest'; // temporary; this variable should be initialized in signIn.js
 
+console.log('script is running');
+
 const initializeGame = () => {
     return new Promise((resolve, reject) => {
+        console.log('in initialize game');
         getCurrentGame().then(currGameInfo => {
             if (!currGameInfo.isReady) {
                 return resolve(false);
@@ -26,56 +29,20 @@ const initializeGame = () => {
     });
 };
 
-// <<<<<<< HEAD
-// const getProgLangQuestion = () => {
-//     getQuestion().then(function (questionData) {
-// 		const questionBox = document.querySelector('#question-box');
-// 		const code = document.querySelector('#embedContainer');
-//
-// 		// Force JS reload
-// 		// code.parentNode.removeChild(code);
-// 		// console.log(questionData["codeRef"]);
-// 		embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
-//         /*
-//             [1] fetch random code from GitHub API & set the correctAnswer variable
-//             [2] render it in HTML using emgithub.com
-//             [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
-//         */
-//     }).catch(function(err) {
-// 		getProgLangQuestion();
-// 	});
-// =======
 const getProgLangQuestion = (timestamp) => {
     return new Promise((resolve, reject) => {
         getQuestion().then(function (questionData) {
-            // Deal with firebase (DY)
-			currentGame.currentQuestion.acceptedAnswers = questionData.answer;
+    		currentGame.currentQuestion.acceptedAnswers = questionData.answer;
             currentGame.currentQuestion.content = questionData.codeRef;
             currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
             currentGameRef.update(currentGame).then(renderProgLangQuestion);
             resolve(true);
-
-            // Render (DP)
-            const questionBox = document.querySelector('#question-box');
-		        const code = document.querySelector('#embedContainer');
-
-		        console.log(questionData["codeRef"]);
-		        embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
-            /*
-                [1] fetch random code from GitHub API & set the correctAnswer variable
-                [2] render it in HTML using emgithub.com
-                [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
-            */
-        }).catch(function(err) {
-            getProgLangQuestion();
         });
     });
-// >>>>>>> 0773dc2f844726c8a654f11e2f35eacd32aa778b
 };
 
 const renderProgLangQuestion = () => {
-    // render in HTML using emgithub.com
-    console.log('ready to render prog lang question');
+    embed(`?target=${currentGame.currentQuestion.content}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
 }
 
 const checkAnswer = () => {
@@ -111,6 +78,7 @@ const checkAnswer = () => {
    If a game is not in session, this function will resolve with false and initialize currentGame & currentGameRef to a new template game. */
 const getCurrentGame = () => {
     return new Promise((resolve, reject) => {
+        console.log('in current game');
         const allGamesRef = firebase.database().ref(`/users/${userId}/games`);
 
         allGamesRef.get().then(snapshot => {
@@ -185,6 +153,7 @@ const getCurrentGame = () => {
 };
 
 window.onload = function() {
+    console.log('in window onload');
     initializeGame().then(isReady => {
         if (!isReady) {
             return;
@@ -200,6 +169,6 @@ window.onload = function() {
         const timer = document.querySelector('#timer');
         const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
         const timeLeft = (questionEndTime - new Date().getTime()) / 1000;
-        timer.innerText = Math.round(timeLeft);
+        timer.innerText = Math.ceil(timeLeft);
     });
 };
