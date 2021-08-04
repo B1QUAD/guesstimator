@@ -26,20 +26,39 @@ const initializeGame = () => {
     });
 };
 
+// <<<<<<< HEAD
+// const getProgLangQuestion = () => {
+//     getQuestion().then(function (questionData) {
+// 		const questionBox = document.querySelector('#question-box');
+// 		const code = document.querySelector('#embedContainer');
+//
+// 		// Force JS reload
+// 		// code.parentNode.removeChild(code);
+// 		// console.log(questionData["codeRef"]);
+// 		embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
+//         /*
+//             [1] fetch random code from GitHub API & set the correctAnswer variable
+//             [2] render it in HTML using emgithub.com
+//             [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
+//         */
+//     }).catch(function(err) {
+// 		getProgLangQuestion();
+// 	});
+// =======
 const getProgLangQuestion = (timestamp) => {
     return new Promise((resolve, reject) => {
         getQuestion().then(function (questionData) {
             // Deal with firebase (DY)
-    		    currentGame.currentQuestion.acceptedAnswers = questionData.answer;
+			currentGame.currentQuestion.acceptedAnswers = questionData.answer;
             currentGame.currentQuestion.content = questionData.codeRef;
             currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
             currentGameRef.update(currentGame).then(renderProgLangQuestion);
             resolve(true);
-          
+
             // Render (DP)
             const questionBox = document.querySelector('#question-box');
 		        const code = document.querySelector('#embedContainer');
-          
+
 		        console.log(questionData["codeRef"]);
 		        embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
             /*
@@ -51,6 +70,7 @@ const getProgLangQuestion = (timestamp) => {
             getProgLangQuestion();
         });
     });
+// >>>>>>> 0773dc2f844726c8a654f11e2f35eacd32aa778b
 };
 
 const renderProgLangQuestion = () => {

@@ -9,6 +9,10 @@ const baseURL = 'https://emgithub.com/embed.js'
 // Since the API (emgithub) was static I modified it to work like this.        #
 // All of this code should be refatored TODO!!! TODO!!!                        #
 // #############################################################################
+// All below code was modified from the emgithub.com response because          #
+// the way it originally worked was not compatible with dynamically loaded     #
+// script tags.																   #
+// #############################################################################
 
 function embed(parameters) {
   // const sourceURL = new URL(document.currentScript.src);
@@ -158,7 +162,8 @@ function embed(parameters) {
     if (response.ok) {
       return response.text();
     } else {
-      return Promise.reject(`${response.status} ${response.statusText}`);
+		getProgLangQuestion();
+      // return Promise.reject(`${response.status} ${response.statusText}`);
     }
   });
 
@@ -305,3 +310,36 @@ function fallbackCopyTextToClipboard(text) {
   }
   document.body.removeChild(textArea);
 }
+
+
+
+
+const getProgLangQuestion = (timestamp) => {
+    return new Promise((resolve, reject) => {
+        getQuestion().then(function (questionData) {
+    		currentGame.currentQuestion.acceptedAnswers = questionData.answer;
+            currentGame.currentQuestion.content = questionData.codeRef;
+            currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
+            currentGameRef.update(currentGame).then(renderProgLangQuestion);
+            resolve(true);
+        });
+    });
+=======
+const getProgLangQuestion = () => {
+    getQuestion().then(function (questionData) {
+		const questionBox = document.querySelector('#question-box');
+		const code = document.querySelector('#embedContainer');
+
+		// Force JS reload
+		// code.parentNode.removeChild(code);
+		console.log(questionData["codeRef"]);
+		embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
+        /*
+            [1] fetch random code from GitHub API & set the correctAnswer variable
+            [2] render it in HTML using emgithub.com
+            [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
+        */
+    }).catch(function(err) {
+		getProgLangQuestion();
+	});
+>>>>>>> main
