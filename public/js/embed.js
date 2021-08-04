@@ -9,6 +9,10 @@ const baseURL = 'https://emgithub.com/embed.js'
 // Since the API (emgithub) was static I modified it to work like this.        #
 // All of this code should be refatored TODO!!! TODO!!!                        #
 // #############################################################################
+// All below code was modified from the emgithub.com response because          #
+// the way it originally worked was not compatible with dynamically loaded     #
+// script tags.																   #
+// #############################################################################
 
 function embed(parameters) {
   // const sourceURL = new URL(document.currentScript.src);
@@ -155,11 +159,12 @@ function embed(parameters) {
   }
 
   const fetchFile = fetch(rawFileURL).then((response) => {
-	if (response.ok) {
-	  return response.text();
-	} else {
-	  return Promise.reject(`${response.status} ${response.statusText}`);
-	}
+    if (response.ok) {
+      return response.text();
+    } else {
+		getProgLangQuestion();
+      // return Promise.reject(`${response.status} ${response.statusText}`);
+    }
   });
 
   Promise.all(showLineNumbers ? [fetchFile, loadHLJS, loadHLJSNum] : [fetchFile, loadHLJS]).then((result) => {
