@@ -6,17 +6,6 @@ var languages = {};
 
 // This needs to be run and completed before anything else!!!!
 async function githubApiInit() {
-<<<<<<< HEAD
-	await loadFromApi('/util/langs.json', {
-			method: 'GET',
-			headers : {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
- 			}
-		}).then(response => response['jsonResponse']).then(function(langs) {
-			languages = langs;
-		});
-=======
     await loadFromApi('/util/langs.json', {
         method: 'GET',
         headers: {
@@ -26,7 +15,6 @@ async function githubApiInit() {
     }).then(response => response['jsonResponse']).then(function (langs) {
         languages = langs;
     });
->>>>>>> 660a4d51ad2b3b6cea8a21f2801820ada4c5862c
 }
 
 
@@ -75,25 +63,6 @@ async function getQuestions(numQuestions) {
 }
 
 async function loadFromApi(url, params) {
-<<<<<<< HEAD
-	return await fetch(url, params)
-		.then(function(response) {
-			let status = response.status;
-			console.log(typeof status, '\n' + status);
-			if(status === 403) {
-				alert('Rate limit for GitHub exceeded.\nPlease wait ~30 seconds before continuing play.')
-			} else if (status !== 200) {
-				alert('Error calling the GitHub API.\nPlease refresh the page.');
-			}
-
-			return {
-				rawResponse: response,
-				jsonResponse: response.json()
-			};
-		}).catch(function(error) {
-			console.log(error);
-		});
-=======
     return new Promise((resolve, reject) => {
         fetch(url, params).then(async function (response) {
             let status = response.status;
@@ -114,7 +83,6 @@ async function loadFromApi(url, params) {
             console.log(error);
         });
     });
->>>>>>> 660a4d51ad2b3b6cea8a21f2801820ada4c5862c
 }
 
 // ********************************
