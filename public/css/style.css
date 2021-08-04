@@ -126,7 +126,6 @@ nav{
 	left: 25vw;
 	width: 50vw;
 	max-height: 75vh;
-	min-height: 10vh;
 	/* background:  rgb(150,150,150); */
 	background: rgba(150, 150, 150, 25);
 	overflow-x: auto;
