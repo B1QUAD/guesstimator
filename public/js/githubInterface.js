@@ -19,31 +19,32 @@ async function githubApiInit() {
 
 
 // Rate limited to 10 requests per minute
-async function getQuestion() {
-	let currentLang = getRandomLang();
-	let choices; // Array of js objects containing matching files
-	let json;
-	let returnObj = {
-		codeRef: '', // url to github blob
-		answer: [currentLang].concat(languages[currentLang])
-	};
+function getQuestion() {
+    return new Promise((resolve, reject) => {
+        let currentLang = getRandomLang();
+    	let choices; // Array of js objects containing matching files
+    	let json;
+    	let returnObj = {
+    		codeRef: '', // url to github blob
+    		answer: [currentLang].concat(languages[currentLang])
+    	};
 
-	// Search for files with that language in them
-	// https://api.github.com/search/code?q=language:${lang}+repo:leachim6/Hello-World
-	await loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
-		method: 'GET',
-		headers: {
-			'Accept': 'application/vnd.github.v3+json'
-		}
-	}).then(function(response) {
-		json = response['jsonResponse'];
-        json.then(result => {
-          choices = result['items'];
-          returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
-          console.log(returnObj);
-        });
-	});
-	return returnObj;
+    	// Search for files with that language in them
+    	// https://api.github.com/search/code?q=language:${lang}+repo:leachim6/Hello-World
+    	loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
+    		method: 'GET',
+    		headers: {
+    			'Accept': 'application/vnd.github.v3+json'
+    		}
+    	}).then(function(response) {
+    		json = response['jsonResponse'];
+            json.then(result => {
+              choices = result['items'];
+              returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
+              resolve(returnObj);
+            });
+    	});
+    });
 }
 
 // Gets and returns an array with numQuestions indices.
@@ -65,14 +66,16 @@ async function getQuestions(numQuestions) {
 
 // This loads data from a url given the url and a params obj to pass into fetch
 // Returns obj with response and json response data
-async function loadFromApi(url, params) {
-	return await fetch(url, params)
-        .then(function(response) {
-            return {
-                rawResponse: response,
-                jsonResponse: response.json()
-            };
-        }).catch(error => console.log(error));
+function loadFromApi(url, params) {
+    return new Promise((resolve, reject) => {
+        fetch(url, params)
+            .then(function(response) {
+                resolve({
+                    rawResponse: response,
+                    jsonResponse: response.json()
+                });
+            }).catch(error => console.log(error));
+    });
 }
 
 // ********************************

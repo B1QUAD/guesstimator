@@ -2,66 +2,56 @@ let correctAnswer;
 let currentGame;
 let currentGameRef;
 let isCheckingAnswer = false;
-let userId; // temporary; this variable should be initialized in signIn.js
+let userId = 'guest'; // temporary; this variable should be initialized in signIn.js
 
 const initializeGame = () => {
-    // activate loading
-
-    userId = userId || 'guests';
-    const allGamesRef = firebase.database().ref(`/users/${userId}/games`);
-
-    const gamemode = document.querySelector('#start-select').value;
-    let totalQuestions = 20; // for now, the total number of questions will be fixed
-
-    currentGame = {
-        gamemode: gamemode,
-        hasFinished: false,
-        currentQuestion: {
-            questionNum: 0,
-            timestamp: ""
-        },
-        numCorrect: 0,
-        numIncorrect: 0,
-        totalQuestions: totalQuestions,
-        timestamp: new Date().toString()
-    };
-
-    switch (gamemode) {
-        case 'progLang':
-            currentGameRef = allGamesRef.push(currentGame).then(result => {
-                // window.location.href = 'game.html';
-				// Note result is not really important
+    return new Promise((resolve, reject) => {
+        getCurrentGame().then(currGameInfo => {
+            if (!currGameInfo.isReady) {
+                return resolve(false);
+            }
+            if (currentGame.gamemode == 'progLang') {
                 githubApiInit().then(result => {
-                    getProgLangQuestion();
+                    if (currGameInfo.needsNewQuestion) {
+                        getProgLangQuestion(currGameInfo.newQuestionTimestamp).then(result => {
+                            resolve(true);
+                        });
+                    } else {
+                        renderProgLangQuestion();
+                        resolve(true);
+                    }
                 });
-            });
-            break;
-        default:
-            alert('Invalid gamemode');
-            break;
-    }
-};
-
-const getProgLangQuestion = () => {
-	// getQuestion().then(questionData => console.log(questionData));
-    getQuestion().then(function (questionData) {
-		console.log(questionData)
-        /*
-            [1] fetch random code from GitHub API & set the correctAnswer variable
-            [2] render it in HTML using emgithub.com
-            [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
-        */
+            }
+        });
     });
 };
 
-// answerButton is the HTML element of the answer button which was clicked
-const checkAnswer = (answerButton) => {
+const getProgLangQuestion = (timestamp) => {
+    return new Promise((resolve, reject) => {
+        getQuestion().then(function (questionData) {
+    		currentGame.currentQuestion.acceptedAnswers = questionData.answer;
+            currentGame.currentQuestion.content = questionData.codeRef;
+            currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
+            currentGameRef.update(currentGame).then(renderProgLangQuestion);
+            resolve(true);
+        });
+    });
+};
+
+const renderProgLangQuestion = () => {
+    // render in HTML using emgithub.com
+    console.log('ready to render prog lang question');
+}
+
+const checkAnswer = () => {
     if (isCheckingAnswer) return;
     isCheckingAnswer = true;
-    answerButton.classList.add('is-loading');
+    // toggle loading
 
-    let answer = answerButton.dataset.answer;
-    updateCurrentGameObj().then(result => {
+    const answerBox = document.querySelector('#answer-box');
+    const answer = answerBox.value;
+
+    getCurrentGame().then(result => {
         if (answer === correctAnswer) {
             currentGame.numCorrect++;
             currentGameRef.update(currentGame).then(result => {
@@ -82,21 +72,99 @@ const checkAnswer = (answerButton) => {
     });
 };
 
-/* makes currentGame & currentGameRef reference latest game in the database under that signed in user
-   in case the user reloads the page, which would reload both variables as null */
-const updateCurrentGameObj = () => {
+/* If a game is in session, this function will resolve with true and set currentGame & currentGameRef to that game.
+   If a game is not in session, this function will resolve with false and initialize currentGame & currentGameRef to a new template game. */
+const getCurrentGame = () => {
     return new Promise((resolve, reject) => {
-        userId = userId || 'guests';
         const allGamesRef = firebase.database().ref(`/users/${userId}/games`);
 
         allGamesRef.get().then(snapshot => {
-            let games = snapshot.val();
+            let games = snapshot.val() || {};
             let gamesKeys = Object.keys(games);
-            currentGameKey = gamesKeys[gamesKeys.length - 1];
 
-            currentGameRef = firebase.database().ref(`/users/${userId}/games/${currentGameKey}`);
+            currentGameKey = gamesKeys[gamesKeys.length - 1];
             currentGame = games[currentGameKey];
-            resolve(true);
+
+            if (currentGame && !currentGame.hasFinished) {
+                currentGameRef = firebase.database().ref(`/users/${userId}/games/${currentGameKey}`);
+
+                let gameEndDate = new Date(currentGame.timestamp);
+                gameEndDate.setSeconds(gameEndDate.getSeconds() + currentGame.totalQuestions * currentGame.timePerQuestion - 3);
+
+                if (currentGame.currentQuestion && currentGame.currentQuestion.questionNum < currentGame.totalQuestions
+                        && gameEndDate > new Date()) {
+                    let questionEndDate = new Date(currentGame.currentQuestion.timestamp);
+                    questionEndDate.setSeconds(questionEndDate.getSeconds() + currentGame.timePerQuestion);
+
+                    if (questionEndDate > new Date()) {
+                        return resolve({isReady: true, needsNewQuestion: false});
+                    }
+
+                    while (new Date() > questionEndDate) {
+                        currentGame.numIncorrect++;
+                        currentGame.currentQuestion.questionNum++;
+                        questionEndDate.setSeconds(questionEndDate.getSeconds() + currentGame.timePerQuestion);
+                    }
+
+                    questionEndDate.setSeconds(questionEndDate.getSeconds() - currentGame.timePerQuestion);
+                    return resolve({isReady: true, needsNewQuestion: true, newQuestionTimestamp: questionEndDate.toUTCString()});
+                } else {
+                    currentGame.hasFinished = true;
+                    currentGameRef.update(currentGame).then(result => {
+                        console.log("Updated previous game to finished.");
+                    });
+                }
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const gamemode = urlParams.get('gamemode');
+
+            if (!gamemode || gamemode !== 'progLang' && gamemode !== 'lyrics') {
+                window.location = 'index.html';
+                return resolve({isReady: false});
+            }
+
+            currentGame = {
+                gamemode: gamemode,
+                hasFinished: false,
+                incompleteFinish: true,
+                currentQuestion: {
+                    acceptedAnswers: [],
+                    content: "",
+                    questionNum: 1,
+                    timestamp: ""
+                },
+                currentStreak: 0,
+                numCorrect: 0,
+                numIncorrect: 0,
+                totalQuestions: 10, // for now, this is fixed
+                timePerQuestion: 10, // in seconds; for now, this is fixed
+                timestamp: new Date().toUTCString()
+            };
+
+            currentGameRef = allGamesRef.push(currentGame);
+
+            return resolve({isReady: true, needsNewQuestion: true});
         });
+    });
+};
+
+window.onload = function() {
+    initializeGame().then(isReady => {
+        if (!isReady) {
+            return;
+        }
+
+        // Refreshes the UI with the current game's data (useful if a player accidentally refreshes mid-game)
+        const score = document.querySelector('#score');
+        score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
+
+        const streak = document.querySelector('#streak');
+        streak.innerText = `Streak: ${currentGame.currentStreak}`;
+
+        const timer = document.querySelector('#timer');
+        const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
+        const timeLeft = (questionEndTime - new Date().getTime()) / 1000;
+        timer.innerText = Math.round(timeLeft);
     });
 };
