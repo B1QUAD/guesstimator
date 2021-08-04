@@ -15,9 +15,11 @@ https://developer.musixmatch.com/admin/applications
 
 
 let key="c1562ca1935a6e4ef23613a28c7fc6ca";
+let key2="a15480b2b104cdb7ec707f3876c7e392";
+key=key2;
 
-let numSongs=50;
-const topSongs=`https://radiant-ridge-05292.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=mxmweekly&page=1&page_size=${numSongs}&country=US&f_has_lyrics=1&apikey=${key}`
+let numSongs=5;
+let topSongs=`https://radiant-ridge-05292.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=mxmweekly&page=1&page_size=${numSongs}&country=US&f_has_lyrics=1&apikey=${key}`;
 
 /*let songNames=[];
 let songArtists=[];
