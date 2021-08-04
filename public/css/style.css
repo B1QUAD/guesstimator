@@ -1,130 +1,132 @@
 /* Generic style sheet */
 /* Naming conventions:  https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/ */
 html{
-    background-color: hsl(195, 9%, 9%);
-    overflow: hidden;
+	background-color: hsl(195, 9%, 9%);
+	overflow: hidden;
 }
 
 body {
-    color: white;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    font-family: 'Kanit', sans-serif;
+	color: white;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	font-family: 'Kanit', sans-serif;
 }
 
 h1{
-    position: absolute;
-    font-size: 6vw;
-    text-align: center;
-    display: inline;
-    margin: 0 auto;
-    text-decoration: none;
-    width: 100%;
-    top: 10vw;
-    z-index: 2;
+	position: absolute;
+	font-size: 6vw;
+	text-align: center;
+	display: inline;
+	margin: 0 auto;
+	text-decoration: none;
+	width: 100%;
+	top: 10vw;
+	z-index: 2;
 }
 
 h2{
-    position: absolute;
-    font-size: 2vw;
-    text-align: center;
-    display: inline;
-    margin: 0 auto;
-    text-decoration: none;
-    width: 100%;
-    top: 20vw;
-    z-index: 2;
+	position: absolute;
+	font-size: 2vw;
+	text-align: center;
+	display: inline;
+	margin: 0 auto;
+	text-decoration: none;
+	width: 100%;
+	top: 20vw;
+	z-index: 2;
 }
 
 nav{
-    position: absolute !important;
-    width: 100vw;
-    max-height: 3vw;
-    background-color: hsl(195, 9%, 9%) !important;
-    margin-bottom: 5vw;
+	position: absolute !important;
+	width: 100vw;
+	max-height: 3vw;
+	background-color: hsl(195, 9%, 9%) !important;
+	margin-bottom: 5vw;
 }
 
 .navbar-item img{
-    filter: invert(100%);
+	filter: invert(100%);
 }
 
 .navbar-item img{
-    max-height: 2.5vw;
+	max-height: 2.5vw;
 }
 
 .navbar-brand{
-    margin-right: 1.5vw;
-    margin-left: .5vw;
+	margin-right: 1.5vw;
+	margin-left: .5vw;
 }
 
 #timer{
-    position: absolute;
-    height: 6vw;
-    width: 6vw;
-    background: white;
-    border-radius: 50%;
-    top: 5vw;
-    right: 4vw;
-    text-align: center;
-    padding-top: .75vw;
-    font-size: 3vw;
-    color: black;
-    font-weight: 900;
+	position: absolute;
+	height: 6vw;
+	width: 6vw;
+	background: white;
+	border-radius: 50%;
+	top: 5vw;
+	right: 4vw;
+	text-align: center;
+	padding-top: .75vw;
+	font-size: 3vw;
+	color: black;
+	font-weight: 900;
 }
+
 #score{
-    position: absolute;
-    font-size: 2vw;
-    left: 1vw;
-    top: 3.5vw;
+	position: absolute;
+	font-size: 2vw;
+	left: 1vw;
+	top: 3.5vw;
 }
+
 #streak{
-    position: absolute;
-    font-size: 2vw;
-    left: 1vw;
-    top: 6vw;
+	position: absolute;
+	font-size: 2vw;
+	left: 1vw;
+	top: 6vw;
 }
 
 #directions{
-    position: absolute;
-    font-size: 2vw;
-    text-align: center;
-    display: inline;
-    margin: 0 auto;
-    text-decoration: none;
-    width: 100%;
-    top: 3.5vw;
+	position: absolute;
+	font-size: 2vw;
+	text-align: center;
+	display: inline;
+	margin: 0 auto;
+	text-decoration: none;
+	width: 100%;
+	top: 3.5vw;
 }
 
 #answer-box{
-    position: absolute;
-    width: 39.75vw;
-    height: 5vw;
-    bottom: 4vw;
-    left: 25vw;
-    font-size: 2.5vw;
+	position: absolute;
+	width: 39.75vw;
+	height: 5vw;
+	bottom: 4vw;
+	left: 25vw;
+	font-size: 2.5vw;
 }
 
 #submit-answer{
-    position: absolute;
-    width: 10vw;
-    height: 5vw;
-    bottom: 4vw;
-    left: 65vw;
-    font-size: 2.5vw;
-    background: white;
-    color: black;
-    border: none;
-    cursor: pointer;
+	position: absolute;
+	width: 10vw;
+	height: 5vw;
+	bottom: 4vw;
+	left: 65vw;
+	font-size: 2.5vw;
+	background: white;
+	color: black;
+	border: none;
+	cursor: pointer;
 }
 
 #question-box {
-    position: absolute;
-    top: 10vw;
-    left: 25vw;
-    width: 50vw;
-    max-height: 50vw;
-    /* background:  rgb(150,150,150); */
+	position: absolute;
+	top: 10vw;
+	left: 25vw;
+	width: 50vw;
+	max-height: 75vh;
+	/* background:  rgb(150,150,150); */
 	background: rgba(150, 150, 150, 25);
 	overflow-x: auto;
 	overflow-y: auto;
@@ -133,371 +135,381 @@ nav{
 }
 
 #start-btn{
-    position: absolute;
-    z-index: 2;
-    width: 10vw;
-    height: 5vw;
-    bottom: 15vw;
-    left: 35.125%;
-    border-bottom-left-radius:7.5vw ;
-    border-top-left-radius:7.5vw ;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: none;
-    background: white;
-    font-size: 1.5vw;
-    color: rgb(160,40,60);
-    cursor: pointer;
+	position: absolute;
+	z-index: 2;
+	width: 10vw;
+	height: 5vw;
+	bottom: 15vw;
+	left: 35.125%;
+	border-bottom-left-radius:7.5vw ;
+	border-top-left-radius:7.5vw ;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: none;
+	background: white;
+	font-size: 1.5vw;
+	color: rgb(160,40,60);
+	cursor: pointer;
 }
 
 #start-select{
-    position: absolute;
-    z-index: 2;
-    width: 10vw;
-    height: 5vw;
-    bottom: 15vw;
-    left: 45.375%;
-    border-bottom-right-radius:7.5vw ;
-    border-top-right-radius:7.5vw ;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: none;
-    background: white;
-    font-size: 1.5vw;
-    color: rgb(160,40,60);
-    outline: 0;
+	position: absolute;
+	z-index: 2;
+	width: 10vw;
+	height: 5vw;
+	bottom: 15vw;
+	left: 45.375%;
+	border-bottom-right-radius:7.5vw ;
+	border-top-right-radius:7.5vw ;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: none;
+	background: white;
+	font-size: 1.5vw;
+	color: rgb(160,40,60);
+	outline: 0;
 }
 
 #submit-answer:active,
 #answer-box:active,
 #start-btn:active,
 #start-select:active{
-    box-shadow: 0px 0px 10px #fff;
+	box-shadow: 0px 0px 10px #fff;
 }
 
 #section--left{
-    position: absolute;
-    background: rgb(160,40,60);
-    height: 100vh;
-    width: 75%;
-    transform: skew(-30deg);
-    left: -30vw;
-    overflow: hidden;
+	position: absolute;
+	background: rgb(160,40,60);
+	height: 100vh;
+	width: 75%;
+	transform: skew(-30deg);
+	left: -30vw;
+	overflow: hidden;
 }
 
 #game-background{
-    position: absolute;
-    background: rgb(80,5,10);
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+	position: absolute;
+	background: rgb(80,5,10);
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
 }
 
 /* dashboard css */
 dashboard{
-    position:absolute;
-    width: 100%;
-    height: 100%;
-    background: rgb(80,5,10);
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	background: rgb(80,5,10);
 }
+
 dashboard h1{
-    position: absolute;
-    top: 3vw;
-    font-size: 4vw;
+	position: absolute;
+	top: 3vw;
+	font-size: 4vw;
 }
 
 dashboard h2{
-    position: absolute;
-    font-size: 3vw;
-    text-align: center;
-    display: inline;
-    margin: 0 auto;
-    text-decoration: none;
-    width: 100%;
-    top: 0vw;
-    z-index: 2;
+	position: absolute;
+	font-size: 3vw;
+	text-align: center;
+	display: inline;
+	margin: 0 auto;
+	text-decoration: none;
+	width: 100%;
+	top: 0vw;
+	z-index: 2;
 }
 
 dashboard #category-select{
-    position: absolute;
-    width: 15vw;
-    height: 2vw;
-    left: 65vw;
-    top: 5vw;
-    background: white;
-    border-radius: .5vw;
-    z-index: 3;
-    cursor: pointer;
+	position: absolute;
+	width: 15vw;
+	height: 2vw;
+	left: 65vw;
+	top: 5vw;
+	background: white;
+	border-radius: .5vw;
+	z-index: 3;
+	cursor: pointer;
 }
 
 dashboard #personal{
-    position: absolute;
-    background: rgb(20,20,20,.8);
-    width: 80%;
-    left: 10%;
-    top: 10vw;
-    height: 17.5vw;
+	position: absolute;
+	background: rgb(20,20,20,.8);
+	width: 80%;
+	left: 10%;
+	top: 10vw;
+	height: 17.5vw;
 }
 
 dashboard #profile-pic{
-    position: relative;
-    height: 10vw;
-    width: 10vw;
-    background: rgb(0,0,0);
-    border-radius: 50%;
-    left: 3%;
-    top: 2vw;
+	position: relative;
+	height: 10vw;
+	width: 10vw;
+	background: rgb(0,0,0);
+	border-radius: 50%;
+	left: 3%;
+	top: 2vw;
 }
 
 dashboard #profile-name{
-    position: relative;
-    top: 2vw;
-    left: 3.5vw;
-    font-size: 3vw;
-    width: 10vw;
-    text-align: center;
+	position: relative;
+	top: 2vw;
+	left: 3.5vw;
+	font-size: 3vw;
+	width: 10vw;
+	text-align: center;
 }
 
 dashboard ol{
-    position: absolute;
-    top: 4.5vw;
-    left: 30vw;
-    font-size: 2vw;
-    width: 14vw;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+	position: absolute;
+	top: 4.5vw;
+	left: 30vw;
+	font-size: 2vw;
+	width: 14vw;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 
 dashboard ul{
-    position: absolute;
-    top: 4.5vw;
-    left: 45vw;
-    font-size: 2vw;
+	position: absolute;
+	top: 4.5vw;
+	left: 45vw;
+	font-size: 2vw;
 }
 
 dashboard #ranking-label{
-    position: absolute;
-    font-size: 3vw;
-    top: 0vw;
-    left: 67.5vw;
+	position: absolute;
+	font-size: 3vw;
+	top: 0vw;
+	left: 67.5vw;
 }
 
 dashboard #ranking{
-    position: absolute;
-    font-size: 3vw;
-    top: 5vw;
-    left: 66vw;
-    height: 10vw;
-    width: 10vw;
-    background: rgb(150,40,40);
-    border-radius: 50%;
-    text-align: center;
-    padding-top: 2.75vw;
+	position: absolute;
+	font-size: 3vw;
+	top: 5vw;
+	left: 66vw;
+	height: 10vw;
+	width: 10vw;
+	background: rgb(150,40,40);
+	border-radius: 50%;
+	text-align: center;
+	padding-top: 2.75vw;
 }
 
 dashboard #global{
-    position: absolute;
-    background: rgb(20,20,20,.8);
-    width: 80%;
-    left: 10%;
-    top: 28vw;
-    height: 17.5vw;
+	position: absolute;
+	background: rgb(20,20,20,.8);
+	width: 80%;
+	left: 10%;
+	top: 28vw;
+	height: 17.5vw;
 }
 
 #hardest-label, #easiest-label, #leaderboard-label{
-    position: relative;
-    margin-right: 8vw;
-    margin-left: 8.2vw;
-    font-size: 1.5vw;
-    width: 10vw;
-    top: 4vw;
+	position: relative;
+	margin-right: 8vw;
+	margin-left: 8.2vw;
+	font-size: 1.5vw;
+	width: 10vw;
+	top: 4vw;
 }
 
 #global ol{
-    position: relative;
-    margin-right: 10vw;
-    width: 20vw;
+	position: relative;
+	margin-right: 10vw;
+	width: 20vw;
 
 }
 
 #global ul{
-    list-style: none;
-    width: 100%;
-    white-space: nowrap;
-    position: relative;
-    left: -21vw;
-    top: 0vw;
+	list-style: none;
+	width: 100%;
+	white-space: nowrap;
+	position: relative;
+	left: -21vw;
+	top: 0vw;
 }
 
 #global ul > li{
-    display: inline-block;
-    width: 33%;
+	display: inline-block;
+	width: 33%;
 }
 /* Animation Background */
 
 #section--left .shapes{
-    transform: skew(30deg);
+	transform: skew(30deg);
 }
 
 .shapes li{
-    position: absolute;
-    list-style: none;
-    border-radius: 0%;
-    animation: turn 25s linear infinite;
-    background: rgb(255,220,220,.5);
-    box-shadow: 0px 0px 10px #fff;
+	position: absolute;
+	list-style: none;
+	border-radius: 0%;
+	animation: turn 25s linear infinite;
+	background: rgb(255,220,220,.5);
+	box-shadow: 0px 0px 10px #fff;
 }
 
 .shapes li:nth-child(1){
-    transform: rotate(10deg);
-    width: 4vw;
-    height: 4vw;
-    top: 30vw;
-    left: -10vw;
-    animation: turnUp 20s linear infinite;
+	transform: rotate(10deg);
+	width: 4vw;
+	height: 4vw;
+	top: 30vw;
+	left: -10vw;
+	animation: turnUp 20s linear infinite;
 }
 .shapes li:nth-child(2){
-    transform: rotate(75deg);
-    width: 7vw;
-    height: 7vw;
-    top: 10vw;
-    left: -5vw;
-    animation: turnDown 12s linear infinite;
+	transform: rotate(75deg);
+	width: 7vw;
+	height: 7vw;
+	top: 10vw;
+	left: -5vw;
+	animation: turnDown 12s linear infinite;
 }
 .shapes li:nth-child(3){
-    transform: rotate(75deg);
-    width: 11vw;
-    height: 11vw;
-    top: 40vw;
-    left: -15vw;
-    animation: turnUp 25s linear infinite;
+	transform: rotate(75deg);
+	width: 11vw;
+	height: 11vw;
+	top: 40vw;
+	left: -15vw;
+	animation: turnUp 25s linear infinite;
 }
 .shapes li:nth-child(4){
-    transform: rotate(75deg);
-    width: 9vw;
-    height: 9vw;
-    top: 0vw;
-    left: -20vw;
-    animation: turnDown 30s linear infinite;
+	transform: rotate(75deg);
+	width: 9vw;
+	height: 9vw;
+	top: 0vw;
+	left: -20vw;
+	animation: turnDown 30s linear infinite;
 }
 .shapes li:nth-child(5){
-    transform: rotate(75deg);
-    width: 3vw;
-    height: 3vw;
-    top: 20vw;
-    left: -2vw;
-    animation: turnDown 16s linear infinite;
+	transform: rotate(75deg);
+	width: 3vw;
+	height: 3vw;
+	top: 20vw;
+	left: -2vw;
+	animation: turnDown 16s linear infinite;
 }
 .shapes li:nth-child(6){
-    transform: rotate(75deg);
-    width: 5.5vw;
-    height: 5.5vw;
-    top: -5vw;
-    left: -9vw;
-    animation: turnDown 20s linear infinite;
+	transform: rotate(75deg);
+	width: 5.5vw;
+	height: 5.5vw;
+	top: -5vw;
+	left: -9vw;
+	animation: turnDown 20s linear infinite;
 }
 .shapes li:nth-child(7){
-    transform: rotate(75deg);
-    width: 9vw;
-    height: 9vw;
-    top: 35vw;
-    left: -30vw;
-    animation: turnUp 40s linear infinite;
+	transform: rotate(75deg);
+	width: 9vw;
+	height: 9vw;
+	top: 35vw;
+	left: -30vw;
+	animation: turnUp 40s linear infinite;
 }
 .shapes li:nth-child(8){
-    transform: rotate(75deg);
-    width: 10vw;
-    height: 10vw;
-    top: 30vw;
-    left: -40vw;
-    animation: turnUp 40s linear infinite;
+	transform: rotate(75deg);
+	width: 10vw;
+	height: 10vw;
+	top: 30vw;
+	left: -40vw;
+	animation: turnUp 40s linear infinite;
 }
 .shapes li:nth-child(9){
-    transform: rotate(75deg);
-    width: 12vw;
-    height: 12vw;
-    top: 0vw;
-    left: -45vw;
-    animation: turnDown 40s linear infinite;
+	transform: rotate(75deg);
+	width: 12vw;
+	height: 12vw;
+	top: 0vw;
+	left: -45vw;
+	animation: turnDown 40s linear infinite;
 }
 .shapes li:nth-child(10){
-    transform: rotate(75deg);
-    width: 4vw;
-    height: 4vw;
-    top: 30vw;
-    left: -50vw;
-    animation: turnUp 40s linear infinite;
+	transform: rotate(75deg);
+	width: 4vw;
+	height: 4vw;
+	top: 30vw;
+	left: -50vw;
+	animation: turnUp 40s linear infinite;
 }
 
 #game-background .shapes li:nth-child(1){
-    animation: turnUp2 40s linear infinite;
+	animation: turnUp2 40s linear infinite;
 }
+
 #game-background .shapes li:nth-child(2){
-    animation: turnDown2 45s linear infinite;
+	animation: turnDown2 45s linear infinite;
 }
+
 #game-background .shapes li:nth-child(3){
-    animation: turnUp2 55s linear infinite;
+	animation: turnUp2 55s linear infinite;
 }
+
 #game-background .shapes li:nth-child(4){
-    animation: turnDown2 60s linear infinite;
+	animation: turnDown2 60s linear infinite;
 }
+
 #game-background .shapes li:nth-child(5){
-    animation: turnDown2 60s linear infinite;
+	animation: turnDown2 60s linear infinite;
 }
+
 #game-background .shapes li:nth-child(6){
-    animation: turnDown2 60s linear infinite;
+	animation: turnDown2 60s linear infinite;
 }
+
 #game-background .shapes li:nth-child(7){
-    animation: turnUp2 60s linear infinite;
+	animation: turnUp2 60s linear infinite;
 }
+
 #game-background .shapes li:nth-child(8){
-    animation: turnUp2 60s linear infinite;
+	animation: turnUp2 60s linear infinite;
 }
+
 #game-background .shapes li:nth-child(9){
-    animation: turnDown2 60s linear infinite;
+	animation: turnDown2 60s linear infinite;
 }
+
 #game-background .shapes li:nth-child(10){
-    animation: turnUp2 60s linear infinite;
+	animation: turnUp2 60s linear infinite;
 }
 
 
 @keyframes turnUp{
-    0%{
-        transform: translate(0vw) rotate(0deg);
-    }
-    100%{
-        transform: translate(100vw, -20vw) rotate(720deg);
-        border-radius: 0%;
-    }
+	0%{
+		transform: translate(0vw) rotate(0deg);
+	}
+	100%{
+		transform: translate(100vw, -20vw) rotate(720deg);
+		border-radius: 0%;
+	}
 }
 
 @keyframes turnDown{
-    0%{
-        transform: translate(0vw) rotate(0deg);
-    }
-    100%{
-        transform: translate(100vw, 20vw) rotate(720deg);
-        border-radius: 0%;
-    }
+	0%{
+		transform: translate(0vw) rotate(0deg);
+	}
+	100%{
+		transform: translate(100vw, 20vw) rotate(720deg);
+		border-radius: 0%;
+	}
 }
 
 @keyframes turnUp2{
-    0%{
-        transform: translate(0vw) rotate(0deg);
-    }
-    100%{
-        transform: translate(150vw, -20vw) rotate(720deg);
-        border-radius: 0%;
-    }
+	0%{
+		transform: translate(0vw) rotate(0deg);
+	}
+	100%{
+		transform: translate(150vw, -20vw) rotate(720deg);
+		border-radius: 0%;
+	}
 }
 
 @keyframes turnDown2{
-    0%{
-        transform: translate(0vw) rotate(0deg);
-    }
-    100%{
-        transform: translate(150vw, 20vw) rotate(720deg);
-        border-radius: 0%;
-    }
+	0%{
+		transform: translate(0vw) rotate(0deg);
+	}
+	100%{
+		transform: translate(150vw, 20vw) rotate(720deg);
+		border-radius: 0%;
+	}
 }
