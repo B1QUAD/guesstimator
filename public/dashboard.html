@@ -1,6 +1,7 @@
 <!-- This is the "landing" page -->
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 	<head>
 		<link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
 		<link rel="stylesheet" href="css/style.css"/>
@@ -14,6 +15,29 @@
 					<img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
 				</a>
 			</div>
+=======
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+        <link rel="stylesheet" href="css/style.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
+        <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
+        <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+        <script src="js/signIn.js"></script>
+        <title>Guesstimator</title>
+    </head>
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="dashboard.html">
+                    <img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
+                </a>
+            </div>
+>>>>>>> f2fddb3f41fbe3bb56a5b4c23c7973036ed2b0e5
 
 			<div class="navbar-brand">
 				<div class="navbar-item has-dropdown is-hoverable">
@@ -31,6 +55,7 @@
 				</div>
 			</div>
 
+<<<<<<< HEAD
 			<div class="navbar-end">
 			  <div class="navbar-item">
 				<div class="buttons">
@@ -41,6 +66,18 @@
 			  </div>
 			</div>
 		</nav>
+=======
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button" onclick="googleSignIn()">
+                    <strong>Sign In</strong>
+                  </a>
+                </div>
+              </div>
+            </div>
+        </nav>
+>>>>>>> f2fddb3f41fbe3bb56a5b4c23c7973036ed2b0e5
 
 		<dashboard>
 			<h1>Dashboard</h1>
