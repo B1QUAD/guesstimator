@@ -125,7 +125,7 @@ nav{
     width: 50vw;
     height: 30vw;
     background:  rgb(150,150,150);
-	overflow-x: hidden;
+	overflow-x: auto;
 	overflow-y: auto;
 }
 

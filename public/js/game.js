@@ -71,26 +71,6 @@ const getProgLangQuestion = () => {
 		// code.parentNode.removeChild(code);
 		console.log(questionData["codeRef"]);
 		embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
-		// questionBox.appendChild(code);
-		
-		// code.src = `https://emgithub.com/embed.js?target=${questionData['codeRef']}&style=atom-one-dark&showBorder=on&showLineNumbers=on`;
-		// loadFromApi(`https://emgithub.com/embed.js?target=${questionData['codeRef']}&style=atom-one-dark&showBorder=on&showLineNumbers=on`, {
-		// 	method: 'GET',
-		// 	headers: {
-		// 		'Accept': 'application/javascript'
-		// 	}
-		// }).then(function(response) {
-		// 	let raw = response['rawResponse'];
-		// 	console.log(raw);
-		// }
-		// 	// code.innerHTML =
-		// );
-		// questionBox.appendChild(code);
-		// questionBox.onload = function() {
-		// 	embed();
-		// }
-		// questionBox.appendChild(code);
-
         /*
             [1] fetch random code from GitHub API & set the correctAnswer variable
             [2] render it in HTML using emgithub.com
