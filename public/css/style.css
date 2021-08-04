@@ -118,15 +118,18 @@ nav{
     cursor: pointer;
 }
 
-#question-box{
+#question-box {
     position: absolute;
     top: 10vw;
     left: 25vw;
     width: 50vw;
-    height: 30vw;
-    background:  rgb(150,150,150);
+    max-height: 50vw;
+    /* background:  rgb(150,150,150); */
+	background: rgba(150, 150, 150, 25);
 	overflow-x: auto;
 	overflow-y: auto;
+	border-radius: 0.3rem;
+	z-index: 2;
 }
 
 #start-btn{
