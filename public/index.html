@@ -34,7 +34,7 @@
             Play Game!
         </button>
         <select name="gamemode" id="start-select">
-          <option value="invalid" disabled selected value>Gamemode &#129055;</option>
+          <option value="invalid" disabled selected value>Gamemode &#8595;</option>
           <option value="progLang">Programming</option>
           <option value="lyrics">lyrics</option>
         </select>
@@ -43,6 +43,7 @@
         <script type="text/javascript">
             const redirectToGame = () => {
                 const gamemode = document.querySelector('#start-select').value;
+				if (!gamemode || gamemode !== 'progLang' && gamemode !== 'lyrics') return;
                 window.location = `game.html?gamemode=${gamemode}`;
             };
         </script>

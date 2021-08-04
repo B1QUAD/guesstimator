@@ -50,7 +50,7 @@ function getQuestion() {
 async function getQuestions(numQuestions) {
     let questions = [];
     if (numQuestions > 10) {
-        console.log(`${numQuestions} would get rate limited after the 10th request.\n`);
+        // console.log(`${numQuestions} would get rate limited after the 10th request.\n`);
         numQuestions = 10; // Cap at 10 requests
     }
 
@@ -58,7 +58,7 @@ async function getQuestions(numQuestions) {
         questions.push(await getQuestion());
     }
 
-    console.log('Do not call getQuestion or getQuestions for another minute to avoid rate limiting.');
+    // console.log('Do not call getQuestion or getQuestions for another minute to avoid rate limiting.');
     return questions;
 }
 
@@ -66,9 +66,9 @@ async function loadFromApi(url, params) {
     return new Promise((resolve, reject) => {
         fetch(url, params).then(async function (response) {
             let status = response.status;
-            console.log(typeof status, '\n' + status);
+            // console.log(typeof status, '\n' + status);
             let jsonResponse = await response.json();
-            console.log(jsonResponse);
+            // console.log(jsonResponse);
 
             if (status === 403) {
                 alert('Rate limit for GitHub exceeded.\nPlease wait ~30 seconds before continuing play.')
@@ -80,7 +80,7 @@ async function loadFromApi(url, params) {
 
             resolve({rawResponse: response, jsonResponse: jsonResponse});
         }).catch(function (error) {
-            console.log(error);
+            // console.log(error);
         });
     });
 }

@@ -1,14 +1,10 @@
-let correctAnswer;
 let currentGame;
 let currentGameRef;
 let isCheckingAnswer = false;
 let userId = 'guest'; // temporary; this variable should be initialized in signIn.js
 
-console.log('script is running');
-
 const initializeGame = () => {
     return new Promise((resolve, reject) => {
-        console.log('in initialize game');
         getCurrentGame().then(currGameInfo => {
             if (!currGameInfo.isReady) {
                 return resolve(false);
@@ -32,7 +28,7 @@ const initializeGame = () => {
 const getProgLangQuestion = (timestamp) => {
     return new Promise((resolve, reject) => {
         getQuestion().then(function (questionData) {
-    		currentGame.currentQuestion.acceptedAnswers = questionData.answer;
+    		currentGame.currentQuestion.acceptedAnswers = questionData.answer.map(a => a.trim().toLowerCase());
             currentGame.currentQuestion.content = questionData.codeRef;
             currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
             currentGameRef.update(currentGame).then(renderProgLangQuestion);
@@ -47,28 +43,25 @@ const renderProgLangQuestion = () => {
 
 const checkAnswer = () => {
     if (isCheckingAnswer) return;
-    isCheckingAnswer = true;
-    // toggle loading
 
     const answerBox = document.querySelector('#answer-box');
-    const answer = answerBox.value;
+    const answer = answerBox.value.trim().toLowerCase();
+    if (!answer || answer.length === 0) return;
 
-    getCurrentGame().then(result => {
-        if (answer === correctAnswer) {
-            currentGame.numCorrect++;
-            currentGameRef.update(currentGame).then(result => {
-                isCheckingAnswer = false;
-                answerButton.classList.remove('is-loading');
-            }).catch(err => {
-                console.error(err);
-            });
-        } else {
-            currentGame.numIncorrect++;
-            currentGameRef.update(currentGame).then(result => {
-                isCheckingAnswer = false;
-                answerButton.classList.remove('is-loading');
-            }).catch(err => {
-                console.error(err);
+    isCheckingAnswer = true;
+
+    if (currentGame.currentQuestion.acceptedAnswers.includes(answer)) {
+        currentGame.numCorrect++;
+    } else {
+        currentGame.numIncorrect++;
+    }
+    currentGame.currentQuestion.questionNum++;
+
+    currentGameRef.update(currentGame).then(result => {
+        isCheckingAnswer = false;
+        if (currentGame.gamemode === 'progLang') {
+            getProgLangQuestion().then(result => {
+                answerBox.value = '';
             });
         }
     });
@@ -78,7 +71,6 @@ const checkAnswer = () => {
    If a game is not in session, this function will resolve with false and initialize currentGame & currentGameRef to a new template game. */
 const getCurrentGame = () => {
     return new Promise((resolve, reject) => {
-        console.log('in current game');
         const allGamesRef = firebase.database().ref(`/users/${userId}/games`);
 
         allGamesRef.get().then(snapshot => {
@@ -153,7 +145,6 @@ const getCurrentGame = () => {
 };
 
 window.onload = function() {
-    console.log('in window onload');
     initializeGame().then(isReady => {
         if (!isReady) {
             return;
