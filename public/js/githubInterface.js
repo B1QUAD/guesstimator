@@ -29,22 +29,21 @@ function getQuestion() {
     		answer: [currentLang].concat(languages[currentLang])
     	};
 
-    	// Search for files with that language in them
-    	// https://api.github.com/search/code?q=language:${lang}+repo:leachim6/Hello-World
-    	loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
-    		method: 'GET',
-    		headers: {
-    			'Accept': 'application/vnd.github.v3+json'
-    		}
-    	}).then(function(response) {
-    		json = response['jsonResponse'];
-            json.then(result => {
-              choices = result['items'];
-              returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
-              resolve(returnObj);
-            });
-    	});
-    });
+	// Search for files with that language in them
+	// https://api.github.com/search/code?q=language:${lang}+repo:leachim6/Hello-World
+	let response = await loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/vnd.github.v3+json'
+		}
+	});
+
+	json = await response['jsonResponse'];
+
+	choices = json['items'];
+	returnObj.codeRef = getRandomValFromArray(choices)['html_url'];
+	console.log('Return object', returnObj);
+	return returnObj;
 }
 
 // Gets and returns an array with numQuestions indices.
@@ -66,16 +65,36 @@ async function getQuestions(numQuestions) {
 
 // This loads data from a url given the url and a params obj to pass into fetch
 // Returns obj with response and json response data
-function loadFromApi(url, params) {
-    return new Promise((resolve, reject) => {
-        fetch(url, params)
-            .then(function(response) {
-                resolve({
-                    rawResponse: response,
-                    jsonResponse: response.json()
-                });
-            }).catch(error => console.log(error));
-    });
+// <<<<<<< gameLogic
+// function loadFromApi(url, params) {
+//     return new Promise((resolve, reject) => {
+//         fetch(url, params)
+//             .then(function(response) {
+//                 resolve({
+//                     rawResponse: response,
+//                     jsonResponse: response.json()
+//                 });
+//             }).catch(error => console.log(error));
+//     });
+// =======
+async function loadFromApi(url, params) {
+	return await fetch(url, params)
+        .then(function(response) {
+			let status = response.status;
+			console.log(typeof status, '\n' + status);
+			if(status === 403) {
+				alert('Rate limit for GitHub exceeded.\nPlease wait ~30 seconds before continuing play.')
+			} else if (status !== 200) {
+				alert('Error calling the GitHub API.\nPlease refresh the page.');
+			}
+
+            return {
+                rawResponse: response,
+                jsonResponse: response.json()
+            };
+        }).catch(function(error) {
+			console.log(error);
+		});
 }
 
 // ********************************
