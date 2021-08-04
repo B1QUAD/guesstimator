@@ -27,6 +27,7 @@ let songIds=[];
 
 let currSongLs;
 
+//will return answer
 runLyricsApi = () => {
 	var dateObj = new Date();
 	var date = dateObj.getDate();
@@ -49,7 +50,7 @@ runLyricsApi = () => {
 			}
 			localStorage.setItem('currSong', currSongLs);
 			getLyrics(songId, songName, songArtist);
-			return console.log(songName + " - " + songArtist);
+			return songName + " - " + songArtist;
 		}else{
 			localStorage.clear();
 			getSongInfo();
@@ -60,6 +61,7 @@ runLyricsApi = () => {
 	}
 }
 
+//will return lyrics
 function getFinalLyrics(){
 	console.log(localStorage.getItem('lyrics'));
 	return localStorage.getItem('lyrics');
