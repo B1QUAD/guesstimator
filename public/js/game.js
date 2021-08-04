@@ -13,7 +13,7 @@ const initializeGame = () => {
 	// This gets the gamemode from the URL query string
 	// Get current location
 	const queryString = window.location.search;
-	console.log(queryString);
+	// console.log(queryString);
 	// Create a URLSearchParams object to parse the gamemode
 	const urlParams = new URLSearchParams(queryString);
 
@@ -26,7 +26,7 @@ const initializeGame = () => {
 
 	// Parse out the gamemode
 	const gameMode = urlParams.get('gameMode');
-	console.log(`GameMode: ${gameMode}`);
+	// console.log(`GameMode: ${gameMode}`);
 
     let totalQuestions = 20; // for now, the total number of questions will be fixed
 
@@ -62,7 +62,6 @@ const initializeGame = () => {
 };
 
 const getProgLangQuestion = () => {
-	// getQuestion().then(questionData => console.log(questionData));
     getQuestion().then(function (questionData) {
 		const questionBox = document.querySelector('#question-box');
 		const code = document.querySelector('#embedContainer');
@@ -76,7 +75,9 @@ const getProgLangQuestion = () => {
             [2] render it in HTML using emgithub.com
             [3] increment currentQuestion.questionNum by 1 & set currentQuestion.timestamp
         */
-    });
+    }).catch(function(err) {
+		getProgLangQuestion();
+	});
 };
 
 // answerButton is the HTML element of the answer button which was clicked

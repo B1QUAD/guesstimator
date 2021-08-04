@@ -36,14 +36,6 @@ async function getQuestion() {
 			'Accept': 'application/vnd.github.v3+json'
 		}
 	});
-	// .then(function(response) {
-	// 	json = response['jsonResponse'];
-    //     json.then(result => {
-    //       choices = result['items'];
-    //       returnObj.codeRef = 'test';//getRandomValFromArray(choices)['html_url'];
-    //       console.log('Return object', returnObj);
-    //     });
-	// });
 
 	json = await response['jsonResponse'];
 
@@ -75,11 +67,21 @@ async function getQuestions(numQuestions) {
 async function loadFromApi(url, params) {
 	return await fetch(url, params)
         .then(function(response) {
+			let status = response.status;
+			console.log(typeof status, '\n' + status);
+			if(status === 403) {
+				alert('Rate limit for GitHub exceeded.\nPlease wait ~30 seconds before continuing play.')
+			} else if (status !== 200) {
+				alert('Error calling the GitHub API.\nPlease refresh the page.');
+			}
+
             return {
                 rawResponse: response,
                 jsonResponse: response.json()
             };
-        }).catch(error => console.log(error));
+        }).catch(function(error) {
+			console.log(error);
+		});
 }
 
 // ********************************
