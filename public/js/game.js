@@ -68,7 +68,7 @@ const getProgLangQuestion = () => {
 
 		// Force JS reload
 		// code.parentNode.removeChild(code);
-		console.log(questionData["codeRef"]);
+		// console.log(questionData["codeRef"]);
 		embed(`?target=${questionData["codeRef"]}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
         /*
             [1] fetch random code from GitHub API & set the correctAnswer variable

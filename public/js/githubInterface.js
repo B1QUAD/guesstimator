@@ -66,18 +66,23 @@ async function getQuestions(numQuestions) {
 // Returns obj with response and json response data
 async function loadFromApi(url, params) {
 	return await fetch(url, params)
-        .then(function(response) {
+        .then(async function(response) {
 			let status = response.status;
 			console.log(typeof status, '\n' + status);
+			let jsonResponse = await response.json();
+			console.log(jsonResponse);
+
 			if(status === 403) {
 				alert('Rate limit for GitHub exceeded.\nPlease wait ~30 seconds before continuing play.')
 			} else if (status !== 200) {
 				alert('Error calling the GitHub API.\nPlease refresh the page.');
+			} else {
+				// window.location.href = window.location.search;
 			}
 
             return {
                 rawResponse: response,
-                jsonResponse: response.json()
+                jsonResponse: jsonResponse
             };
         }).catch(function(error) {
 			console.log(error);
