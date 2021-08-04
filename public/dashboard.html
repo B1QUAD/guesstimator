@@ -5,6 +5,14 @@
         <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
         <link rel="stylesheet" href="css/style.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
+        <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
+        <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+        <script src="js/signIn.js"></script>
         <title>Guesstimator</title>
     </head>
     <body>
@@ -34,7 +42,7 @@
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
-                  <a class="button">
+                  <a class="button" onclick="googleSignIn()">
                     <strong>Sign In</strong>
                   </a>
                 </div>
