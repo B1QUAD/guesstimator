@@ -39,8 +39,15 @@ function getQuestion() {
     	}).then(function(response) {
             json = response['jsonResponse'];
             choices = json['items'];
-            returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
-            resolve(returnObj);
+
+			// Check to see if the API returned nothing for some reason
+			if (json['total_count'] < 1) {
+				console.log('Re trying API request');
+				resolve(getQuestion());
+			} else {
+				returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
+				resolve(returnObj);
+			}
     	});
     });
 }
