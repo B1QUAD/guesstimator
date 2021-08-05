@@ -40,7 +40,7 @@ runLyricsApi = () => {
 				localStorage.setItem('currSong', 0);
 				currSongLs=0;
 			}
-			console.log("Exists already");
+			// console.log("Exists already");
 			let songId=retrievedSongObject.songIds[currSongLs];
 			let songName=retrievedSongObject.songName[currSongLs];
 			let songArtist=retrievedSongObject.songArtists[currSongLs];
@@ -50,7 +50,7 @@ runLyricsApi = () => {
 			}
 			localStorage.setItem('currSong', currSongLs);
 			getLyrics(songId, songName, songArtist);
-			return songName + " - " + songArtist;
+			return {name: songName, artist: songArtist};
 		}else{
 			localStorage.clear();
 			getSongInfo();
@@ -63,7 +63,7 @@ runLyricsApi = () => {
 
 //will return lyrics
 function getFinalLyrics(){
-	console.log(localStorage.getItem('lyrics'));
+	// console.log(localStorage.getItem('lyrics'));
 	return localStorage.getItem('lyrics');
 }
 
@@ -72,16 +72,16 @@ function getSongInfo() {
 		.then(response=>response.json())
 		.then(data => {
 			songList=data.message.body.track_list;
-			//console.log(songList);
+			// console.log(songList);
 			for(let i=0;i<songList.length;i++){
-				//console.log(songList[i].track.track_name + " - " + songList[i].track.artist_name);
+				// console.log(songList[i].track.track_name + " - " + songList[i].track.artist_name);
 				songNames.push(songList[i].track.track_name);
 				songArtists.push(songList[i].track.artist_name);
 				songIds.push(songList[i].track.track_id);
 			}
 			var dateObj = new Date();
 			var date = dateObj.getDate();
-			//console.log(songNames);
+			// console.log(songNames);
 			let songInfoObj={
 				date:date,
 				songName: songNames,
@@ -90,8 +90,8 @@ function getSongInfo() {
 			}
 			localStorage.setItem('allSongInfo', JSON.stringify(songInfoObj));
 			let retrievedSongObject = JSON.parse(localStorage.getItem('allSongInfo'));
-			console.log(retrievedSongObject);
-			console.log("ran get song info")
+			// console.log(retrievedSongObject);
+			// console.log("ran get song info")
 			runLyricsApi();
 		});
 }
@@ -105,8 +105,8 @@ getLyrics = (trackId, songName, songArtist) => {
 					let numLines=lyrics.split(/\r\n|\r|\n/).length;
 					lyrics=lyrics.split(/\r\n|\r|\n/);
 					lyrics=lyrics[Math.floor(numLines/2)] + " " + lyrics[Math.floor(numLines/2 + 1)];
-					//console.log(lyrics);
-					console.log(songName + " - " + songArtist);
+					// console.log(lyrics);
+					// console.log(songName + " - " + songArtist);
 					localStorage.setItem('lyrics', lyrics);
 					//return lyrics;
 			});

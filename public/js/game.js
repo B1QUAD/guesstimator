@@ -7,14 +7,6 @@ let checkAnswerTimeout;
 const questionBox = document.querySelector('#question-box');
 
 const initializeGame = () => {
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            userId=user.uid;
-        } else {
-            userId="guest";
-        }
-    });
-
     return new Promise((resolve, reject) => {
         getCurrentGame().then(currGameInfo => {
             if (!currGameInfo.isReady) {
@@ -33,9 +25,8 @@ const initializeGame = () => {
                 });
             } else if (currentGame.gamemode === 'lyrics') {
                 if (currGameInfo.needsNewQuestion) {
-                    getLyricsQuestion().then(result => {
-                        resolve(true);
-                    });
+                    getLyricsQuestion(currGameInfo.newQuestionTimestamp);
+                    resolve(true);
                 } else {
                     renderLyricsQuestion();
                     resolve(true);
@@ -63,12 +54,19 @@ const renderProgLangQuestion = () => {
     embed(`?target=${currentGame.currentQuestion.content}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
 };
 
-const getLyricsQuestion = () => {
-    //
+const getLyricsQuestion = (timestamp) => {
+    var songInfo = runLyricsApi();
+    songInfo.lyrics = getFinalLyrics();
+
+    currentGame.currentQuestion.acceptedAnswers = [songInfo.name, songInfo.artist];
+    console.log(currentGame.currentQuestion.acceptedAnswers);
+    currentGame.currentQuestion.content = songInfo.lyrics;
+    currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
+    currentGameRef.update(currentGame).then(renderLyricsQuestion);
 };
 
 const renderLyricsQuestion = () => {
-    //
+    console.log('ready to render lyrics');
 };
 
 const checkAnswer = () => {
@@ -89,7 +87,7 @@ const checkAnswer = () => {
     currentGame.currentQuestion.questionNum++;
 
     currentGameRef.update(currentGame).then(result => {
-        // If game is finished
+        // if game is finished
         if (currentGame.numCorrect + currentGame.numIncorrect >= currentGame.totalQuestions) {
             currentGame.incompleteFinish = false;
             delete currentGame.currentQuestion;
@@ -99,7 +97,7 @@ const checkAnswer = () => {
             return;
         }
 
-        // If game is not finished
+        // if game is not finished
         if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
                 answerBox.value = '';
@@ -107,11 +105,10 @@ const checkAnswer = () => {
                 isCheckingAnswer = false;
             });
         } else if (currentGame.gamemode === 'lyrics') {
-            getLyricsQuestion().then(result => {
-                answerBox.value = '';
-                refreshUI();
-                isCheckingAnswer = false;
-            });
+            getLyricsQuestion();
+            answerBox.value = '';
+            refreshUI();
+            isCheckingAnswer = false;
         }
     });
 };
@@ -123,6 +120,9 @@ const getCurrentGame = () => {
         const allGamesRef = firebase.database().ref(`/users/${userId}/games`);
 
         allGamesRef.get().then(snapshot => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gamemode = urlParams.get('gamemode');
+
             let games = snapshot.val() || {};
             let gamesKeys = Object.keys(games);
 
@@ -136,7 +136,7 @@ const getCurrentGame = () => {
                 gameEndDate.setSeconds(gameEndDate.getSeconds() + currentGame.totalQuestions * currentGame.timePerQuestion - 3);
 
                 if (currentGame.currentQuestion && currentGame.currentQuestion.questionNum < currentGame.totalQuestions
-                        && gameEndDate > new Date()) {
+                        && gameEndDate > new Date() && gamemode && currentGame.gamemode === gamemode) {
                     let questionEndDate = new Date(currentGame.currentQuestion.timestamp);
                     questionEndDate.setSeconds(questionEndDate.getSeconds() + currentGame.timePerQuestion);
 
@@ -159,9 +159,6 @@ const getCurrentGame = () => {
                     });
                 }
             }
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const gamemode = urlParams.get('gamemode');
 
             if (!gamemode || gamemode !== 'progLang' && gamemode !== 'lyrics') {
                 window.location = 'index.html';
