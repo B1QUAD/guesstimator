@@ -292,7 +292,7 @@ dashboard #ranking{
     padding-top: 2.75vw;
 }
 
-dashboard #global{
+dashboard #globalField{
     position: absolute;
     background: rgb(20,20,20,.8);
     width: 80%;
@@ -310,14 +310,14 @@ dashboard #global{
     top: 4vw;
 }
 
-#global ol{
+#globalField ol{
     position: relative;
     margin-right: 10vw;
     width: 20vw;
 
 }
 
-#global ul{
+#globalField ul{
     list-style: none;
     width: 100%;
     white-space: nowrap;
@@ -326,7 +326,7 @@ dashboard #global{
     top: 0vw;
 }
 
-#global ul > li{
+#globalField ul > li{
     display: inline-block;
     width: 33%;
 }
