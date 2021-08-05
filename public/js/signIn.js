@@ -57,6 +57,8 @@ window.onload = () =>{
     }
     if (!user) {
         signInBtn.innerHTML="Sign In"
+      userId="guest";
+    }
   });
 };
 
