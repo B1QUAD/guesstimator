@@ -73,25 +73,27 @@ const checkAnswer = () => {
 
     if (currentGame.currentQuestion.acceptedAnswers.includes(answer)) {
         currentGame.numCorrect++;
-        currentGame.streak++;
+        currentGame.currentStreak++;
     } else {
         currentGame.numIncorrect++;
-        currentGame.streak = 0;
+        currentGame.currentStreak = 0;
     }
     currentGame.currentQuestion.questionNum++;
 
     currentGameRef.update(currentGame).then(result => {
+        // If game is finished
         if (currentGame.numCorrect + currentGame.numIncorrect >= currentGame.totalQuestions) {
             currentGame.incompleteFinish = false;
             delete currentGame.currentQuestion;
-            delete currentGame.currentStreak;
             currentGameRef.set(currentGame).then(result => {
                 console.log('Updated current game to finished.');
+                refreshUI();
+                alert('Congratulations, you finished the game!');
             });
-            alert('Congratulations, you finished the game.');
             return;
         }
 
+        // If game is not finished
         if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
                 answerBox.value = '';
@@ -193,19 +195,23 @@ const refreshUI = () => {
     score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
     streak.innerText = `Streak: ${currentGame.currentStreak}`;
 
-    const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
-    const secondsLeft = (questionEndTime - new Date().getTime()) / 1000;
-    timer.innerText = Math.ceil(secondsLeft);
+    if (currentGame.currentQuestion) { // if game has not finished
+        const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
+        const secondsLeft = (questionEndTime - new Date().getTime()) / 1000;
+        timer.innerText = Math.ceil(secondsLeft);
 
-    clearInterval(timerInterval);
-    timerInterval = setInterval(function() {
-        const newSecondsLeft = parseInt(timer.innerText) - 1;
-        timer.innerText = newSecondsLeft;
-        if (newSecondsLeft <= 0) clearInterval(timerInterval);
-    }, 1000);
+        clearInterval(timerInterval);
+        timerInterval = setInterval(function() {
+            const newSecondsLeft = parseInt(timer.innerText) - 1;
+            timer.innerText = newSecondsLeft;
+            if (newSecondsLeft <= 0) clearInterval(timerInterval);
+        }, 1000);
 
-    clearTimeout(checkAnswerTimeout);
-    checkAnswerTimeout = setTimeout(checkAnswer, secondsLeft * 1000);
+        clearTimeout(checkAnswerTimeout);
+        checkAnswerTimeout = setTimeout(checkAnswer, secondsLeft * 1000);
+    } else { // if game has finished
+        timer.innerText = '-';
+    }
 };
 
 window.onload = function() {
