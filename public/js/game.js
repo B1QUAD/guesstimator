@@ -4,6 +4,8 @@ let isCheckingAnswer = false;
 let timerInterval;
 let checkAnswerTimeout;
 
+const questionBox = document.querySelector('#question-box');
+
 const initializeGame = () => {
     return new Promise((resolve, reject) => {
         getCurrentGame().then(currGameInfo => {
@@ -39,6 +41,7 @@ const getProgLangQuestion = (timestamp) => {
 };
 
 const renderProgLangQuestion = () => {
+    questionBox.innerHTML = '';
     embed(`?target=${currentGame.currentQuestion.content}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
 }
 
