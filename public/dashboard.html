@@ -1,21 +1,21 @@
-<!-- This is the "landing" page -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-        <link rel="stylesheet" href="css/style.css"/>
-        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
-        <!-- update the version number as needed -->
-        <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
-        <!-- include only the Firebase features as you need -->
-        <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
-        <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
-        <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-        <script src="js/signIn.js"></script>
-        <title>Guesstimator</title>
-    </head>
-    <body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guesstimator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script src="js/signIn.js"></script>
+  </head>
+  <body>
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="dashboard.html">
@@ -49,14 +49,63 @@
               </div>
             </div>
         </nav>
+        <dashboard>
+            <h1>Dashboard</h1>
+            <select name="category" id="category-select">
+                  <option value="invalid" disabled selected value>Category &#129055;</option>
+                  <option value="programming">Programming</option>
+                  <option value="lyrics">lyrics</option>
+            </select>
 
-		<dashboard>
-			<h1>Dashboard</h1>
-			<select name="category" id="category-select">
-				  <option value="invalid" disabled selected value>Category &#129055;</option>
-				  <option value="programming">Programming</option>
-				  <option value="lyrics">lyrics</option>
-			</select>
+            <section id="personal">
+                <h2>Top Topic</h2>
+                <div id="profile-pic"></div>
+                <label for="profile-pic" id="profile-name">Name</label>
+                <ol id="personal-top">
+                    <li>1. Thing</li>
+                    <li>2. Thing</li>
+                    <li>3. Thing</li>
+                </ol>
+                <ul id="personal-score">
+                    <li>score/score</li>
+                    <li>score/score</li>
+                    <li>score/score</li>
+                </ul>
+                <label for="ranking" id="ranking-label">Rank</label>
+                <div id="ranking">#</div>
+            </section>
+
+            <section id="globalField">
+                <h2>Global Info</h2>
+                <label for="hardest" id="hardest-label">Most Difficult</label>
+                <label for="easiest" id="easiest-label">Most Recognizable</label>
+                <label for="leaderboard" id="leaderboard-label">Leaderboard</label>
+                <ul>
+                    <li>
+                        <ol id="hardest">
+                            <li>1. Thing</li>
+                            <li>2. Thing</li>
+                            <li>3. Thing</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <ol id="easiest">
+                            <li>1. Thing</li>
+                            <li>2. Thing</li>
+                            <li>3. Thing</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <ol id="leaderboard">
+                            <li>1. Thing</li>
+                            <li>2. Thing</li>
+                            <li>3. Thing</li>
+                        </ol>
+                    </li>
+                </ul>
+            </section>
+
+        </dashboard>
 
 			<section id="personal">
 				<h2>Top Topic</h2>
