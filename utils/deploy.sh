@@ -1,1 +1,1 @@
-alias deploy='firebase deploy --only hosting'
+firebase deploy --only hosting
