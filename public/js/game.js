@@ -62,6 +62,17 @@ const checkAnswer = () => {
 
     currentGameRef.update(currentGame).then(result => {
         if (currentGame.gamemode === 'progLang') {
+            if (currentGame.numCorrect + currentGame.numIncorrect >= currentGame.totalQuestions) {
+                currentGame.incompleteFinish = false;
+                delete currentGame.currentQuestion;
+                delete currentGame.currentStreak;
+                currentGameRef.set(currentGame).then(result => {
+                    console.log('Updated current game to finished.');
+                });
+                alert('Congratulations, you finished the game.');
+                return;
+            }
+
             getProgLangQuestion().then(result => {
                 answerBox.value = '';
                 refreshUI();
@@ -110,7 +121,7 @@ const getCurrentGame = () => {
                 } else {
                     currentGame.hasFinished = true;
                     currentGameRef.update(currentGame).then(result => {
-                        console.log("Updated previous game to finished.");
+                        console.log('Updated previous game to finished.');
                     });
                 }
             }
@@ -129,9 +140,9 @@ const getCurrentGame = () => {
                 incompleteFinish: true,
                 currentQuestion: {
                     acceptedAnswers: [],
-                    content: "",
+                    content: '',
                     questionNum: 1,
-                    timestamp: ""
+                    timestamp: ''
                 },
                 currentStreak: 0,
                 numCorrect: 0,
