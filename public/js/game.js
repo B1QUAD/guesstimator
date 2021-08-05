@@ -10,10 +10,11 @@ const initializeGame = () => {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             userId=user.uid;
-        } else{
+        } else {
             userId="guest";
-        } 
+        }
     });
+
     return new Promise((resolve, reject) => {
         getCurrentGame().then(currGameInfo => {
             if (!currGameInfo.isReady) {
@@ -93,9 +94,7 @@ const checkAnswer = () => {
             currentGame.incompleteFinish = false;
             delete currentGame.currentQuestion;
             currentGameRef.set(currentGame).then(result => {
-                console.log('Updated current game to finished.');
-                refreshUI();
-                alert('Congratulations, you finished the game!');
+                refreshUI(true);
             });
             return;
         }
@@ -183,7 +182,7 @@ const getCurrentGame = () => {
                 numCorrect: 0,
                 numIncorrect: 0,
                 totalQuestions: 10, // for now, this is fixed
-                timePerQuestion: 10, // in seconds; for now, this is fixed
+                timePerQuestion: 20, // in seconds; for now, this is fixed
                 timestamp: new Date().toUTCString()
             };
 
@@ -198,11 +197,11 @@ const score = document.querySelector('#score');
 const streak = document.querySelector('#streak');
 const timer = document.querySelector('#timer');
 
-const refreshUI = () => {
+const refreshUI = (gameHasEnded) => {
     score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
     streak.innerText = `Streak: ${currentGame.currentStreak}`;
 
-    if (currentGame.currentQuestion) { // if game has not finished
+    if (!gameHasEnded) {
         const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
         const secondsLeft = (questionEndTime - new Date().getTime()) / 1000;
         timer.innerText = Math.ceil(secondsLeft);
@@ -216,7 +215,9 @@ const refreshUI = () => {
 
         clearTimeout(checkAnswerTimeout);
         checkAnswerTimeout = setTimeout(checkAnswer, secondsLeft * 1000);
-    } else { // if game has finished
+    } else {
+        clearInterval(timerInterval);
+        clearTimeout(checkAnswerTimeout);
         timer.innerText = '-';
     }
 };
