@@ -1,7 +1,7 @@
 const maxPersonalListEntries = 5;
 const maxGlobalListEntries = 10;
-const categoryDropDown2 = document.querySelector("#category-select");
-let category2 = categoryDropDown.value;
+const categoryDropDown = document.querySelector("#category-select");
+let category = categoryDropDown.value;
 const personalHeader=document.querySelector("#personal-header");
 const globalHeader=document.querySelector("#global-header");
 const profileName=document.querySelector("#profile-name");
