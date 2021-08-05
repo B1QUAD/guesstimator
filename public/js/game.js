@@ -213,23 +213,3 @@ const refreshUI = () => {
         timer.innerText = '-';
     }
 };
-
-window.onload = function() {
-    initializeGame().then(isReady => {
-        if (!isReady) {
-            return;
-        }
-
-        refreshUI();
-    });
-
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        signInBtn.innerHTML="Change Accounts";
-    }
-    if (!user) {
-        signInBtn.innerHTML="Sign In";
-        userId="guest";
-    }
-  });
-};

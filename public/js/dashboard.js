@@ -106,6 +106,3 @@ function dashInit() {
 		console.log('Test\n', data);
   	});
 }
-
-// Add load event listener to the window
-window.addEventListener("load", dashInit, true);
