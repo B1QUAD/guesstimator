@@ -48,26 +48,6 @@ const signInBtn=document.querySelector("#signIn-btn");
 
 let category="Programming";
 
-window.onload = () =>{
-  changeDom();  
-
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        signInBtn.innerHTML="Change Accounts";
-    }
-    if (!user) {
-        signInBtn.innerHTML="Sign In"
-        userId="guest";
-    }
-  });
-};
-
-
-categoryDropDown.addEventListener('change', (e) => {
-    category=document.querySelector("#category-select").value;
-    changeDom();
-});
-
 const changeDom = () =>{
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -91,6 +71,11 @@ const changeDom = () =>{
     getUserStats();
 };
 
+categoryDropDown.addEventListener('change', (e) => {
+    category=document.querySelector("#category-select").value;
+    changeDom();
+});
+
 const getUserStats = () => {
 	const userRef = firebase.database().ref(`users/${userId}`);
 	userRef.on('value', (snapshot) => {
@@ -98,7 +83,7 @@ const getUserStats = () => {
         console.log(data);
 		//changeUserDom(data);
 	});
-} 
+}
 
 const changeUserDom = (data) => {
     if(category=="Programming"){
@@ -109,3 +94,17 @@ const changeUserDom = (data) => {
         console.log(data);
     }
 }
+
+window.onload = () =>{
+  changeDom();
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        signInBtn.innerHTML="Change Accounts";
+    }
+    if (!user) {
+        signInBtn.innerHTML="Sign In"
+      userId="guest";
+    }
+  });
+};
