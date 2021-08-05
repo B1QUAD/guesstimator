@@ -1,6 +1,8 @@
 let currentGame;
 let currentGameRef;
 let isCheckingAnswer = false;
+let timerInterval;
+let checkAnswerTimeout;
 let userId = 'guest'; // temporary; this variable should be initialized in signIn.js
 
 const initializeGame = () => {
@@ -43,25 +45,27 @@ const renderProgLangQuestion = () => {
 
 const checkAnswer = () => {
     if (isCheckingAnswer) return;
+    isCheckingAnswer = true;
 
     const answerBox = document.querySelector('#answer-box');
-    const answer = answerBox.value.trim().toLowerCase();
-    if (!answer || answer.length === 0) return;
-
-    isCheckingAnswer = true;
+    let answer = answerBox.value.trim().toLowerCase();
+    answer = answer || 'no-answer-provided';
 
     if (currentGame.currentQuestion.acceptedAnswers.includes(answer)) {
         currentGame.numCorrect++;
+        currentGame.streak++;
     } else {
         currentGame.numIncorrect++;
+        currentGame.streak = 0;
     }
     currentGame.currentQuestion.questionNum++;
 
     currentGameRef.update(currentGame).then(result => {
-        isCheckingAnswer = false;
         if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
                 answerBox.value = '';
+                refreshUI();
+                isCheckingAnswer = false;
             });
         }
     });
@@ -144,22 +148,33 @@ const getCurrentGame = () => {
     });
 };
 
+const score = document.querySelector('#score');
+const streak = document.querySelector('#streak');
+const timer = document.querySelector('#timer');
+
+const refreshUI = () => {
+    score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
+    streak.innerText = `Streak: ${currentGame.currentStreak}`;
+
+    const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
+    const secondsLeft = (questionEndTime - new Date().getTime()) / 1000;
+    timer.innerText = Math.ceil(secondsLeft);
+
+    clearInterval(timerInterval);
+    timerInterval = setInterval(function() {
+        timer.innerText = parseInt(timer.innerText) - 1;
+    }, 1000);
+
+    clearTimeout(checkAnswerTimeout);
+    checkAnswerTimeout = setTimeout(checkAnswer, secondsLeft * 1000);
+};
+
 window.onload = function() {
     initializeGame().then(isReady => {
         if (!isReady) {
             return;
         }
 
-        // Refreshes the UI with the current game's data (useful if a player accidentally refreshes mid-game)
-        const score = document.querySelector('#score');
-        score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
-
-        const streak = document.querySelector('#streak');
-        streak.innerText = `Streak: ${currentGame.currentStreak}`;
-
-        const timer = document.querySelector('#timer');
-        const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
-        const timeLeft = (questionEndTime - new Date().getTime()) / 1000;
-        timer.innerText = Math.ceil(timeLeft);
+        refreshUI();
     });
 };
