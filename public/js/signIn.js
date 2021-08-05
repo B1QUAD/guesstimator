@@ -8,6 +8,10 @@ function signIn() {
 	// Redirect to sign in page with options for google or github sign in
 }
 
+const getUserId = () => {
+    return userId;
+}
+
 // Handles sign in for google accounts. Can be used as an onClick handler
 // Docs: https://firebase.google.com/docs/reference/js/firebase.auth.GoogleAuthProvider
 const googleSignIn = () => {
@@ -38,6 +42,7 @@ const categoryDropDown=document.querySelector("#category-select");
 const personalHeader=document.querySelector("#personal-header");
 const globalHeader=document.querySelector("#global-header");
 const profileName=document.querySelector("#profile-name");
+const signInBtn=document.querySelector("#signIn-btn");
 
 
 let category="Programming";
@@ -46,7 +51,11 @@ window.onload = () =>{
   changeDom();  
 
   firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        signInBtn.innerHTML="Change Accounts";
+    }
     if (!user) {
+        signInBtn.innerHTML="Sign In"
       userId="guest";
     }
   });
