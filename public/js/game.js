@@ -7,6 +7,13 @@ let checkAnswerTimeout;
 const questionBox = document.querySelector('#question-box');
 
 const initializeGame = () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            userId=user.uid;
+        } else{
+            userId="guest";
+        } 
+    });
     return new Promise((resolve, reject) => {
         getCurrentGame().then(currGameInfo => {
             if (!currGameInfo.isReady) {

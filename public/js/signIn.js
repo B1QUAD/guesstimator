@@ -1,4 +1,4 @@
-let userId;
+var userId;
 let user;
 
 
@@ -8,15 +8,11 @@ function signIn() {
 	// Redirect to sign in page with options for google or github sign in
 }
 
-const getUserId = () => {
-    return userId;
-}
-
 // Handles sign in for google accounts. Can be used as an onClick handler
 // Docs: https://firebase.google.com/docs/reference/js/firebase.auth.GoogleAuthProvider
 const googleSignIn = () => {
 	console.log('signIn function called!');
-
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 	// Creates a new authentication provider for use with google accnts.
 	const provider = new firebase.auth.GoogleAuthProvider();
 

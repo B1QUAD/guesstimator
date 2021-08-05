@@ -35,11 +35,14 @@ category = "Programming";
 const changeDom = () =>{
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+            userId=user.uid;
             profileName.innerHTML=user.displayName;
             user.providerData.forEach(profile => {
                 console.log(profile.photoURL);
                 document.querySelector("#profile-pic").src=profile.photoURL;
             }); //this will give you all the urls once there is user data
+        }else{
+            userId="guest";
         }
     });
 
