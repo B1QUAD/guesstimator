@@ -82,5 +82,29 @@
 		<script src="js/lyrics.js"></script>
 		<script src="js/embed.js"></script>
         <script src="js/game.js"></script>
+		<script type="text/javascript">
+			window.onload = function () {
+				// signIn.js
+				const signInBtn = document.querySelector("#signIn-btn");
+				firebase.auth().onAuthStateChanged(function(user) {
+			      if (user) {
+			          signInBtn.innerHTML="Change Accounts";
+			      }
+			      if (!user) {
+			          signInBtn.innerHTML="Sign In";
+			          userId="guest";
+			      }
+			    });
+
+				// game.js
+				initializeGame().then(isReady => {
+			        if (!isReady) {
+			            return;
+			        }
+
+			        refreshUI();
+			    });
+			};
+		</script>
     </body>
 </html>
