@@ -3,7 +3,6 @@ let currentGameRef;
 let isCheckingAnswer = false;
 let timerInterval;
 let checkAnswerTimeout;
-let userId = 'guest'; // temporary; this variable should be initialized in signIn.js
 
 const initializeGame = () => {
     return new Promise((resolve, reject) => {
