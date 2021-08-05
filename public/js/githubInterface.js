@@ -46,7 +46,7 @@ function getQuestion() {
 				resolve(getQuestion());
 			} else if (response['status'] === 403) {
 				setTimeout(function(){
-					resolve(getQuestion()));
+					resolve(getQuestion());
 				}, 60000);
 			} else {
 				returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
