@@ -41,7 +41,7 @@ function getQuestion() {
             choices = json['items'];
 
 			// Check to see if the API returned nothing for some reason
-			if (json['total_count'] < 2) {
+			if (json['total_count'] < 1) {
 				console.log('Re trying API request');
 				resolve(getQuestion());
 			} else {

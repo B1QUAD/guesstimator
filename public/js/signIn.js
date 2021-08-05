@@ -35,18 +35,3 @@ const googleSignIn = () => {
 			console.log(error);
 		});
 };
-
-
-const signInBtn = document.querySelector("#signIn-btn");
-
-window.onload = () => {
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        signInBtn.innerHTML="Change Accounts";
-    }
-    if (!user) {
-        signInBtn.innerHTML="Sign In";
-        userId="guest";
-    }
-  });
-};
