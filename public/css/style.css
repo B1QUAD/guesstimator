@@ -1,6 +1,6 @@
 /* Generic style sheet */
 /* Naming conventions:  https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/ */
-html{
+html {
 	background-color: hsl(195, 9%, 9%);
 	overflow: hidden;
 }
@@ -13,7 +13,7 @@ body {
 	font-family: 'Kanit', sans-serif;
 }
 
-h1{
+h1 {
 	position: absolute;
 	font-size: 6vw;
 	text-align: center;
@@ -25,7 +25,7 @@ h1{
 	z-index: 2;
 }
 
-h2{
+h2 {
 	position: absolute;
 	font-size: 2vw;
 	text-align: center;
@@ -37,7 +37,7 @@ h2{
 	z-index: 2;
 }
 
-nav{
+nav {
 	position: absolute !important;
 	width: 100vw;
 	max-height: 3vw;
@@ -45,20 +45,20 @@ nav{
 	margin-bottom: 5vw;
 }
 
-.navbar-item img{
+.navbar-item img {
 	filter: invert(100%);
 }
 
-.navbar-item img{
+.navbar-item img {
 	max-height: 2.5vw;
 }
 
-.navbar-brand{
+.navbar-brand {
 	margin-right: 1.5vw;
 	margin-left: .5vw;
 }
 
-#timer{
+#timer {
 	position: absolute;
 	height: 6vw;
 	width: 6vw;
@@ -73,21 +73,21 @@ nav{
 	font-weight: 900;
 }
 
-#score{
+#score {
 	position: absolute;
 	font-size: 2vw;
 	left: 1vw;
 	top: 3.5vw;
 }
 
-#streak{
+#streak {
 	position: absolute;
 	font-size: 2vw;
 	left: 1vw;
 	top: 6vw;
 }
 
-#directions{
+#directions {
 	position: absolute;
 	font-size: 2vw;
 	text-align: center;
@@ -98,7 +98,7 @@ nav{
 	top: 3.5vw;
 }
 
-#answer-box{
+#answer-box {
 	position: absolute;
 	width: 39.75vw;
 	height: 5vw;
@@ -107,7 +107,7 @@ nav{
 	font-size: 2.5vw;
 }
 
-#submit-answer{
+#submit-answer {
 	position: absolute;
 	width: 10vw;
 	height: 5vw;
@@ -125,7 +125,7 @@ nav{
 	top: 10vw;
 	left: 25vw;
 	width: 50vw;
-	max-height: 75vh;
+	max-height: 50vh;
 	/* background:  rgb(150,150,150); */
 	background: rgba(150, 150, 150, 25);
 	overflow-x: auto;
@@ -134,7 +134,7 @@ nav{
 	z-index: 2;
 }
 
-#start-btn{
+#start-btn {
 	position: absolute;
 	z-index: 2;
 	width: 10vw;
@@ -152,7 +152,7 @@ nav{
 	cursor: pointer;
 }
 
-#start-select{
+#start-select {
 	position: absolute;
 	z-index: 2;
 	width: 10vw;
@@ -173,11 +173,11 @@ nav{
 #submit-answer:active,
 #answer-box:active,
 #start-btn:active,
-#start-select:active{
+#start-select:active {
 	box-shadow: 0px 0px 10px #fff;
 }
 
-#section--left{
+#section--left {
 	position: absolute;
 	background: rgb(160,40,60);
 	height: 100vh;
@@ -187,7 +187,7 @@ nav{
 	overflow: hidden;
 }
 
-#game-background{
+#game-background {
 	position: absolute;
 	background: rgb(80,5,10);
 	height: 100vh;
@@ -196,20 +196,20 @@ nav{
 }
 
 /* dashboard css */
-dashboard{
+dashboard {
 	position:absolute;
 	width: 100%;
 	height: 100%;
 	background: rgb(80,5,10);
 }
 
-dashboard h1{
+dashboard h1 {
 	position: absolute;
 	top: 3vw;
 	font-size: 4vw;
 }
 
-dashboard h2{
+dashboard h2 {
 	position: absolute;
 	font-size: 3vw;
 	text-align: center;
@@ -221,7 +221,7 @@ dashboard h2{
 	z-index: 2;
 }
 
-dashboard #category-select{
+dashboard #category-select {
 	position: absolute;
 	width: 15vw;
 	height: 2vw;
@@ -233,7 +233,7 @@ dashboard #category-select{
 	cursor: pointer;
 }
 
-dashboard #personal{
+dashboard #personal {
 	position: absolute;
 	background: rgb(20,20,20,.8);
 	width: 80%;
@@ -252,19 +252,19 @@ dashboard #profile-pic{
 	top: 2vw;
 }
 
-dashboard #profile-name{
+dashboard #profile-name {
 	position: relative;
-	top: 2vw;
-	left: 3.5vw;
-	font-size: 3vw;
-	width: 10vw;
+	top: 5vw;
+	left: -9vw;
+	font-size: 2vw;
+	width: 7vw;
 	text-align: center;
 }
 
-dashboard ol{
+dashboard ol {
 	position: absolute;
 	top: 4.5vw;
-	left: 30vw;
+	left: 27vw;
 	font-size: 2vw;
 	width: 14vw;
 	white-space:nowrap;
@@ -272,21 +272,21 @@ dashboard ol{
 	text-overflow:ellipsis;
 }
 
-dashboard ul{
+dashboard ul {
 	position: absolute;
 	top: 4.5vw;
-	left: 45vw;
+	left: 40vw;
 	font-size: 2vw;
 }
 
-dashboard #ranking-label{
+dashboard #ranking-label {
 	position: absolute;
 	font-size: 3vw;
 	top: 0vw;
 	left: 67.5vw;
 }
 
-dashboard #ranking{
+dashboard #ranking {
 	position: absolute;
 	font-size: 3vw;
 	top: 5vw;
@@ -299,16 +299,16 @@ dashboard #ranking{
 	padding-top: 2.75vw;
 }
 
-dashboard #globalField{
-    position: absolute;
-    background: rgb(20,20,20,.8);
-    width: 80%;
-    left: 10%;
-    top: 28vw;
-    height: 17.5vw;
+dashboard #globalField {
+	position: absolute;
+	background: rgb(20,20,20,.8);
+	width: 80%;
+	left: 10%;
+	top: 28vw;
+	height: 17.5vw;
 }
 
-#hardest-label, #easiest-label, #leaderboard-label{
+#hardest-label, #easiest-label, #leaderboard-label {
 	position: relative;
 	margin-right: 8vw;
 	margin-left: 8.2vw;
@@ -317,34 +317,33 @@ dashboard #globalField{
 	top: 4vw;
 }
 
-
-#globalField ol{
-    position: relative;
-    margin-right: 10vw;
-    width: 20vw;
+#globalField ol {
+	position: relative;
+	margin-right: 10vw;
+	width: 20vw;
 
 }
 
-#globalField ul{
-    list-style: none;
-    width: 100%;
-    white-space: nowrap;
-    position: relative;
-    left: -21vw;
-    top: 0vw;
+#globalField ul {
+	list-style: none;
+	width: 100%;
+	white-space: nowrap;
+	position: relative;
+	left: -21vw;
+	top: 0vw;
 }
 
-#globalField ul > li{
-    display: inline-block;
-    width: 33%;
+#globalField ul > li {
+	display: inline-block;
+	width: 33%;
 }
 /* Animation Background */
 
-#section--left .shapes{
+#section--left .shapes {
 	transform: skew(30deg);
 }
 
-.shapes li{
+.shapes li {
 	position: absolute;
 	list-style: none;
 	border-radius: 0%;
@@ -353,7 +352,7 @@ dashboard #globalField{
 	box-shadow: 0px 0px 10px #fff;
 }
 
-.shapes li:nth-child(1){
+.shapes li:nth-child(1) {
 	transform: rotate(10deg);
 	width: 4vw;
 	height: 4vw;
@@ -361,7 +360,7 @@ dashboard #globalField{
 	left: -10vw;
 	animation: turnUp 20s linear infinite;
 }
-.shapes li:nth-child(2){
+.shapes li:nth-child(2) {
 	transform: rotate(75deg);
 	width: 7vw;
 	height: 7vw;
@@ -369,7 +368,7 @@ dashboard #globalField{
 	left: -5vw;
 	animation: turnDown 12s linear infinite;
 }
-.shapes li:nth-child(3){
+.shapes li:nth-child(3) {
 	transform: rotate(75deg);
 	width: 11vw;
 	height: 11vw;
@@ -377,7 +376,7 @@ dashboard #globalField{
 	left: -15vw;
 	animation: turnUp 25s linear infinite;
 }
-.shapes li:nth-child(4){
+.shapes li:nth-child(4) {
 	transform: rotate(75deg);
 	width: 9vw;
 	height: 9vw;
@@ -385,7 +384,7 @@ dashboard #globalField{
 	left: -20vw;
 	animation: turnDown 30s linear infinite;
 }
-.shapes li:nth-child(5){
+.shapes li:nth-child(5) {
 	transform: rotate(75deg);
 	width: 3vw;
 	height: 3vw;
@@ -393,7 +392,7 @@ dashboard #globalField{
 	left: -2vw;
 	animation: turnDown 16s linear infinite;
 }
-.shapes li:nth-child(6){
+.shapes li:nth-child(6) {
 	transform: rotate(75deg);
 	width: 5.5vw;
 	height: 5.5vw;
@@ -401,7 +400,7 @@ dashboard #globalField{
 	left: -9vw;
 	animation: turnDown 20s linear infinite;
 }
-.shapes li:nth-child(7){
+.shapes li:nth-child(7) {
 	transform: rotate(75deg);
 	width: 9vw;
 	height: 9vw;
@@ -409,7 +408,7 @@ dashboard #globalField{
 	left: -30vw;
 	animation: turnUp 40s linear infinite;
 }
-.shapes li:nth-child(8){
+.shapes li:nth-child(8) {
 	transform: rotate(75deg);
 	width: 10vw;
 	height: 10vw;
@@ -417,7 +416,7 @@ dashboard #globalField{
 	left: -40vw;
 	animation: turnUp 40s linear infinite;
 }
-.shapes li:nth-child(9){
+.shapes li:nth-child(9) {
 	transform: rotate(75deg);
 	width: 12vw;
 	height: 12vw;
@@ -425,7 +424,7 @@ dashboard #globalField{
 	left: -45vw;
 	animation: turnDown 40s linear infinite;
 }
-.shapes li:nth-child(10){
+.shapes li:nth-child(10) {
 	transform: rotate(75deg);
 	width: 4vw;
 	height: 4vw;
@@ -434,82 +433,82 @@ dashboard #globalField{
 	animation: turnUp 40s linear infinite;
 }
 
-#game-background .shapes li:nth-child(1){
+#game-background .shapes li:nth-child(1) {
 	animation: turnUp2 40s linear infinite;
 }
 
-#game-background .shapes li:nth-child(2){
+#game-background .shapes li:nth-child(2) {
 	animation: turnDown2 45s linear infinite;
 }
 
-#game-background .shapes li:nth-child(3){
+#game-background .shapes li:nth-child(3) {
 	animation: turnUp2 55s linear infinite;
 }
 
-#game-background .shapes li:nth-child(4){
+#game-background .shapes li:nth-child(4) {
 	animation: turnDown2 60s linear infinite;
 }
 
-#game-background .shapes li:nth-child(5){
+#game-background .shapes li:nth-child(5) {
 	animation: turnDown2 60s linear infinite;
 }
 
-#game-background .shapes li:nth-child(6){
+#game-background .shapes li:nth-child(6) {
 	animation: turnDown2 60s linear infinite;
 }
 
-#game-background .shapes li:nth-child(7){
+#game-background .shapes li:nth-child(7) {
 	animation: turnUp2 60s linear infinite;
 }
 
-#game-background .shapes li:nth-child(8){
+#game-background .shapes li:nth-child(8) {
 	animation: turnUp2 60s linear infinite;
 }
 
-#game-background .shapes li:nth-child(9){
+#game-background .shapes li:nth-child(9) {
 	animation: turnDown2 60s linear infinite;
 }
 
-#game-background .shapes li:nth-child(10){
+#game-background .shapes li:nth-child(10) {
 	animation: turnUp2 60s linear infinite;
 }
 
 
-@keyframes turnUp{
-	0%{
+@keyframes turnUp {
+	0% {
 		transform: translate(0vw) rotate(0deg);
 	}
-	100%{
+	100% {
 		transform: translate(100vw, -20vw) rotate(720deg);
 		border-radius: 0%;
 	}
 }
 
-@keyframes turnDown{
-	0%{
+@keyframes turnDown {
+	0% {
 		transform: translate(0vw) rotate(0deg);
 	}
-	100%{
+	100% {
 		transform: translate(100vw, 20vw) rotate(720deg);
 		border-radius: 0%;
 	}
 }
 
-@keyframes turnUp2{
-	0%{
+@keyframes turnUp2 {
+	0% {
 		transform: translate(0vw) rotate(0deg);
 	}
-	100%{
+	100% {
 		transform: translate(150vw, -20vw) rotate(720deg);
 		border-radius: 0%;
 	}
 }
 
-@keyframes turnDown2{
-	0%{
+@keyframes turnDown2 {
+	0% {
 		transform: translate(0vw) rotate(0deg);
 	}
-	100%{
+	100% {
 		transform: translate(150vw, 20vw) rotate(720deg);
 		border-radius: 0%;
 	}

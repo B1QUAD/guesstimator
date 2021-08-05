@@ -45,6 +45,7 @@ const profileName=document.querySelector("#profile-name");
 const signInBtn=document.querySelector("#signIn-btn");
 
 
+
 let category="Programming";
 
 window.onload = () =>{
@@ -56,8 +57,6 @@ window.onload = () =>{
     }
     if (!user) {
         signInBtn.innerHTML="Sign In"
-      userId="guest";
-    }
   });
 };
 

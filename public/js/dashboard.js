@@ -1,5 +1,13 @@
-/*const category=document.querySelector("#category-select").value;
+const categoryDropDown=document.querySelector("#category-select");
+const category=document.querySelector("#category-select").value;
 
+if(category=="Programming"){
+    category="proglang";
+}
+
+categoryDropDown.addEventListener("click", function(){
+  getUserStats();
+});
 
 const getUserStats = () => {
 	const userRef = firebase.database().ref(`users/${userId}`);
@@ -10,5 +18,7 @@ const getUserStats = () => {
 } 
 
 const changeUserDom = (data) => {
-	if
-}*/
+	if(data.games.gameMode==category){
+        console.log(data);
+    }
+}
