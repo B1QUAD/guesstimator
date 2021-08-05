@@ -1,11 +1,7 @@
 let userId;
 let user;
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (!user) {
-        user="guest";
-    }
-});
+
 
 // We are using google auth for now bc it does not require github auth tokens
 function signIn() {
@@ -48,6 +44,12 @@ let category="Programming";
 
 window.onload = () =>{
   changeDom();  
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) {
+      userId="guest";
+    }
+  });
 };
 
 
