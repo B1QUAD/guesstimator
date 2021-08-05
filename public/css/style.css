@@ -254,17 +254,17 @@ dashboard #profile-pic{
 
 dashboard #profile-name {
 	position: relative;
-	top: 2vw;
-	left: 3.5vw;
-	font-size: 3vw;
-	width: 10vw;
+	top: 5vw;
+	left: -9vw;
+	font-size: 2vw;
+	width: 7vw;
 	text-align: center;
 }
 
 dashboard ol {
 	position: absolute;
 	top: 4.5vw;
-	left: 30vw;
+	left: 27vw;
 	font-size: 2vw;
 	width: 14vw;
 	white-space:nowrap;
@@ -275,7 +275,7 @@ dashboard ol {
 dashboard ul {
 	position: absolute;
 	top: 4.5vw;
-	left: 45vw;
+	left: 40vw;
 	font-size: 2vw;
 }
 
@@ -299,7 +299,7 @@ dashboard #ranking {
 	padding-top: 2.75vw;
 }
 
-dashboard #global {
+dashboard #globalField {
 	position: absolute;
 	background: rgb(20,20,20,.8);
 	width: 80%;
@@ -317,14 +317,14 @@ dashboard #global {
 	top: 4vw;
 }
 
-#global ol {
+#globalField ol {
 	position: relative;
 	margin-right: 10vw;
 	width: 20vw;
 
 }
 
-#global ul {
+#globalField ul {
 	list-style: none;
 	width: 100%;
 	white-space: nowrap;
@@ -333,7 +333,7 @@ dashboard #global {
 	top: 0vw;
 }
 
-#global ul > li {
+#globalField ul > li {
 	display: inline-block;
 	width: 33%;
 }

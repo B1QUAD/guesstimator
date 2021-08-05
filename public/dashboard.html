@@ -13,7 +13,6 @@
     <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <script src="js/signIn.js"></script>
   </head>
   <body>
         <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -53,13 +52,13 @@
             <h1>Dashboard</h1>
             <select name="category" id="category-select">
                   <option value="invalid" disabled selected value>Category &#129055;</option>
-                  <option value="programming">Programming</option>
-                  <option value="lyrics">lyrics</option>
+                  <option value="Programming">Programming</option>
+                  <option value="Lyrics">lyrics</option>
             </select>
 
             <section id="personal">
-                <h2>Top Topic</h2>
-                <div id="profile-pic"></div>
+                <h2 id="personal-header">Top Topic</h2>
+                <img id="profile-pic" src="">
                 <label for="profile-pic" id="profile-name">Name</label>
                 <ol id="personal-top">
                     <li>1. Thing</li>
@@ -76,7 +75,7 @@
             </section>
 
             <section id="globalField">
-                <h2>Global Info</h2>
+                <h2 id="global-header">Global Info</h2>
                 <label for="hardest" id="hardest-label">Most Difficult</label>
                 <label for="easiest" id="easiest-label">Most Recognizable</label>
                 <label for="leaderboard" id="leaderboard-label">Leaderboard</label>
@@ -105,5 +104,6 @@
                 </ul>
             </section>
 		</dashboard>
-	</body>
+    </body>
+    <script src="js/signIn.js"></script>
 </html>
