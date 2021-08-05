@@ -1,9 +1,10 @@
 <!-- This is the default "landing" page -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <!-- update the version number as needed --><script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
+	<head>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<!-- update the version number as needed -->
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
         <!-- include only the Firebase features as you need -->
         <script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
         <script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
@@ -28,21 +29,23 @@
             </ul>
         </section>
         <br>
-            <br>
-                <button id="start-btn" onclick="initializeGame()">
-                    Play Game!
-                </button>
-                <select name="gamemode" id="start-select">
-                  <option value="invalid" disabled selected value>Gamemode &#129055;</option>
-                  <option value="programming">Programming</option>
-                  <option value="lyrics">lyrics</option>
-                </select>
-            </body>
-            <script>// Check login
-            // If not logged in do nothing
-            // If logged in redirect to dashboard
-            // window.location = 'dashboard.html'
-        </script>
+        <br>
+        <button id="start-btn" onclick="redirectToGame()">
+            Play Game!
+        </button>
+        <select name="gamemode" id="start-select">
+          <option value="invalid" disabled selected value>Gamemode &#8595;</option>
+          <option value="progLang">Programming</option>
+          <option value="lyrics">lyrics</option>
+        </select>
+
         <script src="js/signIn.js"></script>
-    </html>
+        <script type="text/javascript">
+            const redirectToGame = () => {
+                const gamemode = document.querySelector('#start-select').value;
+				if (!gamemode || gamemode !== 'progLang' && gamemode !== 'lyrics') return;
+                window.location = `game.html?gamemode=${gamemode}`;
+            };
+        </script>
+    </body>
 </html>
