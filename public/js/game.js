@@ -7,12 +7,20 @@ let checkAnswerTimeout;
 const questionBox = document.querySelector('#question-box');
 
 const initializeGame = () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            userId=user.uid;
+        } else {
+            userId="guest";
+        }
+    });
+
     return new Promise((resolve, reject) => {
         getCurrentGame().then(currGameInfo => {
             if (!currGameInfo.isReady) {
                 return resolve(false);
             }
-            if (currentGame.gamemode == 'progLang') {
+            if (currentGame.gamemode === 'progLang') {
                 githubApiInit().then(result => {
                     if (currGameInfo.needsNewQuestion) {
                         getProgLangQuestion(currGameInfo.newQuestionTimestamp).then(result => {
@@ -23,6 +31,15 @@ const initializeGame = () => {
                         resolve(true);
                     }
                 });
+            } else if (currentGame.gamemode === 'lyrics') {
+                if (currGameInfo.needsNewQuestion) {
+                    getLyricsQuestion().then(result => {
+                        resolve(true);
+                    });
+                } else {
+                    renderLyricsQuestion();
+                    resolve(true);
+                }
             }
         });
     });
@@ -32,6 +49,7 @@ const getProgLangQuestion = (timestamp) => {
     return new Promise((resolve, reject) => {
         getQuestion().then(function (questionData) {
     		currentGame.currentQuestion.acceptedAnswers = questionData.answer.map(a => a.trim().toLowerCase());
+            console.log(currentGame.currentQuestion.acceptedAnswers);
             currentGame.currentQuestion.content = questionData.codeRef;
             currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
             currentGameRef.update(currentGame).then(renderProgLangQuestion);
@@ -43,7 +61,15 @@ const getProgLangQuestion = (timestamp) => {
 const renderProgLangQuestion = () => {
     questionBox.innerHTML = '';
     embed(`?target=${currentGame.currentQuestion.content}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
-}
+};
+
+const getLyricsQuestion = () => {
+    //
+};
+
+const renderLyricsQuestion = () => {
+    //
+};
 
 const checkAnswer = () => {
     if (isCheckingAnswer) return;
@@ -55,27 +81,33 @@ const checkAnswer = () => {
 
     if (currentGame.currentQuestion.acceptedAnswers.includes(answer)) {
         currentGame.numCorrect++;
-        currentGame.streak++;
+        currentGame.currentStreak++;
     } else {
         currentGame.numIncorrect++;
-        currentGame.streak = 0;
+        currentGame.currentStreak = 0;
     }
     currentGame.currentQuestion.questionNum++;
 
     currentGameRef.update(currentGame).then(result => {
-        if (currentGame.gamemode === 'progLang') {
-            if (currentGame.numCorrect + currentGame.numIncorrect >= currentGame.totalQuestions) {
-                currentGame.incompleteFinish = false;
-                delete currentGame.currentQuestion;
-                delete currentGame.currentStreak;
-                currentGameRef.set(currentGame).then(result => {
-                    console.log('Updated current game to finished.');
-                });
-                alert('Congratulations, you finished the game.');
-                return;
-            }
+        // If game is finished
+        if (currentGame.numCorrect + currentGame.numIncorrect >= currentGame.totalQuestions) {
+            currentGame.incompleteFinish = false;
+            delete currentGame.currentQuestion;
+            currentGameRef.set(currentGame).then(result => {
+                refreshUI(true);
+            });
+            return;
+        }
 
+        // If game is not finished
+        if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
+                answerBox.value = '';
+                refreshUI();
+                isCheckingAnswer = false;
+            });
+        } else if (currentGame.gamemode === 'lyrics') {
+            getLyricsQuestion().then(result => {
                 answerBox.value = '';
                 refreshUI();
                 isCheckingAnswer = false;
@@ -150,7 +182,7 @@ const getCurrentGame = () => {
                 numCorrect: 0,
                 numIncorrect: 0,
                 totalQuestions: 10, // for now, this is fixed
-                timePerQuestion: 10, // in seconds; for now, this is fixed
+                timePerQuestion: 20, // in seconds; for now, this is fixed
                 timestamp: new Date().toUTCString()
             };
 
@@ -165,29 +197,27 @@ const score = document.querySelector('#score');
 const streak = document.querySelector('#streak');
 const timer = document.querySelector('#timer');
 
-const refreshUI = () => {
+const refreshUI = (gameHasEnded) => {
     score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
     streak.innerText = `Streak: ${currentGame.currentStreak}`;
 
-    const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
-    const secondsLeft = (questionEndTime - new Date().getTime()) / 1000;
-    timer.innerText = Math.ceil(secondsLeft);
+    if (!gameHasEnded) {
+        const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
+        const secondsLeft = (questionEndTime - new Date().getTime()) / 1000;
+        timer.innerText = Math.ceil(secondsLeft);
 
-    clearInterval(timerInterval);
-    timerInterval = setInterval(function() {
-        timer.innerText = parseInt(timer.innerText) - 1;
-    }, 1000);
+        clearInterval(timerInterval);
+        timerInterval = setInterval(function() {
+            const newSecondsLeft = parseInt(timer.innerText) - 1;
+            timer.innerText = newSecondsLeft;
+            if (newSecondsLeft <= 0) clearInterval(timerInterval);
+        }, 1000);
 
-    clearTimeout(checkAnswerTimeout);
-    checkAnswerTimeout = setTimeout(checkAnswer, secondsLeft * 1000);
-};
-
-window.onload = function() {
-    initializeGame().then(isReady => {
-        if (!isReady) {
-            return;
-        }
-
-        refreshUI();
-    });
+        clearTimeout(checkAnswerTimeout);
+        checkAnswerTimeout = setTimeout(checkAnswer, secondsLeft * 1000);
+    } else {
+        clearInterval(timerInterval);
+        clearTimeout(checkAnswerTimeout);
+        timer.innerText = '-';
+    }
 };

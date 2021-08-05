@@ -1,8 +1,11 @@
-const categoryDropDown2 = document.querySelector("#category-select");
-const category2 = document.querySelector("#category-select").value;
 const maxPersonalListEntries = 5;
 const maxGlobalListEntries = 10;
-
+const categoryDropDown = document.querySelector("#category-select");
+let category = categoryDropDown.value;
+const personalHeader=document.querySelector("#personal-header");
+const globalHeader=document.querySelector("#global-header");
+const profileName=document.querySelector("#profile-name");
+category = "Programming";
 
 
 // if(category === "Programming"){
@@ -28,6 +31,57 @@ const maxGlobalListEntries = 10;
 // }
 
 // Sorts an array of objects
+
+const changeDom = () =>{
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            userId=user.uid;
+            profileName.innerHTML=user.displayName;
+            user.providerData.forEach(profile => {
+                console.log(profile.photoURL);
+                document.querySelector("#profile-pic").src=profile.photoURL;
+            }); //this will give you all the urls once there is user data
+        }else{
+            userId="guest";
+        }
+    });
+
+
+    if(category=="Programming"){
+        personalHeader.innerHTML="Top Programming Languages";
+        globalHeader.innerHTML="Global Programming Info";
+    }
+    else if(category=="Lyrics"){
+        personalHeader.innerHTML="Top Songs";
+        globalHeader.innerHTML="Global Lyric Info";
+    }
+    getUserStats();
+};
+
+categoryDropDown.addEventListener('change', (e) => {
+    category=document.querySelector("#category-select").value;
+    changeDom();
+});
+
+const getUserStats = () => {
+	const userRef = firebase.database().ref(`users/${userId}`);
+	userRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+		//changeUserDom(data);
+	});
+}
+
+const changeUserDom = (data) => {
+    if(category=="Programming"){
+        category="proglang";
+    }
+
+	if(data.games.gameMode==category){
+        console.log(data);
+    }
+}
+
 function sortObjects(obj, sortFunction) {
 	let list;
 
@@ -36,6 +90,8 @@ function sortObjects(obj, sortFunction) {
 }
 
 function dashInit() {
+	changeDom();
+
 	var db = firebase.database();
 	console.log('Hello there!!');
 	// Work on data vis and pulling from the db
@@ -53,6 +109,3 @@ function dashInit() {
 		console.log('Test\n', data);
   	});
 }
-
-// Add load event listener to the window
-window.addEventListener("load", dashInit, true);

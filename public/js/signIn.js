@@ -1,18 +1,40 @@
-let userId;
+var userId;
 let user;
 
 
 
-// We are using google auth for now bc it does not require github auth tokens
-function signIn() {
-	// Redirect to sign in page with options for google or github sign in
-}
+const checkIfSignedIn = () => {
+    /*firebase.auth().onAuthStateChanged(function(user) {
+        console.log(user);
+        if (user) {
+            console.log("sign out");
+            firebase.auth().signOut();
+            return;
+        }
+        else if (!user) {
+            console.log("sign in");
+            googleSignIn();
+            return;
+        }
+    });*/
+    console.log(userId);
+    if(userId.length>6){
+        console.log("sign out");
+        firebase.auth().signOut();
+        location.reload();
+    }else{
+        console.log("sign in");
+        googleSignIn();
+    }
+};
+
 
 // Handles sign in for google accounts. Can be used as an onClick handler
 // Docs: https://firebase.google.com/docs/reference/js/firebase.auth.GoogleAuthProvider
 const googleSignIn = () => {
-	console.log('signIn function called!');
-
+    console.log('signIn function called!');
+    
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 	// Creates a new authentication provider for use with google accnts.
 	const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -29,73 +51,16 @@ const googleSignIn = () => {
 		}).catch(error => {
 			// Handle the error
 			console.log(error);
-		});
+        });
+        
 };
 
-
-
-const categoryDropDown=document.querySelector("#category-select");
-const personalHeader=document.querySelector("#personal-header");
-const globalHeader=document.querySelector("#global-header");
-const profileName=document.querySelector("#profile-name");
-
-
-let category="Programming";
-
-window.onload = () =>{
-  changeDom();  
-
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (!user) {
-      userId="guest";
-    }
-  });
-};
-
-
-categoryDropDown.addEventListener('change', (e) => {
-    category=document.querySelector("#category-select").value;
-    changeDom();
-});
-
-const changeDom = () =>{
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            profileName.innerHTML=user.displayName;
-            user.providerData.forEach(profile => {
-                console.log(profile.photoURL);
-                document.querySelector("#profile-pic").src=profile.photoURL;
-            }); //this will give you all the urls once there is user data
-        }
-    });
-
-
-    if(category=="Programming"){
-        personalHeader.innerHTML="Top Programming Languages";
-        globalHeader.innerHTML="Global Programming Info";
-    }
-    else if(category=="Lyrics"){
-        personalHeader.innerHTML="Top Songs";
-        globalHeader.innerHTML="Global Lyric Info";
-    }
-    getUserStats();
-};
-
-const getUserStats = () => {
-	const userRef = firebase.database().ref(`users/${userId}`);
-	userRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        console.log(data);
-		//changeUserDom(data);
-	});
-} 
-
-const changeUserDom = (data) => {
-    if(category=="Programming"){
-        category="proglang";
-    }
-
-	if(data.games.gameMode==category){
-        console.log(data);
-    }
+function googleSignout() {
+   firebase.auth().signOut()
+	
+   .then(function() {
+      console.log('Signout Succesfull')
+   }, function(error) {
+      console.log('Signout Failed')  
+   });
 }

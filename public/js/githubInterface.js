@@ -39,8 +39,19 @@ function getQuestion() {
     	}).then(function(response) {
             json = response['jsonResponse'];
             choices = json['items'];
-            returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
-            resolve(returnObj);
+
+			// Check to see if the API returned nothing for some reason
+			if (json['total_count'] < 1) {
+				console.log('Re trying API request');
+				resolve(getQuestion());
+			} else if (response['status'] === 403) {
+				setTimeout(function(){
+					resolve(getQuestion());
+				}, 60000);
+			} else {
+				returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
+				resolve(returnObj);
+			}
     	});
     });
 }
@@ -78,7 +89,7 @@ async function loadFromApi(url, params) {
                 // window.location.href = window.location.search;
             }
 
-            resolve({rawResponse: response, jsonResponse: jsonResponse});
+            resolve({rawResponse: response, jsonResponse: jsonResponse, status: status});
         }).catch(function (error) {
             // console.log(error);
         });
