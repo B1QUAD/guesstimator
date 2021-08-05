@@ -1,7 +1,6 @@
 let currentGame;
 let currentGameRef;
 let isCheckingAnswer = false;
-let userId = getUserId();
 let timerInterval;
 let checkAnswerTimeout;
 
@@ -217,14 +216,4 @@ window.onload = function() {
 
         refreshUI();
     });
-
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            signInBtn.innerHTML="Change Accounts";
-        }
-        if (!user) {
-            signInBtn.innerHTML="Sign In"
-            userId="guest";
-        }
-    });    
 };
