@@ -200,7 +200,9 @@ const refreshUI = () => {
 
     clearInterval(timerInterval);
     timerInterval = setInterval(function() {
-        timer.innerText = parseInt(timer.innerText) - 1;
+        const newSecondsLeft = parseInt(timer.innerText) - 1;
+        timer.innerText = newSecondsLeft;
+        if (newSecondsLeft <= 0) clearInterval(timerInterval);
     }, 1000);
 
     clearTimeout(checkAnswerTimeout);
