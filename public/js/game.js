@@ -1,6 +1,7 @@
 let currentGame;
 let currentGameRef;
 let isCheckingAnswer = false;
+let userId = getUserId();
 let timerInterval;
 let checkAnswerTimeout;
 
@@ -12,7 +13,7 @@ const initializeGame = () => {
             if (!currGameInfo.isReady) {
                 return resolve(false);
             }
-            if (currentGame.gamemode == 'progLang') {
+            if (currentGame.gamemode === 'progLang') {
                 githubApiInit().then(result => {
                     if (currGameInfo.needsNewQuestion) {
                         getProgLangQuestion(currGameInfo.newQuestionTimestamp).then(result => {
@@ -23,6 +24,15 @@ const initializeGame = () => {
                         resolve(true);
                     }
                 });
+            } else if (currentGame.gamemode === 'lyrics') {
+                if (currGameInfo.needsNewQuestion) {
+                    getLyricsQuestion().then(result => {
+                        resolve(true);
+                    });
+                } else {
+                    renderLyricsQuestion();
+                    resolve(true);
+                }
             }
         });
     });
@@ -32,6 +42,7 @@ const getProgLangQuestion = (timestamp) => {
     return new Promise((resolve, reject) => {
         getQuestion().then(function (questionData) {
     		currentGame.currentQuestion.acceptedAnswers = questionData.answer.map(a => a.trim().toLowerCase());
+            console.log(currentGame.currentQuestion.acceptedAnswers);
             currentGame.currentQuestion.content = questionData.codeRef;
             currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
             currentGameRef.update(currentGame).then(renderProgLangQuestion);
@@ -43,7 +54,15 @@ const getProgLangQuestion = (timestamp) => {
 const renderProgLangQuestion = () => {
     questionBox.innerHTML = '';
     embed(`?target=${currentGame.currentQuestion.content}&style=atom-one-dark&showBorder=on&showLineNumbers=on`);
-}
+};
+
+const getLyricsQuestion = () => {
+    //
+};
+
+const renderLyricsQuestion = () => {
+    //
+};
 
 const checkAnswer = () => {
     if (isCheckingAnswer) return;
@@ -63,19 +82,25 @@ const checkAnswer = () => {
     currentGame.currentQuestion.questionNum++;
 
     currentGameRef.update(currentGame).then(result => {
-        if (currentGame.gamemode === 'progLang') {
-            if (currentGame.numCorrect + currentGame.numIncorrect >= currentGame.totalQuestions) {
-                currentGame.incompleteFinish = false;
-                delete currentGame.currentQuestion;
-                delete currentGame.currentStreak;
-                currentGameRef.set(currentGame).then(result => {
-                    console.log('Updated current game to finished.');
-                });
-                alert('Congratulations, you finished the game.');
-                return;
-            }
+        if (currentGame.numCorrect + currentGame.numIncorrect >= currentGame.totalQuestions) {
+            currentGame.incompleteFinish = false;
+            delete currentGame.currentQuestion;
+            delete currentGame.currentStreak;
+            currentGameRef.set(currentGame).then(result => {
+                console.log('Updated current game to finished.');
+            });
+            alert('Congratulations, you finished the game.');
+            return;
+        }
 
+        if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
+                answerBox.value = '';
+                refreshUI();
+                isCheckingAnswer = false;
+            });
+        } else if (currentGame.gamemode === 'lyrics') {
+            getLyricsQuestion().then(result => {
                 answerBox.value = '';
                 refreshUI();
                 isCheckingAnswer = false;
