@@ -104,8 +104,7 @@ getLyrics = (trackId, songName, songArtist) => {
 					let lyrics=data.message.body.lyrics.lyrics_body;
 					let numLines=lyrics.split(/\r\n|\r|\n/).length;
 					lyrics=lyrics.split(/\r\n|\r|\n/);
-					lyrics=lyrics[Math.floor(numLines/2)] + " " + lyrics[Math.floor(numLines/2 + 1)];
-					// console.log(lyrics);
+                    lyrics=lyrics[Math.floor(numLines/2)] + "\n " + lyrics[Math.floor(numLines/2 + 1)] + "\n " + lyrics[Math.floor(numLines/2 + 2)] + "\n " + lyrics[Math.floor(numLines/2 + 3)];
 					// console.log(songName + " - " + songArtist);
 					localStorage.setItem('lyrics', lyrics);
 					//return lyrics;
