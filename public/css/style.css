@@ -58,6 +58,21 @@ nav {
 	margin-left: .5vw;
 }
 
+.modal-card{
+    position:absolute;
+    top:10vw;
+    left: 35vw;
+    width:30vw;
+}
+
+#modal-content{
+    color:black !important;
+}
+
+.modal-card-title{
+    font-size:2vw;
+}
+
 #timer {
 	position: absolute;
 	height: 6vw;

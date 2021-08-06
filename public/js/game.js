@@ -67,6 +67,12 @@ const renderLyricsQuestion = () => {
     console.log('ready to render lyrics');
 };
 
+window.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      checkAnswer();
+    }
+});
+
 const checkAnswer = () => {
     if (isCheckingAnswer) return;
     isCheckingAnswer = true;
@@ -91,6 +97,9 @@ const checkAnswer = () => {
             delete currentGame.currentQuestion;
             currentGameRef.set(currentGame).then(result => {
                 refreshUI(true);
+                //display model
+                document.querySelector("#modal").style.display="block";
+                document.querySelector("#modal-content").innerHTML="Your score: \n" + currentGame.numCorrect + " out of " + currentGame.totalQuestions;
             });
             return;
         }
@@ -176,8 +185,8 @@ const getCurrentGame = () => {
                 currentStreak: 0,
                 numCorrect: 0,
                 numIncorrect: 0,
-                totalQuestions: 10, // for now, this is fixed
-                timePerQuestion: gamemode === 'progLang' ? 20 : 25,
+                totalQuestions: 5, // for now, this is fixed
+                timePerQuestion: 5, // in seconds; for now, this is fixed
                 timestamp: new Date().toUTCString()
             };
 
