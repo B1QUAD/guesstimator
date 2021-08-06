@@ -25,8 +25,9 @@ const initializeGame = () => {
             });
         } else if (currentGame.gamemode === 'lyrics') {
             if (currGameInfo.needsNewQuestion) {
-                getLyricsQuestion(currGameInfo.newQuestionTimestamp);
-                refreshUI();
+                getLyricsQuestion(currGameInfo.newQuestionTimestamp).then(result => {
+                    refreshUI();
+                });
             } else {
                 renderLyricsQuestion();
                 refreshUI();
@@ -37,8 +38,8 @@ const initializeGame = () => {
 
 const getProgLangQuestion = (timestamp) => {
     return new Promise((resolve, reject) => {
-        getQuestion().then(function (questionData) {
-    		currentGame.currentQuestion.acceptedAnswers = questionData.answer.map(a => a.trim().toLowerCase());
+        getGithubQuestion().then(function(questionData) {
+            currentGame.currentQuestion.acceptedAnswers = questionData.answer.map(a => a.trim().toLowerCase());
             console.log(currentGame.currentQuestion.acceptedAnswers);
             currentGame.currentQuestion.content = questionData.codeRef;
             currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
@@ -54,23 +55,25 @@ const renderProgLangQuestion = () => {
 };
 
 const getLyricsQuestion = (timestamp) => {
-    var songInfo = runLyricsApi();
-    songInfo.lyrics = getFinalLyrics();
-
-    currentGame.currentQuestion.acceptedAnswers = [songInfo.name, songInfo.artist].map(a => a.trim().toLowerCase());
-    console.log(currentGame.currentQuestion.acceptedAnswers);
-    currentGame.currentQuestion.content = songInfo.lyrics;
-    currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
-    currentGameRef.update(currentGame).then(renderLyricsQuestion);
+    return new Promise((resolve, reject) => {
+        runLyricsApi().then(songInfo => {
+            currentGame.currentQuestion.acceptedAnswers = [songInfo.name, songInfo.artist].map(a => a.trim().toLowerCase());
+            currentGame.currentQuestion.content = songInfo.lyrics;
+            console.log(currentGame.currentQuestion);
+            currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
+            currentGameRef.update(currentGame).then(renderLyricsQuestion);
+            resolve(true);
+        });
+    });
 };
 
 const renderLyricsQuestion = () => {
     document.querySelector('#lyrics').innerHTML = currentGame.currentQuestion.content;
 };
 
-window.addEventListener('keypress', function (e) {
+window.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
-      checkAnswer();
+        checkAnswer();
     }
 });
 
@@ -112,15 +115,14 @@ const checkAnswer = () => {
         prevCorrectAnswer.innerText = `Previous Correct Answer: ${currentGame.currentQuestion.acceptedAnswers[0]}`;
         if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
-                answerBox.value = '';
                 refreshUI();
                 isCheckingAnswer = false;
             });
         } else if (currentGame.gamemode === 'lyrics') {
-            getLyricsQuestion();
-            answerBox.value = '';
-            refreshUI();
-            isCheckingAnswer = false;
+            getLyricsQuestion().then(result => {
+                refreshUI();
+                isCheckingAnswer = false;
+            });
         }
     });
 };
@@ -147,13 +149,16 @@ const getCurrentGame = () => {
                 let gameEndDate = new Date(currentGame.timestamp);
                 gameEndDate.setSeconds(gameEndDate.getSeconds() + currentGame.totalQuestions * currentGame.timePerQuestion - 3);
 
-                if (currentGame.currentQuestion && currentGame.currentQuestion.questionNum < currentGame.totalQuestions
-                        && gameEndDate > new Date() && gamemode && currentGame.gamemode === gamemode) {
+                if (currentGame.currentQuestion && currentGame.currentQuestion.questionNum < currentGame.totalQuestions &&
+                    gameEndDate > new Date() && gamemode && currentGame.gamemode === gamemode) {
                     let questionEndDate = new Date(currentGame.currentQuestion.timestamp);
                     questionEndDate.setSeconds(questionEndDate.getSeconds() + currentGame.timePerQuestion);
 
                     if (questionEndDate > new Date()) {
-                        return resolve({isReady: true, needsNewQuestion: false});
+                        return resolve({
+                            isReady: true,
+                            needsNewQuestion: false
+                        });
                     }
 
                     while (new Date() > questionEndDate) {
@@ -163,7 +168,11 @@ const getCurrentGame = () => {
                     }
 
                     questionEndDate.setSeconds(questionEndDate.getSeconds() - currentGame.timePerQuestion);
-                    return resolve({isReady: true, needsNewQuestion: true, newQuestionTimestamp: questionEndDate.toUTCString()});
+                    return resolve({
+                        isReady: true,
+                        needsNewQuestion: true,
+                        newQuestionTimestamp: questionEndDate.toUTCString()
+                    });
                 } else {
                     currentGame.hasFinished = true;
                     currentGameRef.update(currentGame).then(result => {
@@ -174,7 +183,9 @@ const getCurrentGame = () => {
 
             if (!gamemode || gamemode !== 'progLang' && gamemode !== 'lyrics') {
                 window.location = 'index.html';
-                return resolve({isReady: false});
+                return resolve({
+                    isReady: false
+                });
             }
 
             currentGame = {
@@ -197,7 +208,10 @@ const getCurrentGame = () => {
 
             currentGameRef = allGamesRef.push(currentGame);
 
-            return resolve({isReady: true, needsNewQuestion: true});
+            return resolve({
+                isReady: true,
+                needsNewQuestion: true
+            });
         });
     });
 };

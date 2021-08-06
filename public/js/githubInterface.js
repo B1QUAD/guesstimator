@@ -12,56 +12,56 @@ async function githubApiInit() {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
-    }).then(response => response['jsonResponse']).then(function (langs) {
+    }).then(response => response['jsonResponse']).then(function(langs) {
         languages = langs;
     });
 }
 
 
 // Rate limited to 10 requests per minute
-function getQuestion() {
+function getGithubQuestion() {
     return new Promise((resolve, reject) => {
         let currentLang = getRandomLang();
-    	let choices; // Array of js objects containing matching files
-    	let json;
-    	let returnObj = {
-    		codeRef: '', // url to github blob
-    		answer: [currentLang].concat(languages[currentLang])
-    	};
+        let choices; // Array of js objects containing matching files
+        let json;
+        let returnObj = {
+            codeRef: '', // url to github blob
+            answer: [currentLang].concat(languages[currentLang])
+        };
 
-    	// Search for files with that language in them
-    	// https://api.github.com/search/code?q=language:${lang}+repo:leachim6/Hello-World
-    	loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
-    		method: 'GET',
-    		headers: {
-    			'Accept': 'application/vnd.github.v3+json'
-    		}
-    	}).then(function(response) {
+        // Search for files with that language in them
+        // https://api.github.com/search/code?q=language:${lang}+repo:leachim6/Hello-World
+        loadFromApi(`https://api.github.com/search/code?q=language:${currentLang}+repo:leachim6/Hello-World`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        }).then(function(response) {
             json = response['jsonResponse'];
             choices = json['items'];
 
-			// Check to see if the API returned nothing for some reason
-			if (json['total_count'] < 1) {
-				console.log('Re trying API request');
-				resolve(getQuestion());
-			} else if (response['status'] === 403) {
-				getBackupQuestion().then(question => {
+            // Check to see if the API returned nothing for some reason
+            if (json['total_count'] < 1) {
+                console.log('Re trying API request');
+                resolve(getQuestion());
+            } else if (response['status'] === 403) {
+                getBackupQuestion().then(question => {
                     resolve({
                         codeRef: question.content,
                         answer: question.acceptedAnswers
                     });
                 });
-			} else {
-				returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
-				resolve(returnObj);
-			}
-    	});
+            } else {
+                returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
+                resolve(returnObj);
+            }
+        });
     });
 }
 
 // Gets and returns an array with numQuestions indices.
 // Capped at 10 questions per call
-async function getQuestions(numQuestions) {
+async function getGithubQuestions(numQuestions) {
     let questions = [];
     if (numQuestions > 10) {
         // console.log(`${numQuestions} would get rate limited after the 10th request.\n`);
@@ -78,7 +78,7 @@ async function getQuestions(numQuestions) {
 
 async function loadFromApi(url, params) {
     return new Promise((resolve, reject) => {
-        fetch(url, params).then(async function (response) {
+        fetch(url, params).then(async function(response) {
             let status = response.status;
             // console.log(typeof status, '\n' + status);
             let jsonResponse = await response.json();
@@ -92,8 +92,12 @@ async function loadFromApi(url, params) {
                 // window.location.href = window.location.search;
             }
 
-            resolve({rawResponse: response, jsonResponse: jsonResponse, status: status});
-        }).catch(function (error) {
+            resolve({
+                rawResponse: response,
+                jsonResponse: jsonResponse,
+                status: status
+            });
+        }).catch(function(error) {
             // console.log(error);
         });
     });
