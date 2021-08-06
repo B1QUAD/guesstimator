@@ -16,7 +16,7 @@ https://developer.musixmatch.com/admin/applications
 
 let key = "c1562ca1935a6e4ef23613a28c7fc6ca";
 let key2 = "a15480b2b104cdb7ec707f3876c7e392";
-key = key2;
+//key = key2;
 
 
 let numSongs = 50;
@@ -87,7 +87,14 @@ function getNextSongWithLyrics(retrievedSongs) {
             currSongLs = 0;
         }
         // console.log("Exists already");
-        let song = retrievedSongs.songs[currSongLs];
+        let song;
+        try {
+            song = retrievedSongs.songs[currSongLs];
+        }
+        catch(err) {
+            key = key2;
+            song = retrievedSongs.songs[currSongLs];
+        }
 
         currSongLs++;
         if (currSongLs > numSongs - 1) {
