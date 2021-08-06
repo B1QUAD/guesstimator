@@ -16,7 +16,7 @@ https://developer.musixmatch.com/admin/applications
 
 let key = "c1562ca1935a6e4ef23613a28c7fc6ca";
 let key2 = "a15480b2b104cdb7ec707f3876c7e392";
-let key3="15bfd2397d665104860c5e7950248583";
+let key3 = "15bfd2397d665104860c5e7950248583";
 key = key3;
 
 
@@ -67,6 +67,8 @@ function setAllSongInfo() {
                     dateRetrieved: currentDate,
                     songs: songs
                 }
+                console.log(songInfoObj);
+
                 localStorage.setItem('allSongInfo', JSON.stringify(songInfoObj));
                 resolve(true);
             });
@@ -81,22 +83,8 @@ function getNextSongWithLyrics(retrievedSongs) {
             localStorage.setItem('currSong', 0);
             currSongLs = 0;
         }
-        
-        // Does this fix the rate limit problem? //
+
         let song = retrievedSongs.songs[currSongLs];
-        /*try {
-            song = retrievedSongs.songs[currSongLs];
-        }
-        catch(err) {
-            try{
-                key = key2;
-            }
-            catch(err){
-                key = key;
-            }
-            song = retrievedSongs.songs[currSongLs];
-        }*/
-        ///////////////////////////////////////////
 
         currSongLs++;
         if (currSongLs > numSongs - 1) {
@@ -104,7 +92,12 @@ function getNextSongWithLyrics(retrievedSongs) {
         }
         localStorage.setItem('currSong', currSongLs);
 
+        if (song.lyrics) return resolve(song);
+
         getLyrics(song.id).then(lyrics => {
+            retrievedSongs.songs[currSongLs].lyrics = lyrics;
+            localStorage.setItem('allSongInfo', JSON.stringify(retrievedSongs));
+
             song.lyrics = lyrics;
             resolve(song);
         });
@@ -121,10 +114,10 @@ const getLyrics = (trackId) => {
                 let numLines = lyrics.split(/\r\n|\r|\n/).length;
                 lyrics = lyrics.split(/\r\n|\r|\n/);
                 lyrics = lyrics[Math.floor(numLines / 2)] + "\n " + lyrics[Math.floor(numLines / 2 + 1)] + "\n " + lyrics[Math.floor(numLines / 2 + 2)] + "\n " + lyrics[Math.floor(numLines / 2 + 3)];
-          
-                let badWords=["anal,anus,arse,ass,ass fuck,ass hole,assfucker,asshole,assshole,bastard,bitch,black cock,bloody hell,boong,cock,cockfucker,cocksuck,cocksucker,coon,coonnass,crap,cunt,cyberfuck,damn,darn,dick,dirty,douche,dummy,erect,erection,erotic,escort,fag,faggot,fuck,Fuck off,fuck you,fuckass,fuckhole,god damn,gook,hard core,hardcore,homoerotic,hore,lesbian,lesbians,mother fucker,motherfuck,motherfucker,negro,nigger,orgasim,orgasm,penis,penisfucker,piss,piss off,porn,porno,pornography,pussy,retard,sadist,sex,sexy,shit,slut,son of a bitch,suck,tits,viagra,whore"];
-                for(let i; i<badWords.length;i++){
-                    lyrics.replace(badWords[i], "****");                        
+
+                let badWords = ["anal,anus,arse,ass,ass fuck,ass hole,assfucker,asshole,assshole,bastard,bitch,black cock,bloody hell,boong,cock,cockfucker,cocksuck,cocksucker,coon,coonnass,crap,cunt,cyberfuck,damn,darn,dick,dirty,douche,dummy,erect,erection,erotic,escort,fag,faggot,fuck,Fuck off,fuck you,fuckass,fuckhole,god damn,gook,hard core,hardcore,homoerotic,hore,lesbian,lesbians,mother fucker,motherfuck,motherfucker,negro,nigger,nigga,orgasim,orgasm,penis,penisfucker,piss,piss off,porn,porno,pornography,pussy,retard,sadist,sex,sexy,shit,slut,son of a bitch,suck,tits,viagra,whore"];
+                for (let i; i < badWords.length; i++) {
+                    lyrics.replace(badWords[i], "****");
                 }
                 resolve(lyrics);
             });
