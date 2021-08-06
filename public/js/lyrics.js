@@ -16,7 +16,7 @@ https://developer.musixmatch.com/admin/applications
 
 let key = "c1562ca1935a6e4ef23613a28c7fc6ca";
 let key2 = "a15480b2b104cdb7ec707f3876c7e392";
-//key = key2;
+key = key2;
 
 
 let numSongs = 50;
@@ -82,8 +82,8 @@ function getNextSongWithLyrics(retrievedSongs) {
         }
         
         // Does this fix the rate limit problem? //
-        let song;
-        try {
+        let song = retrievedSongs.songs[currSongLs];
+        /*try {
             song = retrievedSongs.songs[currSongLs];
         }
         catch(err) {
@@ -94,7 +94,7 @@ function getNextSongWithLyrics(retrievedSongs) {
                 key = key;
             }
             song = retrievedSongs.songs[currSongLs];
-        }
+        }*/
         ///////////////////////////////////////////
 
         currSongLs++;
