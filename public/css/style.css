@@ -171,6 +171,14 @@ nav {
     animation: animateText 10s linear infinite;
 }
 
+#correct-answer{
+    position:absolute;
+    font-size:1.5vw;
+    bottom:10vw;
+    left:25vw;
+    color:rgb(255,200,200);
+}
+
 #start-btn {
 	position: absolute;
 	z-index: 2;
