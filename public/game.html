@@ -96,14 +96,9 @@
 					signInBtn.innerHTML = "Sign In";
 					userId = "guest";
 				}
+				
 				// game.js
-				initializeGame().then(isReady => {
-					if (!isReady) {
-						return;
-					}
-
-					refreshUI();
-				});
+				initializeGame();
 			});
 		};
 	</script>
