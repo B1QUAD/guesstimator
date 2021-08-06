@@ -56,7 +56,7 @@ const getLyricsQuestion = (timestamp) => {
     var songInfo = runLyricsApi();
     songInfo.lyrics = getFinalLyrics();
 
-    currentGame.currentQuestion.acceptedAnswers = [songInfo.name, songInfo.artist];
+    currentGame.currentQuestion.acceptedAnswers = [songInfo.name, songInfo.artist].map(a => a.trim().toLowerCase());
     console.log(currentGame.currentQuestion.acceptedAnswers);
     currentGame.currentQuestion.content = songInfo.lyrics;
     currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
@@ -65,6 +65,8 @@ const getLyricsQuestion = (timestamp) => {
 
 const renderLyricsQuestion = () => {
     console.log('ready to render lyrics');
+    document.querySelector("#lyrics").innerHTML=currentGame.currentQuestion.content;
+    console.log(currentGame.currentQuestion.content);
 };
 
 window.addEventListener('keypress', function (e) {
@@ -97,6 +99,7 @@ const checkAnswer = () => {
             delete currentGame.currentQuestion;
             currentGameRef.set(currentGame).then(result => {
                 refreshUI(true);
+                isCheckingAnswer=false;
                 //display model
                 document.querySelector("#modal").style.display="block";
                 document.querySelector("#modal-content").innerHTML="Your score: \n" + currentGame.numCorrect + " out of " + currentGame.totalQuestions;
@@ -185,8 +188,8 @@ const getCurrentGame = () => {
                 currentStreak: 0,
                 numCorrect: 0,
                 numIncorrect: 0,
-                totalQuestions: 5, // for now, this is fixed
-                timePerQuestion: 5, // in seconds; for now, this is fixed
+                totalQuestions: 10, // for now, this is fixed
+                timePerQuestion: 25, // in seconds; for now, this is fixed
                 timestamp: new Date().toUTCString()
             };
 
@@ -204,6 +207,9 @@ const timer = document.querySelector('#timer');
 const refreshUI = (gameHasEnded) => {
     score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
     streak.innerText = `Streak: ${currentGame.currentStreak}`;
+
+    const answerBox = document.querySelector('#answer-box');
+    answerBox.value = '';
 
     if (!gameHasEnded) {
         const questionEndTime = (new Date(currentGame.currentQuestion.timestamp).getTime() + currentGame.timePerQuestion * 1000);
