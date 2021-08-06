@@ -350,6 +350,7 @@ dashboard #ranking-label {
     font-size: 3vw;
     top: 0vw;
     left: 67.5vw;
+    display:none;    
 }
 
 dashboard #ranking {
@@ -363,6 +364,7 @@ dashboard #ranking {
     border-radius: 50%;
     text-align: center;
     padding-top: 2.75vw;
+    display:none;
 }
 
 dashboard #personal, dashboard #globalField {
