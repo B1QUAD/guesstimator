@@ -17,7 +17,8 @@ https://developer.musixmatch.com/admin/applications
 let key = "c1562ca1935a6e4ef23613a28c7fc6ca";
 let key2 = "a15480b2b104cdb7ec707f3876c7e392";
 let key3 = "15bfd2397d665104860c5e7950248583";
-key = key3;
+let key4 = '3c5798e308b4d4ce09e320d624d7e2b4';
+key = key4;
 
 
 let numSongs = 50;
@@ -94,6 +95,13 @@ function getNextSongWithLyrics(retrievedSongs) {
 
         getLyrics(song.id).then(lyrics => {
             song.lyrics = lyrics;
+            song.name = song.name.toLowerCase();
+            let badWords = ["anal,anus,arse,ass fuck,ass hole,assfucker,asshole,assshole,bastard,bitch,black cock,bloody hell,boong,cock,cockfucker,cocksuck,cocksucker,coon,coonnass,crap,cunt,cyberfuck,damn,darn,dick,dirty,douche,dummy,erect,erection,erotic,escort,fag,faggot,fuck,Fuck off,fuck you,fuckass,fuckhole,god damn,gook,hard core,hardcore,homoerotic,hore,lesbian,lesbians,mother fucker,motherfuck,motherfucker,negro,nigger,nigga,orgasim,orgasm,penis,penisfucker,piss,piss off,porn,porno,pornography,pussy,retard,sadist,sex,sexy,shit,slut,son of a bitch,suck,tits,viagra,whore"];
+            badWords = badWords[0].split(',');
+            for (let i = 0; i < badWords.length; i++) {
+                song.name = song.name.replace(badWords[i], "****");
+                song.lyrics = song.lyrics.replace(badWords[i], "****");
+            }
             resolve(song);
         });
     });
@@ -110,10 +118,6 @@ const getLyrics = (trackId) => {
                 lyrics = lyrics.split(/\r\n|\r|\n/);
                 lyrics = lyrics[Math.floor(numLines / 2)] + "\n " + lyrics[Math.floor(numLines / 2 + 1)] + "\n " + lyrics[Math.floor(numLines / 2 + 2)] + "\n " + lyrics[Math.floor(numLines / 2 + 3)];
                 lyrics=lyrics.toLowerCase();
-                let badWords = ["anal,anus,arse,ass,ass fuck,ass hole,assfucker,asshole,assshole,bastard,bitch,black cock,bloody hell,boong,cock,cockfucker,cocksuck,cocksucker,coon,coonnass,crap,cunt,cyberfuck,damn,darn,dick,dirty,douche,dummy,erect,erection,erotic,escort,fag,faggot,fuck,Fuck off,fuck you,fuckass,fuckhole,god damn,gook,hard core,hardcore,homoerotic,hore,lesbian,lesbians,mother fucker,motherfuck,motherfucker,negro,nigger,nigga,orgasim,orgasm,penis,penisfucker,piss,piss off,porn,porno,pornography,pussy,retard,sadist,sex,sexy,shit,slut,son of a bitch,suck,tits,viagra,whore"];
-                for (let i; i < badWords.length; i++) {
-                    lyrics.replace(badWords[i], "****");
-                }
                 resolve(lyrics);
             });
     });
