@@ -194,7 +194,8 @@ function dashInit() {
 	let avgCounter = 1;
     let arr = [];
     let categoryTranslator = {
-        'progLang': 'Programming'
+        'progLang': 'Programming',
+        'lyrics' : 'lyrics'
     }
 
     if (typeof userId !== 'undefined') {
