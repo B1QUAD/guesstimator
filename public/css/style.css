@@ -53,6 +53,12 @@ nav {
 	max-height: 2.5vw;
 }
 
+#dashboard-icon img{
+    height:90%;
+    position:relative;
+    top:.1vw;
+}
+
 .navbar-brand {
 	margin-right: 1.5vw;
 	margin-left: .5vw;
