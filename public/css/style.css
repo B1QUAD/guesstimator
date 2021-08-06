@@ -177,6 +177,11 @@ nav {
     font-weight:900;
     font-size:2.5vw;
     animation: animateText 10s linear infinite;
+    text-shadow:
+        0 0 .25vw rgb(255,255,255,.8),
+        0 0 .5vw rgb(240, 160, 160,.7),
+        0 0 1vw rgb(200, 120, 120,.1),
+        0 0 2vw rgb(200, 50, 50,.75);
 }
 
 #correct-answer{
@@ -528,13 +533,28 @@ dashboard #globalField {
 
 @keyframes animateText {
 	0% {
-		color:white;
+        color:white;
+        text-shadow:
+            0 0 .25vw rgb(255,255,255,.8),
+            0 0 .3vw rgb(240, 160, 160,.7),
+            0 0 .5vw rgb(200, 120, 120,.1),
+            0 0 .75vw rgb(200, 50, 50,.75);
     }
     50% {
         color:rgb(100,100,100);
+        text-shadow:
+            0 0 .25vw rgb(250,0,0,.8),
+            0 0 .3vw rgb(200, 50, 50,.7),
+            0 0 .5vw rgb(150, 100, 100,.1),
+            0 0 .75vw rgb(150, 150, 150,.75);
     }
 	100% {
-		color:white;
+        color:white;
+        text-shadow:
+            0 0 .25vw rgb(255,255,255,.8),
+            0 0 .3vw rgb(240, 160, 160,.7),
+            0 0 .5vw rgb(200, 120, 120,.1),
+            0 0 .75vw rgb(200, 50, 50,.75);
 	}
 }
 
