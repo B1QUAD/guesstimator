@@ -67,6 +67,12 @@ const renderLyricsQuestion = () => {
     console.log('ready to render lyrics');
 };
 
+window.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      checkAnswer();
+    }
+});
+
 const checkAnswer = () => {
     if (isCheckingAnswer) return;
     isCheckingAnswer = true;
