@@ -92,12 +92,7 @@ function getNextSongWithLyrics(retrievedSongs) {
         }
         localStorage.setItem('currSong', currSongLs);
 
-        if (song.lyrics) return resolve(song);
-
         getLyrics(song.id).then(lyrics => {
-            retrievedSongs.songs[currSongLs].lyrics = lyrics;
-            localStorage.setItem('allSongInfo', JSON.stringify(retrievedSongs));
-
             song.lyrics = lyrics;
             resolve(song);
         });
