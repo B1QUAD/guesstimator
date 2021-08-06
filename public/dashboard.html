@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guesstimator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  </head>
+  <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
+                </a>
+            </div>
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Guesstimator</title>
-	<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-	<link rel="stylesheet" href="css/style.css" />
-	<!-- update the version number as needed -->
-	<script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
-	<!-- include only the Firebase features as you need -->
-	<script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
-	<script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
-	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-</head>
+            <div class="navbar-brand">
+                <a class="navbar-item" href="dashboard.html" id="dashboard-icon">
+                    <img src="https://icon-library.com/images/analytics-icon-png/analytics-icon-png-2.jpg">
+                </a>
+            </div>
 
-<body>
-	<nav class="navbar" role="navigation" aria-label="main navigation">
-		<div class="navbar-brand">
-			<a class="navbar-item" href="dashboard.html">
-				<img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
-			</a>
-		</div>
-
-		<div class="navbar-brand">
-			<div class="navbar-item has-dropdown is-hoverable">
-				<div class="navbar-item">
-					<img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
-				</div>
-				<div class="navbar-dropdown">
-					<a class="navbar-item" href="game.html?gamemode=progLang">
+			<div class="navbar-brand">
+				<div class="navbar-item has-dropdown is-hoverable">
+					<div class="navbar-item">
+						<img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
+					</div>
+					<div class="navbar-dropdown">
+					  <a class="navbar-item" href="game.html?gamemode=progLang">
 						Programming
 					</a>
 					<a class="navbar-item" href="game.html?gamemode=lyrics">

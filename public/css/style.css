@@ -53,9 +53,38 @@ nav {
     max-height: 2.5vw;
 }
 
+#dashboard-icon img{
+    height:90%;
+    position:relative;
+    top:.1vw;
+}
+
 .navbar-brand {
     margin-right: 1.5vw;
     margin-left: .5vw;
+}
+
+.modal-card{
+    position:absolute;
+    top:10vw;
+    left: 35vw;
+    width:30vw;
+}
+
+.modal-card-head,
+#modal-content,
+.modal-card-title,
+.modal-card-foot{
+    background:rgb(40,40,40);
+    color:rgb(100,100,100) !important;
+}
+
+#modal-content{
+    font-size: 1.5vw;
+}
+
+.modal-card-title{
+    font-size:2vw;
 }
 
 #timer {
@@ -121,17 +150,52 @@ nav {
 }
 
 #question-box {
-    position: absolute;
-    top: 10vw;
-    left: 25vw;
-    width: 50vw;
-    max-height: 50vh;
-    /* background:  rgb(150,150,150); */
-    background: rgba(150, 150, 150, 25);
-    overflow-x: auto;
-    overflow-y: auto;
-    border-radius: 0.3rem;
+	position: absolute;
+	top: 10vw;
+	left: 25vw;
+	width: 50vw;
+	max-height: 50vh;
+	/* background:  rgb(150,150,150); */
+	background: rgba(150, 150, 150, 0);
+	overflow-x: auto;
+	overflow-y: auto;
+	border-radius: 0.3rem;
     z-index: 2;
+}
+
+#question-box2{
+    position: absolute;
+	top: 10vw;
+	left: 26vw;
+	width: 50vw;
+	max-height: 50vh;
+	/* background:  rgb(150,150,150); */
+	background: rgba(150, 150, 150, 0);
+	border-radius: 0.3rem;
+    z-index: 2;
+    overflow:visible !important;
+    animation:pulse 3s linear infinite;
+}
+
+
+#question-box2 #lyrics{
+    color: white;
+    font-weight:900;
+    font-size:2.5vw;
+    animation: animateText 10s linear infinite;
+    text-shadow:
+        0 0 .25vw rgb(255,255,255,.8),
+        0 0 .5vw rgb(240, 160, 160,.7),
+        0 0 1vw rgb(200, 120, 120,.1),
+        0 0 2vw rgb(200, 50, 50,.75);
+}
+
+#correct-answer{
+    position:absolute;
+    font-size:1.5vw;
+    bottom:10vw;
+    left:25vw;
+    color:rgb(255,200,200);
 }
 
 #start-btn {
@@ -500,6 +564,33 @@ dashboard #chartContainer>* {
 
 #game-background .shapes li:nth-child(10) {
     animation: turnUp2 60s linear infinite;
+}
+
+@keyframes animateText {
+	0% {
+        color:white;
+        text-shadow:
+            0 0 .25vw rgb(255,255,255,.8),
+            0 0 .3vw rgb(240, 160, 160,.7),
+            0 0 .5vw rgb(200, 120, 120,.1),
+            0 0 .75vw rgb(200, 50, 50,.75);
+    }
+    50% {
+        color:rgb(100,100,100);
+        text-shadow:
+            0 0 .25vw rgb(250,0,0,.8),
+            0 0 .3vw rgb(200, 50, 50,.7),
+            0 0 .5vw rgb(150, 100, 100,.1),
+            0 0 .75vw rgb(150, 150, 150,.75);
+    }
+	100% {
+        color:white;
+        text-shadow:
+            0 0 .25vw rgb(255,255,255,.8),
+            0 0 .3vw rgb(240, 160, 160,.7),
+            0 0 .5vw rgb(200, 120, 120,.1),
+            0 0 .75vw rgb(200, 50, 50,.75);
+	}
 }
 
 @keyframes turnUp {

@@ -105,7 +105,7 @@
 	"Genie": [],
 	"Elm": [],
 	"Pike": [],
-	"TypeScript": [],
+	"TypeScript": ["JavaScript", "js"],
 	"Idris": [],
 	"Vim script": [],
 	"Gosu": [],

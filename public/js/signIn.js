@@ -18,7 +18,7 @@ const checkIfSignedIn = () => {
         }
     });*/
     console.log(userId);
-    if(userId.length>6){
+    if(userId && userId.length>6){
         console.log("sign out");
         firebase.auth().signOut();
         location.reload();
