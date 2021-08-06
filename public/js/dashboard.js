@@ -75,7 +75,7 @@ function createChart(inputData, title) {
             enabled: true,
             animationEnabled: true,
 			fontColor: 'white',
-			cornerRadius: 10 
+			cornerRadius: 10
         },
         axisX: {
             interval: 1
@@ -224,7 +224,7 @@ function dashInit() {
                     return ts0 < ts1 ? ts0 : ts1;
                 });
 
-                createChart(arr, arr.length === 0 ? 'No Data' : '#Correct/Session');
+                createChart(arr, arr.length === 0 ? 'No Data' : '#Correct/10 Per Session');
             });
     } else {
         const globalField = document.querySelector('#globalField');
