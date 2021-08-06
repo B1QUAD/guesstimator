@@ -77,13 +77,15 @@ function createChart(inputData, title) {
 			fontColor: 'white',
 			cornerRadius: 10
         },
-        axisX: {
-            interval: 1
-        },
-        axisY2: {
-            interlacedColor: "rgba(1,77,101,.2)",
-            gridColor: "rgba(1,77,101,.1)",
-            // title: "-'s Score Over Time"
+		axisX: {
+			tickPlacement: 'inside',
+			tickLength: 0
+		},
+        axisY: {
+			includeZero: true,
+			maximum: 10,
+			interval: 1,
+			tickPlacement: 'outside'
         },
         data: [{
             type: "bar",
