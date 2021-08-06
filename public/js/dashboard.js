@@ -54,16 +54,16 @@ const changeUserDom = (data) => {
     }
 }
 
-function createChart() {
+function createChart(inputData) {
     var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         maintainAspectRatio: false,
         responsive: false,
-		backgroundColor: 'rgba(0, 0, 0, 0.0)',
-		theme: 'dark1',
+        backgroundColor: 'rgba(0, 0, 0, 0.0)',
+        theme: 'dark1',
 
-        title:{
-        	text:"Your Stats"
+        title: {
+            text: "Your Stats"
         },
         axisX: {
             interval: 1
@@ -78,7 +78,7 @@ function createChart() {
             name: "scores",
             axisYType: "primary",
             color: "#50050a",
-            dataPoints: [{
+            dataPoints: inputData ? inputData : [{ // Checks if inputData is null
                     y: 3,
                     label: "Sweden"
                 },
@@ -176,12 +176,20 @@ function dashInit() {
     const globalHardest = document.querySelector('#hardest');
     const globalRecog = document.querySelector('#easiest');
     const globalLeader = document.querySelector('#leaderboard');
+    if (typeof userId !== 'undefined') {
+        db.ref(`users/${userId}`).once('value')
+            .then(snapshot => snapshot.val())
+            .then(function(data) {
+                // Handle read data.
+                console.log(data);
 
-    db.ref().once('value')
-        .then(snapshot => snapshot.val()).then(function(data) {
-            // Handle read data.
-            console.log('Test\n', data);
-        });
+            });
+    } else {
+        const globalField = document.querySelector('#globalField');
+        globalField.innerHTML =
+            '<h1>Only logged in users may see their stats with the dashboard.</h1>';
+			reloadCss();
+    }
 }
 
 function reloadCss() {

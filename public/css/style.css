@@ -380,6 +380,12 @@ dashboard #globalField {
 	border-radius: calc(0.1 * 42vh)/calc(0.1 * 80%) !important;
 }
 
+dashboard #globalField h1 {
+	width: 75vw !important;
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
+
 dashboard #chartContainer {
     margin: 0 auto !important;
     height: calc(100% - 25px);
