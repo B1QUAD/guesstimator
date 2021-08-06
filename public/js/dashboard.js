@@ -24,10 +24,10 @@ const changeDom = () => {
 
 
     if (category == "Programming") {
-        personalHeader.innerHTML = "Top Programming Languages";
+        personalHeader.innerHTML = "Your Programming Stats";
         // dashInit(); // Refresh for category change
     } else if (category == "Lyrics") {
-        personalHeader.innerHTML = "Top Songs";
+        personalHeader.innerHTML = "Your Lyrics Stats";
         // dashInit(); // Refresh for category change
     }
 
@@ -188,7 +188,10 @@ function dashInit() {
     const globalRecog = document.querySelector('#easiest');
     const globalLeader = document.querySelector('#leaderboard');
 
-    let avgCorrectRatio, avgStreak, avgCounter = 0;
+    let avgCorrect = 0;
+	let avgInCorrect = 0;
+	let avgStreak = 0;
+	let avgCounter = 1;
     let arr = [];
     let categoryTranslator = {
         'progLang': 'Programming'
@@ -209,10 +212,19 @@ function dashInit() {
                             y: val['numCorrect'],
                             label: val['timestamp']
                         });
-                        avgCorrectRatio += ((val['numCorrect'] / val['numIncorrect']) / avgCounter);
-                        avgStreak += val['currentStreak'] / avgCounter;
+                        avgCorrect += val['numCorrect'];
+						avgInCorrect += val['numIncorrect'];
+						console.log(avgInCorrect);
+                        avgStreak += val['currentStreak'];
+						avgCounter++;
                     }
                 }
+
+				if(avgCounter > 0) {
+					avgCorrect /= avgCounter;
+					avgInCorrect /= avgCounter;
+					avgStreak /= avgCounter;
+				}
 
                 console.log(arr);
 
@@ -227,6 +239,13 @@ function dashInit() {
                 });
 
                 createChart(arr, arr.length === 0 ? 'No Data' : 'Number Correct Per Session');
+
+				const rightRatio = document.querySelector('#rightRatio');
+				rightRatio.innerHTML = `<b>${avgCorrect.toFixed(2)}</b> right to <b>${avgInCorrect.toFixed(2)}</b> wrong`;
+
+				const streakAvg = document.querySelector('#streakAvg');
+				streakAvg.innerHTML = avgStreak.toFixed(2);
+
             });
     } else {
         const globalField = document.querySelector('#globalField');
