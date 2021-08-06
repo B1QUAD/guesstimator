@@ -90,17 +90,7 @@
 <script src="js/dashboard.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
-		// signIn.js
-		const signInBtn = document.querySelector("#signIn-btn");
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				signInBtn.innerHTML = "Sign Out";
-			}
-			if (!user) {
-				signInBtn.innerHTML = "Sign In";
-			}
-		});
-
+		authStateChangedHandler();
 		changeDom();
 		reloadCss();
 	};
