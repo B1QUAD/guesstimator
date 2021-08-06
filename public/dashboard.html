@@ -1,127 +1,107 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Guesstimator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" href="css/style.css"/>
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-  </head>
-  <body>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="dashboard.html">
-                    <img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
-                </a>
-            </div>
 
-			<div class="navbar-brand">
-				<div class="navbar-item has-dropdown is-hoverable">
-					<div class="navbar-item">
-						<img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
-					</div>
-					<div class="navbar-dropdown">
-					  <a class="navbar-item" href="game.html?gamemode=progLang">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Guesstimator</title>
+	<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<!-- update the version number as needed -->
+	<script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
+	<!-- include only the Firebase features as you need -->
+	<script defer src="/__/firebase/8.3.1/firebase-auth.js"></script>
+	<script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
+	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+</head>
+
+<body>
+	<nav class="navbar" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="dashboard.html">
+				<img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
+			</a>
+		</div>
+
+		<div class="navbar-brand">
+			<div class="navbar-item has-dropdown is-hoverable">
+				<div class="navbar-item">
+					<img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
+				</div>
+				<div class="navbar-dropdown">
+					<a class="navbar-item" href="game.html?gamemode=progLang">
 						Programming
-					  </a>
-					  <a class="navbar-item" href="game.html?gamemode=lyrics">
+					</a>
+					<a class="navbar-item" href="game.html?gamemode=lyrics">
 						Lyrics
-					  </a>
-					</div>
+					</a>
 				</div>
 			</div>
+		</div>
 
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button" onclick="checkIfSignedIn()" id="signIn-btn">
-                    <strong>Sign In</strong>
-                  </a>
-                </div>
-              </div>
-            </div>
-        </nav>
-        <dashboard>
-            <h1>Dashboard</h1>
-            <select name="category" id="category-select">
-                  <option value="invalid" disabled selected value>Category &#129055;</option>
-                  <option value="Programming">Programming</option>
-                  <option value="Lyrics">lyrics</option>
-            </select>
+		<div class="navbar-end">
+			<div class="navbar-item">
+				<div class="buttons">
+					<a class="button" onclick="checkIfSignedIn()" id="signIn-btn">
+						<strong>Sign In</strong>
+					</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<dashboard>
+		<h1>Dashboard</h1>
+		<select name="category" id="category-select">
+			<option value="invalid" disabled selected value>Category &#129055;</option>
+			<option value="Programming">Programming</option>
+			<option value="Lyrics">lyrics</option>
+		</select>
 
-            <section id="personal">
-                <h2 id="personal-header">Top Topic</h2>
-                <img id="profile-pic" src="">
-                <label for="profile-pic" id="profile-name">Name</label>
-                <ol id="personal-top">
-                    <li>1. Thing</li>
-                    <li>2. Thing</li>
-                    <li>3. Thing</li>
-                </ol>
-                <ul id="personal-score">
-                    <li>score/score</li>
-                    <li>score/score</li>
-                    <li>score/score</li>
-                </ul>
-                <label for="ranking" id="ranking-label">Rank</label>
-                <div id="ranking">#</div>
-            </section>
+		<section id="personal">
+			<h2 id="personal-header">Top Topic</h2>
+			<img id="profile-pic" src="">
+			<label for="profile-pic" id="profile-name">Name</label>
+			<ol id="personal-top">
+				<li>1. Thing</li>
+				<li>2. Thing</li>
+				<li>3. Thing</li>
+			</ol>
+			<ul id="personal-score">
+				<li>score/score</li>
+				<li>score/score</li>
+				<li>score/score</li>
+			</ul>
+			<label for="ranking" id="ranking-label">Rank</label>
+			<div id="ranking">#</div>
+		</section>
 
-            <section id="globalField">
-                <h2 id="global-header">Global Info</h2>
-                <label for="hardest" id="hardest-label">Most Difficult</label>
-                <label for="easiest" id="easiest-label">Most Recognizable</label>
-                <label for="leaderboard" id="leaderboard-label">Leaderboard</label>
-                <ul>
-                    <li>
-                        <ol id="hardest">
-                            <li>1. Thing</li>
-                            <li>2. Thing</li>
-                            <li>3. Thing</li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol id="easiest">
-                            <li>1. Thing</li>
-                            <li>2. Thing</li>
-                            <li>3. Thing</li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol id="leaderboard">
-                            <li>1. Thing</li>
-                            <li>2. Thing</li>
-                            <li>3. Thing</li>
-                        </ol>
-                    </li>
-                </ul>
-            </section>
-		</dashboard>
-    </body>
-    <script src="js/signIn.js"></script>
-	<script src="js/dashboard.js"></script>
-    <script type="text/javascript">
-        window.onload = function () {
-            // signIn.js
-            const signInBtn = document.querySelector("#signIn-btn");
-            firebase.auth().onAuthStateChanged(function(user) {
-              if (user) {
-                  signInBtn.innerHTML="Sign Out";
-              }
-              if (!user) {
-                  signInBtn.innerHTML="Sign In";
-              }
-            });
+		<section id="globalField">
+			<div id="chartContainer"></div>
+		</section>
+	</dashboard>
+</body>
+<script src="js/signIn.js"></script>
+<script src="js/dashboard.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		createChart();
+		// signIn.js
+		const signInBtn = document.querySelector("#signIn-btn");
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				signInBtn.innerHTML = "Sign Out";
+			}
+			if (!user) {
+				signInBtn.innerHTML = "Sign In";
+			}
+		});
 
-            // dashboard.js
-            dashInit();
-        };
-    </script>
+		// dashboard.js
+		dashInit();
+		reloadCss();
+	};
+</script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 </html>

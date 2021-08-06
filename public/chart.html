@@ -7,22 +7,22 @@ window.onload = function () {
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 
-	title:{
-		text:"Fortune 500 Companies by Country"
-	},
+	// title:{
+	// 	text:"Your stats"
+	// },
 	axisX:{
 		interval: 1
 	},
 	axisY2:{
 		interlacedColor: "rgba(1,77,101,.2)",
 		gridColor: "rgba(1,77,101,.1)",
-		title: "Number of Companies"
+		title: "-'s Score Over Time"
 	},
 	data: [{
 		type: "bar",
-		name: "companies",
-		axisYType: "secondary",
-		color: "#014D65",
+		name: "scores",
+		axisYType: "primary",
+		color: "#50050a",
 		dataPoints: [
 			{ y: 3, label: "Sweden" },
 			{ y: 7, label: "Taiwan" },
@@ -51,7 +51,7 @@ chart.render();
 </script>
 </head>
 <body>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<div id="chartContainer" style=""></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
