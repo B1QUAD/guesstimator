@@ -64,9 +64,7 @@ const getLyricsQuestion = (timestamp) => {
 };
 
 const renderLyricsQuestion = () => {
-    console.log('ready to render lyrics');
-    document.querySelector("#lyrics").innerHTML=currentGame.currentQuestion.content;
-    console.log(currentGame.currentQuestion.content);
+    document.querySelector('#lyrics').innerHTML = currentGame.currentQuestion.content;
 };
 
 window.addEventListener('keypress', function (e) {
@@ -100,9 +98,9 @@ const checkAnswer = () => {
             currentGameRef.set(currentGame).then(result => {
                 refreshUI(true);
                 isCheckingAnswer=false;
-                //display model
-                document.querySelector("#modal").style.display="block";
-                document.querySelector("#modal-content").innerHTML="Your score: \n" + currentGame.numCorrect + " out of " + currentGame.totalQuestions;
+                // display modal
+                document.querySelector('#modal').style.display = 'block';
+                document.querySelector('#modal-content').innerHTML = `Your score:\n${currentGame.numCorrect} out of ${currentGame.totalQuestions}`;
             });
             return;
         }
@@ -200,11 +198,14 @@ const getCurrentGame = () => {
     });
 };
 
+const directionsGm = document.querySelector('#directions-gamemode');
 const score = document.querySelector('#score');
 const streak = document.querySelector('#streak');
 const timer = document.querySelector('#timer');
 
 const refreshUI = (gameHasEnded) => {
+    if (currentGame.gamemode === 'progLang') directionsGm.innerText = 'Programming Language';
+    else if (currentGame.gamemode === 'lyrics') directionsGm.innerText = 'Song';
     score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
     streak.innerText = `Streak: ${currentGame.currentStreak}`;
 

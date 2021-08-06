@@ -74,17 +74,20 @@
 	<div id="score">Score: -/-</div>
 	<div id="streak">Streak: -</div>
 
-	<label for="section" id="directions">Guess what Programming Language is being displayed <br> Type your Answer in the Box Below</label>
+	<label for="section" id="directions">
+		Guess what <span id="directions-gamemode"></span> is being displayed <br> Type your Answer in the Box Below
+	</label>
 	<section id="question-box">
 		<!-- <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FB1QUAD%2Fguesstimator%2Fblob%2Fmain%2Fpublic%2Fdashboard.html&style=atom-one-dark&showBorder=on&showLineNumbers=on"></script> -->
     </section>
     <section id="question-box2">
         <div id="lyrics"></div>
 		<!-- <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FB1QUAD%2Fguesstimator%2Fblob%2Fmain%2Fpublic%2Fdashboard.html&style=atom-one-dark&showBorder=on&showLineNumbers=on"></script> -->
-    </section>
+	</section>
+	<div id="correct-answer">Previous Correct Answer: </div>
 	<input type="text" id="answer-box" placeholder="Type Answer Here">
     <button id="submit-answer" onclick="checkAnswer()">Submit</button>
-    
+
     <div class="modal" id="modal">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -92,7 +95,7 @@
         <p class="modal-card-title">Game Complete</p>
         </header>
         <section class="modal-card-body" id="modal-content">
-        
+
         </section>
         <footer class="modal-card-foot">
         <button class="button is-success" onclick="initializeGame(); document.querySelector('#modal').style.display='none';">Play Again</button>
@@ -118,7 +121,7 @@
 					signInBtn.innerHTML = "Sign In";
 					userId = "guest";
 				}
-				
+
 				// game.js
 				initializeGame();
 			});
