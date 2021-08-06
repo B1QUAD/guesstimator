@@ -26,7 +26,7 @@ const changeDom = () => {
     if (category == "Programming") {
         personalHeader.innerHTML = "Top Programming Languages";
         // dashInit(); // Refresh for category change
-    } else if (category == "Lyrics") {
+    } else if (category == "lyrics") {
         personalHeader.innerHTML = "Top Songs";
         // dashInit(); // Refresh for category change
     }
@@ -191,7 +191,8 @@ function dashInit() {
     let avgCorrectRatio, avgStreak, avgCounter = 0;
     let arr = [];
     let categoryTranslator = {
-        'progLang': 'Programming'
+        'progLang': 'Programming',
+        'lyrics' : 'lyrics'
     }
 
     if (typeof userId !== 'undefined') {

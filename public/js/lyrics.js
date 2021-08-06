@@ -16,7 +16,8 @@ https://developer.musixmatch.com/admin/applications
 
 let key = "c1562ca1935a6e4ef23613a28c7fc6ca";
 let key2 = "a15480b2b104cdb7ec707f3876c7e392";
-key = key2;
+let key3="15bfd2397d665104860c5e7950248583";
+key = key3;
 
 
 let numSongs = 50;
