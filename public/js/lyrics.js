@@ -31,7 +31,6 @@ runLyricsApi = () => {
     return new Promise((resolve, reject) => {
         const currentDate = new Date().getDate();
         const retrievedSongs = JSON.parse(localStorage.getItem('allSongInfo'));
-        console.log(retrievedSongs);
 
         if (!retrievedSongs || currentDate != retrievedSongs.dateRetrieved) {
             localStorage.clear();
@@ -55,9 +54,7 @@ function setAllSongInfo() {
             .then(response => response.json())
             .then(data => {
                 songList = data.message.body.track_list;
-                // console.log(songList);
                 for (let i = 0; i < songList.length; i++) {
-                    // console.log(songList[i].track.track_name + " - " + songList[i].track.artist_name);
                     songs.push({
                         id: songList[i].track.track_id,
                         name: songList[i].track.track_name,
@@ -65,14 +62,11 @@ function setAllSongInfo() {
                     });
                 }
                 var currentDate = new Date().getDate();
-                // console.log(songNames);
                 let songInfoObj = {
                     dateRetrieved: currentDate,
                     songs: songs
                 }
                 localStorage.setItem('allSongInfo', JSON.stringify(songInfoObj));
-                // let retrievedSongObject = JSON.parse(localStorage.getItem('allSongInfo'));
-                // console.log(retrievedSongObject);
                 resolve(true);
             });
     });
@@ -86,7 +80,8 @@ function getNextSongWithLyrics(retrievedSongs) {
             localStorage.setItem('currSong', 0);
             currSongLs = 0;
         }
-        // console.log("Exists already");
+        
+        // Does this fix the rate limit problem? //
         let song;
         try {
             song = retrievedSongs.songs[currSongLs];
@@ -100,6 +95,7 @@ function getNextSongWithLyrics(retrievedSongs) {
             }
             song = retrievedSongs.songs[currSongLs];
         }
+        ///////////////////////////////////////////
 
         currSongLs++;
         if (currSongLs > numSongs - 1) {
@@ -124,7 +120,7 @@ const getLyrics = (trackId) => {
                 let numLines = lyrics.split(/\r\n|\r|\n/).length;
                 lyrics = lyrics.split(/\r\n|\r|\n/);
                 lyrics = lyrics[Math.floor(numLines / 2)] + "\n " + lyrics[Math.floor(numLines / 2 + 1)] + "\n " + lyrics[Math.floor(numLines / 2 + 2)] + "\n " + lyrics[Math.floor(numLines / 2 + 3)];
-                // console.log(songName + " - " + songArtist);
+          
                 let badWords=["anal,anus,arse,ass,ass fuck,ass hole,assfucker,asshole,assshole,bastard,bitch,black cock,bloody hell,boong,cock,cockfucker,cocksuck,cocksucker,coon,coonnass,crap,cunt,cyberfuck,damn,darn,dick,dirty,douche,dummy,erect,erection,erotic,escort,fag,faggot,fuck,Fuck off,fuck you,fuckass,fuckhole,god damn,gook,hard core,hardcore,homoerotic,hore,lesbian,lesbians,mother fucker,motherfuck,motherfucker,negro,nigger,orgasim,orgasm,penis,penisfucker,piss,piss off,porn,porno,pornography,pussy,retard,sadist,sex,sexy,shit,slut,son of a bitch,suck,tits,viagra,whore"];
                 for(let i; i<badWords.length;i++){
                     lyrics.replace(badWords[i], "****");                        

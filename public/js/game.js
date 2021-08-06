@@ -93,6 +93,7 @@ const checkAnswer = () => {
         currentGame.currentStreak = 0;
     }
     currentGame.currentQuestion.questionNum++;
+    currentGame.previousAnswer = currentGame.currentQuestion.acceptedAnswers[0];
 
     currentGameRef.update(currentGame).then(result => {
         // if game is finished
@@ -111,8 +112,6 @@ const checkAnswer = () => {
         }
 
         // if game is not finished
-        prevCorrectAnswer.classList.remove('is-invisible');
-        prevCorrectAnswer.innerText = `Previous Correct Answer: ${currentGame.currentQuestion.acceptedAnswers[0]}`;
         if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
                 refreshUI();
@@ -198,6 +197,7 @@ const getCurrentGame = () => {
                     questionNum: 1,
                     timestamp: ''
                 },
+                previousAnswer: '',
                 currentStreak: 0,
                 numCorrect: 0,
                 numIncorrect: 0,
@@ -226,6 +226,10 @@ const refreshUI = (gameHasEnded) => {
     else if (currentGame.gamemode === 'lyrics') directionsGm.innerText = 'Song';
     score.innerText = `Score: ${currentGame.numCorrect}/${currentGame.numCorrect + currentGame.numIncorrect}`;
     streak.innerText = `Streak: ${currentGame.currentStreak}`;
+    if (currentGame.previousAnswer) {
+        prevCorrectAnswer.classList.remove('is-invisible');
+        prevCorrectAnswer.innerText = `Previous Correct Answer: ${currentGame.previousAnswer}`;
+    }
 
     const answerBox = document.querySelector('#answer-box');
     answerBox.value = '';
