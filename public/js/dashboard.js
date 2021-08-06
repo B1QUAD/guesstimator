@@ -198,7 +198,7 @@ function dashInit() {
         'lyrics' : 'lyrics'
     }
 
-    if (typeof userId !== 'undefined') {
+    if (typeof userId !== 'undefined' && userId !== 'guest') {
         db.ref(`users/${userId}/games`).once('value')
             .then(snapshot => snapshot.val())
             .then(function(data) {
