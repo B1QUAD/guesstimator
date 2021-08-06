@@ -92,7 +92,12 @@ function getNextSongWithLyrics(retrievedSongs) {
             song = retrievedSongs.songs[currSongLs];
         }
         catch(err) {
-            key = key2;
+            try{
+                key = key2;
+            }
+            catch(err){
+                key = key;
+            }
             song = retrievedSongs.songs[currSongLs];
         }
 
