@@ -226,7 +226,7 @@ function dashInit() {
                     return ts0 < ts1 ? ts0 : ts1;
                 });
 
-                createChart(arr, arr.length === 0 ? 'No Data' : '#Correct/10 Per Session');
+                createChart(arr, arr.length === 0 ? 'No Data' : 'Number Correct Per Session');
             });
     } else {
         const globalField = document.querySelector('#globalField');
