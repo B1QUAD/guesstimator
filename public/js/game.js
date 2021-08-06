@@ -5,6 +5,7 @@ let timerInterval;
 let checkAnswerTimeout;
 
 const questionBox = document.querySelector('#question-box');
+const prevCorrectAnswer = document.querySelector('#correct-answer');
 
 const initializeGame = () => {
     getCurrentGame().then(currGameInfo => {
@@ -97,7 +98,8 @@ const checkAnswer = () => {
             delete currentGame.currentQuestion;
             currentGameRef.set(currentGame).then(result => {
                 refreshUI(true);
-                isCheckingAnswer=false;
+                prevCorrectAnswer.classList.add('is-invisible');
+                isCheckingAnswer = false;
                 // display modal
                 document.querySelector('#modal').style.display = 'block';
                 document.querySelector('#modal-content').innerHTML = `Your score:\n${currentGame.numCorrect} out of ${currentGame.totalQuestions}`;
@@ -106,6 +108,8 @@ const checkAnswer = () => {
         }
 
         // if game is not finished
+        prevCorrectAnswer.classList.remove('is-invisible');
+        prevCorrectAnswer.innerText = `Previous Correct Answer: ${currentGame.currentQuestion.acceptedAnswers[0]}`;
         if (currentGame.gamemode === 'progLang') {
             getProgLangQuestion().then(result => {
                 answerBox.value = '';
