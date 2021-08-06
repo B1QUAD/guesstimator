@@ -1,6 +1,29 @@
 <!-- This is the default "landing" page -->
 <!DOCTYPE html>
 <html>
+	<head>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<!-- update the version number as needed -->
+		<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
+        <!-- include only the Firebase features as you need -->
+        <script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
+        <script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
+        <script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" type="image/jpg" href="media/favicon.ico"/>
+        <title>Guesstimator</title>
+    </head>
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
+                </a>
+            </div>
 
 <head>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
