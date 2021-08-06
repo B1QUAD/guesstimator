@@ -19,14 +19,19 @@ const changeDom = () => {
         } else {
             userId = "guest";
         }
+        dashInit();
     });
 
 
     if (category == "Programming") {
         personalHeader.innerHTML = "Top Programming Languages";
+        // dashInit(); // Refresh for category change
     } else if (category == "Lyrics") {
         personalHeader.innerHTML = "Top Songs";
+        // dashInit(); // Refresh for category change
     }
+
+
     getUserStats();
 };
 
@@ -54,7 +59,7 @@ const changeUserDom = (data) => {
     }
 }
 
-function createChart(inputData) {
+function createChart(inputData, title) {
     var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         maintainAspectRatio: false,
@@ -63,7 +68,14 @@ function createChart(inputData) {
         theme: 'dark1',
 
         title: {
-            text: "Your Stats"
+            // text: "Your Stats"
+            text: title
+        },
+        toolTip: {
+            enabled: true,
+            animationEnabled: true,
+			fontColor: 'white',
+			cornerRadius: 10 
         },
         axisX: {
             interval: 1
@@ -71,7 +83,7 @@ function createChart(inputData) {
         axisY2: {
             interlacedColor: "rgba(1,77,101,.2)",
             gridColor: "rgba(1,77,101,.1)",
-            title: "-'s Score Over Time"
+            // title: "-'s Score Over Time"
         },
         data: [{
             type: "bar",
@@ -164,31 +176,61 @@ function sortObjects(obj, sortFunction) {
 }
 
 function dashInit() {
-    changeDom();
-
     var db = firebase.database();
-    console.log('Hello there!!');
+
     // Work on data vis and pulling from the db
     // These are the ordered lists, append list item tags as children
     const personalTopThings = document.querySelector('#personal-top');
     const personalTopScores = document.querySelector('#personal-score');
-
     const globalHardest = document.querySelector('#hardest');
     const globalRecog = document.querySelector('#easiest');
     const globalLeader = document.querySelector('#leaderboard');
+
+    let avgCorrectRatio, avgStreak, avgCounter = 0;
+    let arr = [];
+    let categoryTranslator = {
+        'progLang': 'Programming'
+    }
+
     if (typeof userId !== 'undefined') {
-        db.ref(`users/${userId}`).once('value')
+        db.ref(`users/${userId}/games`).once('value')
             .then(snapshot => snapshot.val())
             .then(function(data) {
                 // Handle read data.
                 console.log(data);
 
+                for (let key in data) {
+                    let val = data[key];
+                    console.log(category);
+                    if (val['hasFinished'] && categoryTranslator[val['gamemode']] === category) {
+                        arr.push({
+                            y: val['numCorrect'],
+                            label: val['timestamp']
+                        });
+                        avgCorrectRatio += ((val['numCorrect'] / val['numIncorrect']) / avgCounter);
+                        avgStreak += val['currentStreak'] / avgCounter;
+                    }
+                }
+
+                console.log(arr);
+
+                // Sort by lowest date
+                arr = arr.sort(function(el0, el1) {
+                    // Get unix epoch time stamps for each date
+                    let ts0 = new Date(el0['label']).getTime();
+                    let ts1 = new Date(el1['label']).getTime();
+
+                    // If the number of milliseconds is greater than the date is later
+                    return ts0 < ts1 ? ts0 : ts1;
+                });
+
+                createChart(arr, arr.length === 0 ? 'No Data' : '#Correct/Session');
             });
     } else {
         const globalField = document.querySelector('#globalField');
         globalField.innerHTML =
             '<h1>Only logged in users may see their stats with the dashboard.</h1>';
-			reloadCss();
+        reloadCss();
     }
 }
 

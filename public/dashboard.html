@@ -89,7 +89,6 @@
 <script src="js/dashboard.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
-		createChart();
 		// signIn.js
 		const signInBtn = document.querySelector("#signIn-btn");
 		firebase.auth().onAuthStateChanged(function(user) {
@@ -101,8 +100,7 @@
 			}
 		});
 
-		// dashboard.js
-		dashInit();
+		changeDom();
 		reloadCss();
 	};
 </script>
