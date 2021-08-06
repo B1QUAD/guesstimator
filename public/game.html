@@ -43,7 +43,7 @@
 		<div class="navbar-end">
 			<div class="navbar-item">
 				<div class="buttons">
-					<a class="button" onclick="googleSignIn()" id="signIn-btn">
+					<a class="button" onclick="checkIfSignedIn()" id="signIn-btn">
 						<strong>Sign In</strong>
 					</a>
 				</div>
@@ -90,7 +90,7 @@
 			const signInBtn = document.querySelector("#signIn-btn");
 			firebase.auth().onAuthStateChanged(function(user) {
 				if (user) {
-					signInBtn.innerHTML = "Change Accounts";
+					signInBtn.innerHTML = "Sign Out";
 					userId = user.uid;
 				} else {
 					signInBtn.innerHTML = "Sign In";
