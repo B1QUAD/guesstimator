@@ -45,9 +45,12 @@ function getQuestion() {
 				console.log('Re trying API request');
 				resolve(getQuestion());
 			} else if (response['status'] === 403) {
-				setTimeout(function(){
-					resolve(getQuestion());
-				}, 60000);
+				getBackupQuestion().then(question => {
+                    resolve({
+                        codeRef: question.content,
+                        answer: question.acceptedAnswers
+                    });
+                });
 			} else {
 				returnObj['codeRef'] = getRandomValFromArray(choices)['html_url'];
 				resolve(returnObj);
@@ -82,7 +85,7 @@ async function loadFromApi(url, params) {
             // console.log(jsonResponse);
 
             if (status === 403) {
-                alert('Rate limit for GitHub exceeded.\nPlease wait ~30 seconds before continuing play.')
+                // alert('Rate limit for GitHub exceeded.\nPlease wait ~30 seconds before continuing play.')
             } else if (status !== 200) {
                 alert('Error calling the GitHub API.\nPlease refresh the page.');
             } else {
@@ -95,6 +98,17 @@ async function loadFromApi(url, params) {
         });
     });
 }
+
+const getBackupQuestion = () => {
+    return new Promise((resolve, reject) => {
+        const questionsRef = firebase.database().ref('/questions/progLang');
+        questionsRef.get().then(snapshot => {
+            const questions = snapshot.val();
+            const keys = Object.keys(questions);
+            resolve(questions[keys[keys.length * Math.random() << 0]]);
+        });
+    });
+};
 
 // ********************************
 // * Utility functions            *
