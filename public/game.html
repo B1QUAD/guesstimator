@@ -75,7 +75,7 @@
 	<div id="streak">Streak: -</div>
 
 	<label for="section" id="directions">
-		Guess what <span id="directions-gamemode"></span> is being displayed <br> Type your Answer in the Box Below
+		Guess what <span id="directions-gamemode"></span> is being displayed
 	</label>
 	<section id="question-box">
 		<!-- <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FB1QUAD%2Fguesstimator%2Fblob%2Fmain%2Fpublic%2Fdashboard.html&style=atom-one-dark&showBorder=on&showLineNumbers=on"></script> -->
@@ -104,6 +104,7 @@
     </div>
     </div>
 
+	<script src="js/helpers.js"></script>
 	<script src="js/signIn.js"></script>
 	<script src="js/githubInterface.js"></script>
 	<script src="js/lyrics.js"></script>
@@ -121,9 +122,14 @@
 					signInBtn.innerHTML = "Sign In";
 					userId = "guest";
 				}
-
+				
 				// game.js
 				initializeGame();
+				window.addEventListener('keypress', function(e) {
+				    if (e.key === 'Enter') {
+				        checkAnswer();
+				    }
+				});
 			});
 		};
 	</script>

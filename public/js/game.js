@@ -57,9 +57,10 @@ const renderProgLangQuestion = () => {
 const getLyricsQuestion = (timestamp) => {
     return new Promise((resolve, reject) => {
         runLyricsApi().then(songInfo => {
-            currentGame.currentQuestion.acceptedAnswers = [songInfo.name, songInfo.artist].map(a => a.trim().toLowerCase());
+            // only accepted answer is the song name, NOT including parenthetical content -- for example '(ft. Beethoven)'
+            currentGame.currentQuestion.acceptedAnswers = [songInfo.name.replace(/ *\([^)]*\) */g, "")].map(a => a.trim().toLowerCase());
+            console.log(currentGame.currentQuestion.acceptedAnswers);
             currentGame.currentQuestion.content = songInfo.lyrics;
-            console.log(currentGame.currentQuestion);
             currentGame.currentQuestion.timestamp = timestamp || new Date().toUTCString();
             currentGameRef.update(currentGame).then(renderLyricsQuestion);
             resolve(true);
@@ -71,12 +72,6 @@ const renderLyricsQuestion = () => {
     document.querySelector('#lyrics').innerHTML = currentGame.currentQuestion.content;
 };
 
-window.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        checkAnswer();
-    }
-});
-
 const checkAnswer = () => {
     if (isCheckingAnswer) return;
     isCheckingAnswer = true;
@@ -85,7 +80,8 @@ const checkAnswer = () => {
     let answer = answerBox.value.trim().toLowerCase();
     answer = answer || 'no-answer-provided';
 
-    if (currentGame.currentQuestion.acceptedAnswers.includes(answer)) {
+    // checks if the inputed answer is very similar to the correct answer based on Levenshtein distance
+    if (currentGame.currentQuestion.acceptedAnswers.some(a => calcStrSimilarity(a, answer) > 0.8)) {
         currentGame.numCorrect++;
         currentGame.currentStreak++;
     } else {
