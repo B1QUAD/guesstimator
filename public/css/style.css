@@ -65,6 +65,10 @@ nav {
     width:30vw;
 }
 
+#modal-content{
+    color:black !important;
+}
+
 .modal-card-title{
     font-size:2vw;
 }

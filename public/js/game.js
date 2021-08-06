@@ -7,32 +7,30 @@ let checkAnswerTimeout;
 const questionBox = document.querySelector('#question-box');
 
 const initializeGame = () => {
-    return new Promise((resolve, reject) => {
-        getCurrentGame().then(currGameInfo => {
-            if (!currGameInfo.isReady) {
-                return resolve(false);
-            }
-            if (currentGame.gamemode === 'progLang') {
-                githubApiInit().then(result => {
-                    if (currGameInfo.needsNewQuestion) {
-                        getProgLangQuestion(currGameInfo.newQuestionTimestamp).then(result => {
-                            resolve(true);
-                        });
-                    } else {
-                        renderProgLangQuestion();
-                        resolve(true);
-                    }
-                });
-            } else if (currentGame.gamemode === 'lyrics') {
+    getCurrentGame().then(currGameInfo => {
+        if (!currGameInfo.isReady) {
+            return;
+        }
+        if (currentGame.gamemode === 'progLang') {
+            githubApiInit().then(result => {
                 if (currGameInfo.needsNewQuestion) {
-                    getLyricsQuestion(currGameInfo.newQuestionTimestamp);
-                    resolve(true);
+                    getProgLangQuestion(currGameInfo.newQuestionTimestamp).then(result => {
+                        refreshUI();
+                    });
                 } else {
-                    renderLyricsQuestion();
-                    resolve(true);
+                    renderProgLangQuestion();
+                    refreshUI();
                 }
+            });
+        } else if (currentGame.gamemode === 'lyrics') {
+            if (currGameInfo.needsNewQuestion) {
+                getLyricsQuestion(currGameInfo.newQuestionTimestamp);
+                refreshUI();
+            } else {
+                renderLyricsQuestion();
+                refreshUI();
             }
-        });
+        }
     });
 };
 
@@ -93,6 +91,9 @@ const checkAnswer = () => {
             delete currentGame.currentQuestion;
             currentGameRef.set(currentGame).then(result => {
                 refreshUI(true);
+                //display model
+                document.querySelector("#modal").style.display="block";
+                document.querySelector("#modal-content").innerHTML="Your score: \n" + currentGame.numCorrect + " out of " + currentGame.totalQuestions;
             });
             return;
         }
@@ -178,8 +179,8 @@ const getCurrentGame = () => {
                 currentStreak: 0,
                 numCorrect: 0,
                 numIncorrect: 0,
-                totalQuestions: 10, // for now, this is fixed
-                timePerQuestion: 20, // in seconds; for now, this is fixed
+                totalQuestions: 5, // for now, this is fixed
+                timePerQuestion: 5, // in seconds; for now, this is fixed
                 timestamp: new Date().toUTCString()
             };
 
