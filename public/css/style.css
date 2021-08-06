@@ -142,11 +142,33 @@ nav {
 	width: 50vw;
 	max-height: 50vh;
 	/* background:  rgb(150,150,150); */
-	background: rgba(150, 150, 150, 25);
+	background: rgba(150, 150, 150, 0);
 	overflow-x: auto;
 	overflow-y: auto;
 	border-radius: 0.3rem;
-	z-index: 2;
+    z-index: 2;
+}
+
+#question-box2{
+    position: absolute;
+	top: 10vw;
+	left: 25vw;
+	width: 50vw;
+	max-height: 50vh;
+	/* background:  rgb(150,150,150); */
+	background: rgba(150, 150, 150, 0);
+	border-radius: 0.3rem;
+    z-index: 2;
+    overflow:visible !important;
+    animation:pulse 3s linear infinite;
+}
+
+
+#question-box2 #lyrics{
+    color: white;
+    font-weight:900;
+    font-size:2.5vw;
+    animation: animateText 10s linear infinite;
 }
 
 #start-btn {
@@ -488,6 +510,17 @@ dashboard #globalField {
 	animation: turnUp2 60s linear infinite;
 }
 
+@keyframes animateText {
+	0% {
+		color:white;
+    }
+    50% {
+        color:rgb(100,100,100);
+    }
+	100% {
+		color:white;
+	}
+}
 
 @keyframes turnUp {
 	0% {
