@@ -240,6 +240,8 @@ dashboard #personal {
     left: 10%;
     top: 10vw;
     height: 17.5vw;
+	/* br height width */
+	border-radius: calc(0.1 * 17.5vw)/calc(0.1 * 80%) !important;
 }
 
 dashboard #profile-pic {
@@ -300,7 +302,7 @@ dashboard #ranking {
 }
 
 dashboard #personal, dashboard #globalField {
-    border-radius: 10px !important;
+    /* border-radius: 5%/50% !important; */
 }
 
 dashboard #globalField {
@@ -310,6 +312,8 @@ dashboard #globalField {
     left: 10%;
     top: 28vw;
     min-height: 42vh;
+	/* br height width */
+	border-radius: calc(0.1 * 42vh)/calc(0.1 * 80%) !important;
 }
 
 dashboard #chartContainer {
