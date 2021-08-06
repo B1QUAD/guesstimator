@@ -25,68 +25,95 @@
                 </a>
             </div>
 
-            <div class="navbar-brand">
-                <a class="navbar-item" href="dashboard.html" id="dashboard-icon">
-                    <img src="https://icon-library.com/images/analytics-icon-png/analytics-icon-png-2.jpg">
-                </a>
-            </div>
+<head>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<!-- update the version number as needed -->
+	<script defer="defer" src="/__/firebase/8.3.1/firebase-app.js"> </script>
+	<!-- include only the Firebase features as you need -->
+	<script defer="defer" src="/__/firebase/8.3.1/firebase-auth.js"></script>
+	<script defer="defer" src="/__/firebase/8.3.1/firebase-database.js"></script>
+	<script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script>
+	<link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+	<title>Guesstimator</title>
+</head>
 
-			<div class="navbar-brand">
-				<div class="navbar-item has-dropdown is-hoverable">
-					<div class="navbar-item">
-						<img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
-					</div>
-					<div class="navbar-dropdown">
-					  <a class="navbar-item" href="game.html?gamemode=progLang">
+<body>
+	<nav class="navbar" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="index.html">
+				<img src="https://icon-library.com/images/transparent-house-icon/transparent-house-icon-13.jpg">
+			</a>
+		</div>
+
+		<div class="navbar-brand">
+			<a class="navbar-item" href="dashboard.html" id="dashboard-icon">
+				<img src="https://icon-library.com/images/analytics-icon-png/analytics-icon-png-2.jpg">
+			</a>
+		</div>
+
+		<div class="navbar-brand">
+			<div class="navbar-item has-dropdown is-hoverable">
+				<div class="navbar-item">
+					<img src="https://www.freeiconspng.com/thumbs/game-icon-png/games-icon-png-4.png">
+				</div>
+				<div class="navbar-dropdown">
+					<a class="navbar-item" href="game.html?gamemode=progLang">
 						Programming
-					  </a>
-					  <a class="navbar-item" href="game.html?gamemode=lyrics">
+					</a>
+					<a class="navbar-item" href="game.html?gamemode=lyrics">
 						Lyrics
-					  </a>
-					</div>
+					</a>
 				</div>
 			</div>
+		</div>
 
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button" onclick="checkIfSignedIn()" id="signIn-btn">
-                    <strong>Sign In</strong>
-                  </a>
-                </div>
-              </div>
-            </div>
-        </nav>
-        <h1>Welcome to Guesstimator</h1>
-        <h2>David Puma | David Yates | Matthew Ghera</h2>
-        <section id="section--left">
-            <ul class="shapes">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </section>
-        <br>
-        <br>
-        <button id="start-btn" onclick="redirectToGame()">
-            Play Game!
-        </button>
-        <select name="gamemode" id="start-select">
-          <option value="invalid" disabled selected value>Gamemode &#8595;</option>
-          <option value="progLang">Programming</option>
-          <option value="lyrics">Lyrics</option>
-        </select>
+		<div class="navbar-end">
+			<div class="navbar-item">
+				<div class="buttons">
+					<a class="button has-text-weight-semibold" onclick="checkIfSignedIn()" id="signIn-btn">-</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<h1>Welcome to Guesstimator</h1>
+	<h2>David Puma | David Yates | Matthew Ghera</h2>
+	<section id="section--left">
+		<ul class="shapes">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</section>
+	<br>
+	<br>
+	<button id="start-btn" onclick="redirectToGame()">
+		Play Game!
+	</button>
+	<select name="gamemode" id="start-select">
+		<option value="invalid" disabled selected value>Gamemode &#8595;</option>
+		<option value="progLang">Programming</option>
+		<option value="lyrics">Lyrics</option>
+	</select>
 
-        <script src="js/signIn.js"></script>
-        <script type="text/javascript">
-            const redirectToGame = () => {
-                const gamemode = document.querySelector('#start-select').value;
-				if (!gamemode || gamemode !== 'progLang' && gamemode !== 'lyrics') return;
-                window.location = `game.html?gamemode=${gamemode}`;
-            };
-        </script>
-    </body>
+	<script src="js/signIn.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			authStateChangedHandler();
+		};
+
+		const redirectToGame = () => {
+			const gamemode = document.querySelector('#start-select').value;
+			if (!gamemode || gamemode !== 'progLang' && gamemode !== 'lyrics') return;
+			window.location = `game.html?gamemode=${gamemode}`;
+		};
+	</script>
+</body>
+
 </html>

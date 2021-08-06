@@ -43,7 +43,7 @@ function getGithubQuestion() {
             // Check to see if the API returned nothing for some reason
             if (json['total_count'] < 1) {
                 console.log('Re trying API request');
-                resolve(getQuestion());
+                resolve(getGithubQuestion());
             } else if (response['status'] === 403) {
                 getBackupQuestion().then(question => {
                     resolve({
@@ -59,24 +59,7 @@ function getGithubQuestion() {
     });
 }
 
-// Gets and returns an array with numQuestions indices.
-// Capped at 10 questions per call
-async function getGithubQuestions(numQuestions) {
-    let questions = [];
-    if (numQuestions > 10) {
-        // console.log(`${numQuestions} would get rate limited after the 10th request.\n`);
-        numQuestions = 10; // Cap at 10 requests
-    }
-
-    for (let i = 0; i < numQuestions; i++) {
-        questions.push(await getQuestion());
-    }
-
-    // console.log('Do not call getQuestion or getQuestions for another minute to avoid rate limiting.');
-    return questions;
-}
-
-async function loadFromApi(url, params) {
+function loadFromApi(url, params) {
     return new Promise((resolve, reject) => {
         fetch(url, params).then(async function(response) {
             let status = response.status;
